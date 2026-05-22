@@ -1,0 +1,41 @@
+{% load static %}
+<div class="nav-wrapper">
+    <nav class="custom-navbar">
+        <a href="/" class="nav-logo">
+            <img src="{% static 'components/biz_499_logo.png' %}" alt="Biz499 Logo">
+        </a>
+
+        <div class="nav-menu">
+            <a href="/#about/">About</a>
+            <a href="/location/">Locations</a>
+
+            <div class="dropdown">
+                <a href="/#services">Services <span>▼</span></a>
+                <div class="dropdown-menu">
+                    <a href="{% url 'website_design' %}">Website Design</a>
+                    <a href="{% url 'digital_marketing' %}">Digital Marketing</a>
+                    <a href="{% url 'ecommerce' %}">E-commerce Websites</a>
+                    <a href="{% url 'wordpress_development' %}">WordPress Development</a>
+                    <a href="{% url 'graphics_designing' %}">Graphics Designing</a>
+                    <a href="{% url 'wedding_design' %}">Wedding Design</a>
+                    <a href="{% url 'ca' %}">Chartered Accountants</a>
+                    <a href="{% url 'chemical' %}">Chemical Companies</a>
+                    <a href="{% url 'dentists' %}">Dental Clinics</a>
+                    <a href="{% url 'healthcare' %}">Healthcare Professionals</a>
+                    <a href="{% url 'manufacturing' %}">Manufacturing Units</a>
+                    <a href="{% url 'startups' %}">Startup Ecosystem</a>
+                    <a href="{% url 'agency_ecommerce' %}">Agency E-Commerce</a>
+                    <a href="{% url 'budget_ecommerce' %}">Budget E-Commerce</a>
+                </div>
+            </div>
+
+            <a href="/#contact/">Contact Us</a>
+            <a href="{% url 'careers' %}">Careers</a>
+        </div>
+
+        <button onclick="scrollToSection('contact')" class="nav-cta">
+            Explore Services
+        </button>
+
+    </nav>
+</div>

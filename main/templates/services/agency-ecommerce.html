@@ -1,0 +1,469 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agency E-Commerce Solutions - biz499</title>
+
+    <meta name="description" content="Agency-grade e-commerce and booking platforms for healthcare professionals and clinics.">
+
+    <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <style>
+        /* --- Matte Theme: Black, Grey, Yellow --- */
+        :root {
+            --matte-black: #101010;
+            --matte-dark-grey: #1a1a1a;
+            --matte-grey: #262626;
+            --matte-light-grey: #404040;
+            --matte-yellow: #eab308; /* Flat, non-glowing yellow */
+            --text-main: #f5f5f5;
+            --text-muted: #a3a3a3;
+            --text-dark: #101010;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            cursor: none; 
+            font-family: "Inter", sans-serif !important;
+        }
+        
+        body {
+            background-color: var(--matte-black);
+            color: var(--text-main);
+            overflow-x: hidden;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1, h2, h3, h4 {
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: -1px; 
+        }
+
+        .text-accent { color: var(--matte-yellow); }
+
+        /* --- Magnetic Element Wrapper --- */
+        .magnetic { display: inline-block; transition: transform 0.3s ease; }
+
+        /* --- Matte Custom Cursor --- */
+        .cursor-trail {
+            position: fixed;
+            top: 0; left: 0;
+            width: 40px; height: 40px;
+            border: 2px solid var(--matte-yellow);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 99998; 
+            transform: translate(-50%, -50%);
+            transition: width 0.2s ease, height 0.2s ease, background 0.2s ease;
+        }
+
+        .cursor-trail.hover-active {
+            width: 60px; height: 60px;
+            background: rgba(234, 179, 8, 0.1); /* Very subtle flat overlay */
+        }
+
+        .cursor-dot {
+            position: fixed;
+            top: 0; left: 0;
+            width: 6px; height: 6px;
+            background: var(--matte-yellow); 
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 99999;
+            transform: translate(-50%, -50%);
+        }
+
+        /* --- Background Minimalist Grid --- */
+        .grid-bg {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* --- Layout Blocks --- */
+        .section-block {
+            padding: 8rem 5vw;
+            position: relative;
+            z-index: 2;
+            border-bottom: 1px solid var(--matte-grey);
+        }
+
+        .bg-dark { background-color: var(--matte-black); }
+        .bg-grey { background-color: var(--matte-dark-grey); }
+        .bg-yellow { background-color: var(--matte-yellow); color: var(--text-dark); }
+        .bg-yellow h1, .bg-yellow h2, .bg-yellow h3, .bg-yellow p { color: var(--text-dark); }
+
+        /* --- Hero Section --- */
+        .hero {
+            min-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            padding-top: 150px;
+        }
+
+        .hero-badge {
+            padding: 8px 20px;
+            background: var(--matte-grey);
+            color: var(--matte-yellow);
+            font-size: 0.9rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border-left: 3px solid var(--matte-yellow);
+        }
+
+        h1.hero-title {
+            font-size: clamp(3rem, 7vw, 7.5rem);
+            line-height: 1;
+            margin: 0;
+        }
+
+        .hero-desc {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            max-width: 650px;
+            margin-top: 2rem;
+            font-weight: 400;
+        }
+
+        /* --- Marquee (Solid Yellow) --- */
+        .marquee-container {
+            width: 100%;
+            overflow: hidden;
+            padding: 1.5rem 0;
+            border-bottom: 1px solid var(--matte-grey);
+        }
+
+        .marquee-text {
+            display: flex;
+            white-space: nowrap;
+            font-size: 2rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* --- Agency Features Grid (Matte Grey Cards) --- */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+
+        .matte-card {
+            background: var(--matte-dark-grey);
+            border: 1px solid var(--matte-grey);
+            padding: 3rem 2.5rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Solid bottom border for hover effect */
+        .matte-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0;
+            width: 100%; height: 4px;
+            background: var(--matte-yellow);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease;
+        }
+
+        .matte-card:hover {
+            background: var(--matte-grey);
+            transform: translateY(-5px);
+        }
+
+        .matte-card:hover::after {
+            transform: scaleX(1);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            color: var(--matte-yellow);
+            margin-bottom: 1.5rem;
+            display: inline-block;
+        }
+
+        .matte-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-main);
+        }
+
+        .matte-card p {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+        }
+
+        /* --- Showcase Section --- */
+        .showcase-container {
+            display: flex;
+            flex-direction: column;
+            gap: 6rem;
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+
+        .showcase-row {
+            display: flex;
+            align-items: center;
+            gap: 4rem;
+        }
+
+        .showcase-row.reverse { flex-direction: row-reverse; }
+
+        .showcase-img {
+            flex: 1;
+            background: var(--matte-grey);
+            padding: 1rem;
+            border: 1px solid var(--matte-light-grey);
+        }
+
+        .showcase-img img {
+            width: 100%;
+            height: auto;
+            display: block;
+            filter: grayscale(100%); /* Matte black and white look */
+            transition: filter 0.4s ease;
+        }
+
+        .showcase-img:hover img {
+            filter: grayscale(0%);
+        }
+
+        .showcase-text { flex: 1; }
+        .showcase-text h2 { font-size: 2.8rem; margin-bottom: 1.5rem; line-height: 1.1; }
+        .showcase-text p { font-size: 1.15rem; color: var(--text-muted); margin-bottom: 2rem; }
+
+        /* --- Matte Agency Button --- */
+        .btn-matte {
+            display: inline-block;
+            font-weight: 800;
+            font-size: 1.1rem;
+            padding: 20px 45px;
+            color: var(--text-dark);
+            background: var(--matte-yellow);
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            border: 1px solid var(--matte-yellow);
+        }
+
+        .btn-matte:hover {
+            background: transparent;
+            color: var(--matte-yellow);
+        }
+
+        @media (max-width: 900px) {
+            h1.hero-title { font-size: 13vw; }
+            .showcase-row, .showcase-row.reverse { flex-direction: column; text-align: left; }
+            .cursor-dot, .cursor-trail { display: none; }
+            * { cursor: auto; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="grid-bg"></div>
+
+    <div class="cursor-trail" id="cursor-trail"></div>
+    <div class="cursor-dot" id="cursor-dot"></div>
+
+    {% include 'navbar.html' %}
+
+    <section class="section-block hero bg-dark">
+        <div class="hero-badge gs-anim">Agency Healthcare Package</div>
+        
+        <h1 class="hero-title gs-anim">AGENCY-GRADE</h1>
+        <h1 class="hero-title gs-anim"><span class="text-accent">E-COMMERCE</span></h1>
+        
+        <p class="hero-desc gs-anim">We build high-converting, trust-oriented digital platforms specifically engineered for modern clinics and healthcare professionals.</p>
+        
+        <a href="/#contact/" class="btn-matte gs-anim magnetic hover-trigger" style="margin-top: 3rem;">View Our Framework</a>
+    </section>
+
+    <div class="marquee-container bg-yellow hover-trigger">
+        <div class="marquee-text" id="marquee">
+            CLEAN & TRUST-BUILDING DESIGN &nbsp; ✦ &nbsp; LOCAL SEO OPTIMIZATION &nbsp; ✦ &nbsp; MOBILE-FRIENDLY UI &nbsp; ✦ &nbsp; APPOINTMENT INTEGRATION &nbsp; ✦ &nbsp; 
+        </div>
+    </div>
+
+    <section class="section-block bg-grey">
+        <h2 class="gs-fade" style="font-size: clamp(2.5rem, 5vw, 4rem); text-align: center; margin-bottom: 4rem;">Core <span class="text-accent">Integrations</span></h2>
+
+        <div class="grid-container">
+            
+            <div class="matte-card gs-fade hover-trigger magnetic">
+                <i class='bx bx-calendar-check feature-icon'></i>
+                <h3>Appointment Booking</h3>
+                <p>Frictionless, real-time booking integrations designed to convert site visitors into scheduled patients.</p>
+            </div>
+
+            <div class="matte-card gs-fade hover-trigger magnetic">
+                <i class='bx bx-briefcase-alt-2 feature-icon'></i>
+                <h3>Treatment Showcase</h3>
+                <p>Dedicated, SEO-optimized service pages that educate patients and clearly outline your medical procedures.</p>
+            </div>
+
+            <div class="matte-card gs-fade hover-trigger magnetic">
+                <i class='bx bx-image-alt feature-icon'></i>
+                <h3>Before/After Gallery</h3>
+                <p>High-resolution, interactive visual galleries to provide social proof and build immediate clinical trust.</p>
+            </div>
+
+            <div class="matte-card gs-fade hover-trigger magnetic">
+                <i class='bx bx-star feature-icon'></i>
+                <h3>Patient Testimonials</h3>
+                <p>Strategically placed review sections that highlight successful treatments and compassionate care.</p>
+            </div>
+
+            <div class="matte-card gs-fade hover-trigger magnetic">
+                <i class='bx bx-map-pin feature-icon'></i>
+                <h3>Local SEO Optimization</h3>
+                <p>Advanced structural SEO to ensure your clinic ranks at the top of local healthcare and emergency searches.</p>
+            </div>
+            
+            <div class="matte-card gs-fade hover-trigger magnetic">
+                <i class='bx bx-plus-medical feature-icon'></i>
+                <h3>Emergency CTAs</h3>
+                <p>Highly visible contact, location mapping, and emergency call-to-actions integrated into a mobile-first UI.</p>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="section-block bg-dark">
+        <div class="showcase-container">
+
+            <div class="showcase-row">
+                <div class="showcase-img gs-fade">
+                    <img src="{% static 'images/clinical-ui.jpg' %}" onerror="this.src='https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=800'" alt="Clinical UI">
+                </div>
+                <div class="showcase-text gs-fade">
+                    <h2>Clean & Trust-Building<br><span class="text-accent">Design Framework</span></h2>
+                    <p>In healthcare, aesthetics translate directly to trust. We utilize a matte, minimalist design language that strips away clutter, focusing entirely on patient confidence, readability, and modern medical authority.</p>
+                    <a href="/#contact/" class="btn-matte magnetic">Request a Demo</a>
+                </div>
+            </div>
+
+            <div class="showcase-row reverse">
+                <div class="showcase-img gs-fade">
+                    <img src="{% static 'images/mobile-medical.jpg' %}" onerror="this.src='https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?q=80&w=800'" alt="Mobile First Design">
+                </div>
+                <div class="showcase-text gs-fade">
+                    <h2>Mobile-Friendly &<br><span class="text-accent">Modern UI</span></h2>
+                    <p>Over 70% of urgent medical searches happen on mobile devices. Our architecture ensures lightning-fast load times, seamless navigation, and one-tap emergency CTAs across all screen sizes.</p>
+                    <a href="/#contact/" class="btn-matte magnetic">Analyze Performance</a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="section-block bg-grey" style="text-align: center;">
+        <h2 class="gs-fade" style="font-size: clamp(3rem, 6vw, 5rem); line-height: 1.1;">UPGRADE YOUR<br>CLINIC'S PRESENCE</h2>
+        <p class="gs-fade" style="font-size: 1.2rem; color: var(--text-muted); margin-top: 1.5rem;">Partner with our agency for end-to-end digital solutions.</p>
+        
+        <a href="/#contact/" class="btn-matte magnetic hover-trigger gs-fade" style="margin-top: 3rem;">Start Your Project</a>
+    </section>
+
+    <script>
+        const navLinks = document.querySelectorAll('.custom-navbar a');
+        const navCursorTrail = document.getElementById("cursor-trail");
+
+        navLinks.forEach(link => {
+            link.addEventListener("mouseenter", () => navCursorTrail.classList.add("hover-active"));
+            link.addEventListener("mouseleave", () => navCursorTrail.classList.remove("hover-active"));
+        });
+
+        gsap.registerPlugin(ScrollTrigger);
+
+        // 2. Matte Cursor Logic
+        const cursorTrail = document.getElementById("cursor-trail");
+        const cursorDot = document.getElementById("cursor-dot");
+
+        const xToTrail = gsap.quickTo(cursorTrail, "x", {duration: 0.3, ease: "power3"});
+        const yToTrail = gsap.quickTo(cursorTrail, "y", {duration: 0.3, ease: "power3"});
+        const xToDot = gsap.quickTo(cursorDot, "x", {duration: 0.1, ease: "power3"});
+        const yToDot = gsap.quickTo(cursorDot, "y", {duration: 0.1, ease: "power3"});
+
+        window.addEventListener("mousemove", (e) => {
+            xToTrail(e.clientX);
+            yToTrail(e.clientY);
+            xToDot(e.clientX);
+            yToDot(e.clientY);
+        });
+
+        document.querySelectorAll(".hover-trigger").forEach(el => {
+            el.addEventListener("mouseenter", () => cursorTrail.classList.add("hover-active"));
+            el.addEventListener("mouseleave", () => cursorTrail.classList.remove("hover-active"));
+        });
+
+        // 3. Hero Reveal
+        gsap.from(".gs-anim", {
+            y: 40, opacity: 0, duration: 1, stagger: 0.15, ease: "power3.out", delay: 0.2
+        });
+
+        // 4. Marquee Animation
+        gsap.to("#marquee", {
+            xPercent: -50, ease: "none", duration: 20, repeat: -1
+        });
+
+        // 5. Scroll Fade Animations
+        gsap.utils.toArray(".gs-fade").forEach(el => {
+            gsap.from(el, {
+                y: 40, opacity: 0, duration: 0.8, ease: "power3.out",
+                scrollTrigger: { trigger: el, start: "top 85%" }
+            });
+        });
+
+        // 6. Magnetic Hover Logic
+        const magneticElements = document.querySelectorAll('.magnetic');
+        magneticElements.forEach((el) => {
+            el.addEventListener('mousemove', (e) => {
+                const rect = el.getBoundingClientRect();
+                const h = rect.width / 2;
+                const w = rect.height / 2;
+                const x = e.clientX - rect.left - h;
+                const y = e.clientY - rect.top - w;
+                gsap.to(el, { x: x * 0.15, y: y * 0.15, duration: 0.4, ease: 'power2.out' });
+            });
+
+            el.addEventListener('mouseleave', () => {
+                gsap.to(el, { x: 0, y: 0, duration: 0.8, ease: 'power2.out' });
+            });
+        });
+    </script>
+    {% include 'footer.html' %}
+</body>
+</html>

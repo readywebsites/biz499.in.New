@@ -1,0 +1,619 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WordPress Development - biz499</title>
+
+    <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+
+
+    <style>
+        /* --- Base Reset & Luxurious Golden/Yellow Theme --- */
+        :root {
+            --bg-dark: #0a0905; /* Very dark warm black */
+            --accent-primary: #f59e0b; /* Amber / Gold */
+            --accent-secondary: #fde047; /* Bright Yellow */
+            --accent-tertiary: #d97706; /* Deep Gold / Orange */
+            --text-main: #ffffff;
+            --text-muted: #d1d5db;
+            --glass-bg: rgba(255, 255, 255, 0.02);
+            --glass-border: rgba(245, 158, 11, 0.15); /* Subtle gold border */
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            cursor: none; /* Hidden for custom cursor */
+            font-family: "Mori", "Mori Fallback", sans-serif !important;
+        }
+        
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            overflow-x: hidden;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1, h2, h3, h4 {
+            font-weight: 900;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .accent-text { color: var(--accent-primary); }
+
+        /* --- Magnetic Class --- */
+        .magnetic {
+            display: inline-block;
+            transition: background 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease, filter 0.4s ease;
+        }
+
+        /* --- Custom Juggling Cursor (Golden Theme) --- */
+        .gradient-blob {
+            position: fixed;
+            top: 0; left: 0;
+            width: 60px; height: 60px;
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.2), rgba(253, 224, 71, 0.2));
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9998; 
+            transform: translate(-50%, -50%);
+            backdrop-filter: blur(6px); 
+            border: 1px solid rgba(245, 158, 11, 0.4);
+        }
+
+        .cursor-dot {
+            position: fixed;
+            top: 0; left: 0;
+            width: 6px; height: 6px;
+            background: var(--text-main); 
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+        }
+
+        /* --- Floating CSS Background Elements (Amber/Gold) --- */
+        .floating-bg-container {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .css-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(120px);
+            opacity: 0.3;
+        }
+        .orb-1 { top: -10%; left: -10%; width: 50vw; height: 50vw; background: var(--accent-tertiary); }
+        .orb-2 { bottom: 10%; right: -5%; width: 40vw; height: 40vw; background: var(--accent-primary); opacity: 0.2; }
+        .orb-3 { top: 40%; left: 40%; width: 30vw; height: 30vw; background: var(--accent-secondary); opacity: 0.1; }
+
+        .css-wireframe { position: absolute; border: 1px solid var(--glass-border); }
+        .wire-ring { width: 300px; height: 300px; border-radius: 50%; top: 15%; right: 10%; border-color: rgba(245, 158, 11, 0.2); }
+        .wire-square { width: 150px; height: 150px; bottom: 20%; left: 10%; transform: rotate(45deg); border-color: rgba(253, 224, 71, 0.15); }
+
+        /* --- View 1: Centered Hero Section --- */
+        .hero {
+            position: relative;
+            z-index: 2;
+            padding: 180px 5vw 100px;
+            display: flex;
+            flex-direction: column;
+            align-items: center; 
+            gap: 4rem;
+        }
+
+        .title-mask { overflow: hidden; text-align: center; width: 100%; }
+
+        h1.main-heading {
+            font-size: 7vw;
+            font-style: italic; 
+            line-height: 1;
+            margin: 0;
+            color: var(--text-main);
+            transform: translateY(100%); 
+            display: inline-block;
+        }
+
+        .hero-content-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 5rem;
+            width: 100%;
+            max-width: 1400px;
+        }
+
+        .hero-text { flex: 1; }
+
+        .hero-sub {
+            font-size: 2rem;
+            text-transform: none;
+            font-weight: 500;
+            line-height: 1.4;
+            color: var(--text-main);
+            margin-bottom: 2rem;
+        }
+
+        .hero-desc {
+            font-size: 1.1rem;
+            font-weight: 400;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin-bottom: 1rem;
+        }
+
+        .hero-image {
+            flex: 1;
+            display: flex;
+            justify-content: flex-end;
+            position: relative;
+        }
+
+        /* Golden Split Image */
+        .split-grid {
+            width: 450px; height: 450px;
+            display: grid;
+            grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr;
+            gap: 0; 
+            position: relative;
+            z-index: 2;
+            transition: gap 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .split-grid:hover { gap: 15px; }
+
+        .split-piece {
+            background-image: url('https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=800&q=80'); 
+            background-size: 200% 200%;
+            border-radius: 4px;
+            /* Golden dark tint */
+            filter: grayscale(80%) sepia(60%) hue-rotate(5deg) brightness(0.6);
+        }
+
+        .split-grid:hover .split-piece { 
+            border-radius: 20px; 
+            filter: grayscale(0%) brightness(1); 
+            box-shadow: 0 10px 40px rgba(245, 158, 11, 0.2);
+        }
+        
+        .piece-1 { background-position: 0% 0%; }
+        .piece-2 { background-position: 100% 0%; }
+        .piece-3 { background-position: 0% 100%; }
+        .piece-4 { background-position: 100% 100%; }
+
+        /* --- View 2: Platform Cards (3D + Magnetic Icons) --- */
+        .platforms-section {
+            position: relative;
+            z-index: 2;
+            padding: 5rem 5vw;
+            text-align: center;
+        }
+
+        .platforms-section h2 {
+            font-size: 3.5rem;
+            margin-bottom: 4rem;
+        }
+
+        .cards-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 3rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            perspective: 1000px; 
+        }
+
+        .platform-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(15px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 3rem 2rem;
+            text-align: center;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            transform-style: preserve-3d; 
+            transition: background 0.3s ease, border-color 0.3s ease;
+        }
+        
+        .platform-card:hover {
+            border-color: var(--accent-primary);
+            background: rgba(245, 158, 11, 0.05);
+        }
+
+        .icon-wrapper {
+            width: 90px; height: 90px;
+            margin: 0 auto 2rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            box-shadow: inset 0 0 20px rgba(245, 158, 11, 0.1);
+            border: 1px solid var(--accent-primary);
+            color: var(--accent-primary);
+            background: rgba(245, 158, 11, 0.1);
+        }
+
+        .platform-card h3 { font-size: 1.8rem; margin-bottom: 1rem; transform: translateZ(30px); }
+        .platform-card p { color: var(--text-muted); font-size: 1rem; transform: translateZ(20px); }
+
+        /* --- View 3: Zigzag Layout Section --- */
+        .zigzag-container {
+            position: relative;
+            z-index: 2;
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 8rem 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 120px; 
+        }
+
+        .zig-row {
+            display: flex;
+            align-items: center;
+            gap: 5rem;
+            justify-content: space-between;
+        }
+
+        .zig-row.reverse { flex-direction: row-reverse; }
+
+        .zig-img-block {
+            flex: 1;
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            border: 1px solid var(--glass-border);
+            aspect-ratio: 4/3;
+        }
+
+        .zig-img-block img {
+            width: 100%; height: 100%; object-fit: cover;
+            /* Golden Tint */
+            filter: grayscale(80%) sepia(50%) hue-rotate(5deg) brightness(0.7);
+        }
+
+        .zig-img-block:hover img {
+            filter: grayscale(0%) brightness(1);
+        }
+
+        .zig-text-block { flex: 1; }
+        .zig-text-block h2 { font-size: 3.5rem; margin-bottom: 1.5rem; line-height: 1.1; }
+        .zig-text-block p { font-size: 1.15rem; color: var(--text-muted); margin-bottom: 2rem; }
+
+        /* Interactive Golden Button */
+        .btn-modern {
+            padding: 15px 40px;
+            font-size: 1rem;
+            font-weight: 800;
+            color: #fff;
+            text-decoration: none;
+            background: transparent;
+            border: 1px solid var(--accent-primary);
+            border-radius: 50px;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .btn-modern::before {
+            content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-tertiary));
+            transition: all 0.4s ease; z-index: -1;
+        }
+
+        .btn-modern:hover::before { left: 0; }
+        .btn-modern:hover { border-color: transparent; box-shadow: 0 10px 30px rgba(245, 158, 11, 0.3); color: #000; }
+
+        @media (max-width: 900px) {
+            h1.main-heading { font-size: 12vw; }
+            .hero-content-wrapper { flex-direction: column; text-align: center; }
+            .zig-row, .zig-row.reverse { flex-direction: column; text-align: center; gap: 3rem; }
+            .zig-img-block { width: 100%; }
+            .bg-floaters { display: none; }
+            * { cursor: auto; }
+            .gradient-blob, .cursor-dot { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-floaters">
+        <div class="css-orb orb-1"></div>
+        <div class="css-orb orb-2"></div>
+        <div class="css-orb orb-3"></div>
+        <div class="css-wireframe wire-ring gs-rotate"></div>
+        <div class="css-wireframe wire-square gs-rotate-reverse"></div>
+    </div>
+
+    <div class="gradient-blob" id="blob"></div>
+    <div class="cursor-dot" id="cursor"></div>
+
+    {% include 'navbar.html' %}
+
+    <section class="hero">
+        <div class="title-mask">
+            <h1 class="main-heading" id="hero-title">WORDPRESS<br>DEVELOPMENT</h1>
+        </div>
+
+        <div class="hero-content-wrapper">
+            <div class="hero-text gs-parallax" data-speed="0.02">
+                <h2 class="hero-sub">Build a <strong class="accent-text">powerful online presence</strong> with Biz499's expert services.</h2>
+                <p class="hero-desc">We create modern, fast, and user-friendly WordPress websites designed to grow your brand and drive real business results.</p>
+            </div>
+            
+            <div class="hero-image gs-parallax" data-speed="-0.02">
+                <div class="split-grid magnetic">
+                    <div class="split-piece magnetic piece-1"></div>
+                    <div class="split-piece magnetic piece-2"></div>
+                    <div class="split-piece magnetic piece-3"></div>
+                    <div class="split-piece magnetic piece-4"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="platforms-section">
+        <h2>What we Offer ?</h2>
+        <div class="cards-container">
+            
+            <div class="platform-card 3d-card">
+                <div class="icon-wrapper magnetic"><i class='bx bx-code-block'></i></div>
+                <h3>WordPress Development</h3>
+                <p>Custom-built websites that are scalable, secure, and perfectly tailored to your business needs.</p>
+            </div>
+
+            <div class="platform-card 3d-card">
+                <div class="icon-wrapper magnetic"><i class='bx bx-wrench'></i></div>
+                <h3>Maintenance & Support</h3>
+                <p>Ongoing technical support, regular updates, and continuous monitoring to keep your site running smoothly.</p>
+            </div>
+
+            <div class="platform-card 3d-card">
+                <div class="icon-wrapper magnetic"><i class='bx bx-devices'></i></div>
+                <h3>Responsive Design</h3>
+                <p>Flawless user experiences across all devices, ensuring your brand looks perfect on mobile, tablet, and desktop.</p>
+            </div>
+
+            <div class="platform-card 3d-card">
+                <div class="icon-wrapper magnetic"><i class='bx bx-transfer'></i></div>
+                <h3>Website Migration</h3>
+                <p>Secure and seamless migration of your existing website to WordPress with zero data loss or downtime.</p>
+            </div>
+
+            <div class="platform-card 3d-card">
+                <div class="icon-wrapper magnetic"><i class='bx bx-paint'></i></div>
+                <h3>Theme Customization</h3>
+                <p>Modifying and enhancing premium WordPress themes to match your exact brand identity and functionality goals.</p>
+            </div>
+
+            <div class="platform-card 3d-card">
+                <div class="icon-wrapper magnetic"><i class='bx bx-tachometer'></i></div>
+                <h3>Website Optimization</h3>
+                <p>Speed enhancements and core web vitals optimization to ensure lightning-fast load times for your visitors.</p>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="zigzag-container">
+
+        <div class="zig-row normal">
+            <div class="zig-img-block mouse-parallax" data-speed="-0.03">
+                <img class="magnetic" src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80" alt="User Friendly">
+            </div>
+            <div class="zig-text-block mouse-parallax" data-speed="0.03">
+                <h2>User-Friendly<br>Development</h2>
+                <p>We specialize in building websites that are not only visually appealing but also user-friendly and intuitive. Leveraging our extensive knowledge of WordPress, we craft websites that are easy to navigate, ensuring a seamless user experience for your visitors.</p>
+                <a href="/#contact/" class="btn-modern magnetic">Discover More</a>
+            </div>
+        </div>
+
+        <div class="zig-row reverse">
+            <div class="zig-img-block mouse-parallax" data-speed="-0.02">
+                <img class="magnetic" src="https://images.unsplash.com/photo-1555421689-491a97ff2040?auto=format&fit=crop&w=800&q=80" alt="Stunning Design">
+            </div>
+            <div class="zig-text-block mouse-parallax" data-speed="0.02">
+                <h2>Stunning Website<br>Designs</h2>
+                <p>When it comes to design, our talented designers are adept at transforming your ideas into captivating visuals. They understand the importance of creating a website that reflects your brand identity and resonates with your target market.</p>
+                <a href="/#contact/" class="btn-modern magnetic">Get Started</a>
+            </div>
+        </div>
+
+        <div class="zig-row normal">
+            <div class="zig-img-block mouse-parallax" data-speed="-0.04">
+                <img class="magnetic" src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80" alt="Exceptional">
+            </div>
+            <div class="zig-text-block mouse-parallax" data-speed="0.04">
+                <h2>Exceptional<br>Design Quality</h2>
+                <p>In an ever-evolving digital landscape, having a well-designed and highly functional website is crucial. We have the expertise to create customized solutions tailored to your specific needs, making a lasting impression.</p>
+                <a href="/#contact/" class="btn-modern magnetic">Learn How</a>
+            </div>
+        </div>
+
+        <div class="zig-row reverse">
+            <div class="zig-img-block mouse-parallax" data-speed="-0.02">
+                <img class="magnetic" src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80" alt="Client Centric">
+            </div>
+            <div class="zig-text-block mouse-parallax" data-speed="0.02">
+                <h2>Client-Centric<br>Solutions</h2>
+                <p>As a trusted agency, we place great emphasis on client satisfaction. We believe that successful projects are built on effective communication and understanding. We work closely with you to comprehend your unique requirements.</p>
+                <a href="/#contact/" class="btn-modern magnetic">Work With Us</a>
+            </div>
+        </div>
+
+        <div class="zig-row normal">
+            <div class="zig-img-block mouse-parallax" data-speed="-0.03">
+                <img class="magnetic" src="https://images.unsplash.com/photo-1556761175-4b46a572b786?auto=format&fit=crop&w=800&q=80" alt="Partner">
+            </div>
+            <div class="zig-text-block mouse-parallax" data-speed="0.03">
+                <h2>Your Dedicated<br>WordPress Partner</h2>
+                <p>Choosing us means gaining access to a team of professionals who are passionate about delivering excellence. We stay up-to-date with industry trends, ensuring your website performs flawlessly across all devices.</p>
+                <a href="/#contact/" class="btn-modern magnetic">Contact Us Today</a>
+            </div>
+        </div>
+
+    </section>
+
+    <script>
+        // 1. Load Navbar
+        fetch('navbar.html')
+    .then(res => res.ok ? res.text() : '')
+    .then(data => {
+        // 1. Pehle navbar ko HTML mein daala
+        document.getElementById('navbar-container').innerHTML = data;
+        
+        // 2. NAYA CHANGE: Navbar load hone ke turant baad uske saare links ko pakda
+        const navLinks = document.querySelectorAll('#navbar-container a');
+        const cursorTrail = document.getElementById("cursor-trail");
+        
+        // 3. Aur un sab par custom cursor ka hover effect (bada hona) laga diya
+        navLinks.forEach(link => {
+            link.addEventListener("mouseenter", () => cursorTrail.classList.add("hover-active"));
+            link.addEventListener("mouseleave", () => cursorTrail.classList.remove("hover-active"));
+        });
+    });
+
+        gsap.registerPlugin(ScrollTrigger);
+
+        // 2. Custom Juggling Cursor
+        const blob = document.getElementById("blob");
+        const cursorDot = document.getElementById("cursor");
+
+        const xToBlob = gsap.quickTo(blob, "x", {duration: 0.8, ease: "power3"});
+        const yToBlob = gsap.quickTo(blob, "y", {duration: 0.8, ease: "power3"});
+        const xToDot = gsap.quickTo(cursorDot, "x", {duration: 0.1, ease: "power3"});
+        const yToDot = gsap.quickTo(cursorDot, "y", {duration: 0.1, ease: "power3"});
+
+        window.addEventListener("mousemove", (e) => {
+            xToBlob(e.clientX);
+            yToBlob(e.clientY);
+            xToDot(e.clientX);
+            yToDot(e.clientY);
+
+            // Subtle Parallax for floating CSS elements
+            const xOffset = (e.clientX / window.innerWidth - 0.5);
+            const yOffset = (e.clientY / window.innerHeight - 0.5);
+            gsap.to('.gs-parallax', {
+                x: xOffset * 50,
+                y: yOffset * 50,
+                duration: 1,
+                ease: "power2.out"
+            });
+        });
+
+        // Background Rotations
+        gsap.to(".gs-rotate", { rotation: 360, duration: 30, ease: "none", repeat: -1 });
+        gsap.to(".gs-rotate-reverse", { rotation: -360, duration: 40, ease: "none", repeat: -1 });
+
+        // 3. Hero Initial Animation
+        gsap.to("#hero-title", { y: 0, duration: 1.5, ease: "power4.out", delay: 0.2 });
+
+        // 4. Zig-Zag Scroll Animations
+        const rows = document.querySelectorAll('.zig-row');
+        rows.forEach((row) => {
+            const imageContainer = row.querySelector('.zig-img-block');
+            const contentContainer = row.querySelector('.zig-text-block');
+            const isReverse = row.classList.contains('reverse');
+            
+            const imgStartPos = isReverse ? 150 : -150;
+            const contentStartPos = isReverse ? -150 : 150;
+
+            gsap.fromTo(imageContainer, 
+                { x: imgStartPos, opacity: 0 },
+                { x: 0, opacity: 1, ease: "power2.out",
+                  scrollTrigger: { trigger: row, start: "top 85%", end: "top 40%", scrub: 1 }
+                }
+            );
+
+            gsap.fromTo(contentContainer, 
+                { x: contentStartPos, opacity: 0 },
+                { x: 0, opacity: 1, ease: "power2.out",
+                  scrollTrigger: { trigger: row, start: "top 85%", end: "top 40%", scrub: 1 }
+                }
+            );
+        });
+
+        // 5. 3D Hover Effect for Platform Cards
+        const cards = document.querySelectorAll('.3d-card');
+        cards.forEach(card => {
+            card.addEventListener('mousemove', e => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left; 
+                const y = e.clientY - rect.top;  
+                
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                const rotateX = ((y - centerY) / centerY) * -15;
+                const rotateY = ((x - centerX) / centerX) * 15;
+                
+                gsap.to(card, {
+                    rotationX: rotateX,
+                    rotationY: rotateY,
+                    transformPerspective: 1000,
+                    ease: "power1.out",
+                    duration: 0.3
+                });
+            });
+
+            card.addEventListener('mouseleave', () => {
+                gsap.to(card, { rotationX: 0, rotationY: 0, ease: "power3.out", duration: 0.8 });
+            });
+        });
+
+        // 6. Global Mouse Parallax
+        document.addEventListener("mousemove", (e) => {
+            const xPos = (e.clientX / window.innerWidth - 0.5);
+            const yPos = (e.clientY / window.innerHeight - 0.5);
+
+            document.querySelectorAll('.mouse-parallax').forEach(el => {
+                const speed = el.getAttribute('data-speed');
+                gsap.to(el, { x: xPos * window.innerWidth * speed, y: yPos * window.innerHeight * speed, duration: 1, ease: "power2.out" });
+            });
+        });
+
+        // 7. MAGNETIC HOVER EFFECT
+        const magneticElements = document.querySelectorAll('.magnetic');
+
+        magneticElements.forEach((el) => {
+            el.addEventListener('mousemove', (e) => {
+                const rect = el.getBoundingClientRect();
+                const h = rect.width / 2;
+                const w = rect.height / 2;
+                const x = e.clientX - rect.left - h;
+                const y = e.clientY - rect.top - w;
+
+                gsap.to(el, { x: x * 0.3, y: y * 0.3, duration: 0.5, ease: 'power2.out' });
+                blob.classList.add("hover-active");
+            });
+
+            el.addEventListener('mouseleave', () => {
+                gsap.to(el, { x: 0, y: 0, duration: 0.8, ease: 'elastic.out(1, 0.3)' });
+                blob.classList.remove("hover-active");
+            });
+        });
+    </script>
+    {% include 'footer.html' %}
+</body>
+</html>

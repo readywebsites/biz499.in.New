@@ -1,0 +1,522 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Website Designing - biz499 - Illustrative Solutions</title>
+
+    <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            cursor: none; 
+            font-family: "Mori", "Mori Fallback", sans-serif;
+        }
+        
+        body {
+            background: radial-gradient(circle at 50% 0%, #ffffff 0%, #ececec 45%, #d1d1d1 100%);
+            background-attachment: fixed;
+            color: #111111; 
+            overflow-x: hidden;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        h1.main-heading {
+            text-transform: uppercase;
+            font-size: 11vw; 
+            font-style: italic; 
+            line-height: 0.9;
+            color: #000000;
+            margin: 0;
+            position: relative;
+            z-index: 10;
+            letter-spacing: -2px;
+        }
+
+        h2, h3, h4 {
+            font-weight: 600;
+            color: #000000;
+            margin: 0;
+            position: relative;
+            z-index: 10;
+        }
+
+        p, span, a {
+            position: relative;
+            z-index: 10;
+        }
+
+        /* --- Updated Geometric Juggling Cursor Blob --- */
+        .gradient-blob {
+            position: fixed;
+            top: 0; left: 0;
+            width: 60px; 
+            height: 60px;
+            background: linear-gradient(135deg, rgba(0,0,0,0.1), rgba(0,0,0,0.05));
+            /* Starting as a circle - transition handled by GSAP */
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9998; 
+            transform: translate(-50%, -50%);
+            backdrop-filter: blur(4px); 
+            border: 1px solid rgba(255,255,255,0.4);
+            transition: width 0.5s ease, height 0.5s ease;
+            /* Deforming morph animation REMOVED */
+        }
+
+        /* Hover State for the Blob - Inversion remains */
+        .gradient-blob.hover-active {
+            width: 250px;
+            height: 250px;
+            backdrop-filter: invert(100%) grayscale(100%); 
+            border: none;
+            /* Invert shapes look great too, GSAP will define it */
+        }
+
+        .cursor-dot {
+            position: fixed;
+            top: 0; left: 0;
+            width: 6px; height: 6px;
+            background: #000000;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+        }
+
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 0 2rem;
+        }
+
+        .offers-section {
+            padding: 8rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .offers-section h2 {
+            font-size: 4rem;
+            margin-bottom: 4rem;
+            text-align: center;
+        }
+
+        .offers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .offer-card {
+            background: rgba(255, 255, 255, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            padding: 3rem;
+            border-radius: 20px;
+            transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .offer-card:hover {
+            transform: translateY(-10px);
+            background: #ffffff;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .offer-icon {
+            font-size: 3rem;
+            color: #333333;
+            margin-bottom: 1.5rem;
+        }
+
+        .offer-card h3 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .offer-card p {
+            color: #555555;
+            font-size: 1.1rem;
+        }
+
+        .marquee-section {
+            padding: 6rem 0;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            background: #000000; 
+            color: #ffffff;
+            transform: skewY(-2deg); 
+        }
+
+        .marquee-container {
+            display: flex;
+            white-space: nowrap;
+            transform: skewY(2deg);
+        }
+
+        .huge-marquee {
+            font-size: 12vw;
+            text-transform: uppercase;
+            font-weight: 700;
+            color: #ffffff;
+            padding-right: 50px;
+            -webkit-text-stroke: 2px #ffffff;
+        }
+        
+        .huge-marquee span.outline {
+            color: transparent;
+            -webkit-text-stroke: 2px #ffffff;
+        }
+
+        .h-scroll-wrapper {
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+        }
+
+        .h-scroll-content {
+            display: flex;
+            width: 300vw; 
+            height: 80vh;
+        }
+
+        .h-panel {
+            width: 100vw;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 5vw;
+        }
+
+        .design-card {
+            display: flex;
+            align-items: center;
+            gap: 5rem;
+            width: 100%;
+            max-width: 1300px;
+        }
+
+        .design-image {
+            flex: 1.2;
+            height: 60vh;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+        }
+
+        .design-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(100%);
+            transition: filter 0.5s ease, transform 0.5s ease;
+        }
+
+        .design-card.hover-trigger:hover .design-image img {
+            filter: grayscale(0%);
+            transform: scale(1.05);
+        }
+
+        .design-info {
+            flex: 1;
+        }
+
+        .design-info h3 {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+        }
+
+        .design-info p {
+            font-size: 1.2rem;
+            color: #444444;
+            max-width: 500px;
+        }
+
+        .stats-section {
+            padding: 8rem 2rem;
+            border-top: 1px solid rgba(0,0,0,0.1);
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+            background: rgba(255,255,255,0.4);
+        }
+
+        .stats-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 3rem;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-item h2 {
+            font-size: 7rem;
+            margin-bottom: 0;
+            color: #000000;
+            line-height: 1;
+        }
+
+        .stat-item p {
+            color: #555555;
+            font-size: 1.5rem;
+            font-weight: 500;
+        }
+
+        .footer-cta {
+            padding: 10rem 2rem;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .footer-cta h2 {
+            font-size: 5rem;
+            margin-bottom: 3rem;
+        }
+
+        .btn-solid {
+            display: inline-block;
+            background: #000000;
+            color: #ffffff;
+            padding: 20px 50px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 50px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .btn-solid.hover-trigger:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+
+        @media (max-width: 900px) {
+            h1.main-heading { font-size: 15vw; }
+            .huge-marquee { font-size: 20vw; }
+            .design-card { flex-direction: column; text-align: left; gap: 2rem; }
+            .design-image { width: 100%; height: 40vh; }
+            .h-scroll-content { width: 300vw; }
+            .h-panel { padding: 0 2rem; }
+            .offer-card { padding: 2rem; }
+            .cursor-dot, .gradient-blob { display: none; }
+            * { cursor: auto; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="gradient-blob" id="blob"></div>
+    <div class="cursor-dot" id="cursor"></div>
+
+    {% include 'navbar.html' %}
+
+
+    <section class="hero hover-trigger">
+        <h1 class="main-heading">Website<br>Designing</h1>
+    </section>
+
+    <section class="offers-section">
+        <h2>What we offer?</h2>
+        <div class="offers-grid">
+            <div class="offer-card hover-trigger">
+                <i class='bx bx-hdd offer-icon'></i>
+                <h3>Free Hosting</h3>
+                <p>Get a free domain with our website package and reliable uptime.</p>
+            </div>
+            <div class="offer-card hover-trigger">
+                <i class='bx bx-globe offer-icon'></i>
+                <h3>Free Domain</h3>
+                <p>Establish your brand identity with a custom domain on us.</p>
+            </div>
+            <div class="offer-card hover-trigger">
+                <i class='bx bx-lock-alt offer-icon'></i>
+                <h3>Free SSL</h3>
+                <p>Secure your website and build trust with a free SSL certificate.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="marquee-section">
+        <div class="marquee-container" id="marquee">
+            <h2 class="huge-marquee">WHAT WE DESIGN <span class="outline">WHAT WE DESIGN</span> WHAT WE DESIGN <span class="outline">WHAT WE DESIGN</span> WHAT WE DESIGN</h2>
+        </div>
+    </section>
+
+    <section class="h-scroll-wrapper">
+        <div class="h-scroll-content">
+            
+            <div class="h-panel">
+                <div class="design-card hover-trigger">
+                    <div class="design-image">
+                        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80" alt="Lead Generating">
+                    </div>
+                    <div class="design-info">
+                        <h3>Lead Generating</h3>
+                        <p>Our dynamic websites are tailored to your business needs, offering flexibility and interactivity designed to capture and convert traffic.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="h-panel">
+                <div class="design-card hover-trigger">
+                    <div class="design-image">
+                        <img src="https://images.unsplash.com/photo-1555421689-491a97ff2040?auto=format&fit=crop&w=1200&q=80" alt="Dynamic Websites">
+                    </div>
+                    <div class="design-info">
+                        <h3>Dynamic Websites</h3>
+                        <p>Our dynamic websites are tailored to your business needs, offering flexibility and interactivity for a seamless user journey.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="h-panel">
+                <div class="design-card hover-trigger">
+                    <div class="design-image">
+                        <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=1200&q=80" alt="Ecommerce Websites">
+                    </div>
+                    <div class="design-info">
+                        <h3>Ecommerce Websites</h3>
+                        <p>We create stunning online stores that drive sales, manage inventory efficiently, and provide an exceptional shopping experience.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="stats-section hover-trigger">
+        <div class="stats-grid">
+            <div class="stat-item">
+                <h2>300+</h2>
+                <p>Websites Designed</p>
+            </div>
+            <div class="stat-item">
+                <h2>200+</h2>
+                <p>Happy Clients</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="footer-cta">
+        <h2>Why Choose US?</h2>
+        <a href="{% url 'website_development' %}" class="btn-solid hover-trigger">Click here to know more</a>
+    </section>
+
+    <script>
+        fetch('navbar.html')
+            .then(res => res.ok ? res.text() : '')
+            .then(data => document.getElementById('navbar-container').innerHTML = data);
+
+        gsap.registerPlugin(ScrollTrigger);
+
+        const blob = document.getElementById("blob");
+        const cursorDot = document.getElementById("cursor");
+
+        const xToBlob = gsap.quickTo(blob, "x", {duration: 0.8, ease: "power3"});
+        const yToBlob = gsap.quickTo(blob, "y", {duration: 0.8, ease: "power3"});
+        const xToDot = gsap.quickTo(cursorDot, "x", {duration: 0.1, ease: "power3"});
+        const yToDot = gsap.quickTo(cursorDot, "y", {duration: 0.1, ease: "power3"});
+
+        window.addEventListener("mousemove", (e) => {
+            xToBlob(e.clientX);
+            yToBlob(e.clientY);
+            xToDot(e.clientX);
+            yToDot(e.clientY);
+        });
+
+        // Trigger Blob Invert Effect on Hover
+        const hoverElements = document.querySelectorAll(".hover-trigger");
+        hoverElements.forEach(el => {
+            el.addEventListener("mouseenter", () => blob.classList.add("hover-active"));
+            el.addEventListener("mouseleave", () => blob.classList.remove("hover-active"));
+        });
+
+        // --- NEW: Geometric Shape Juggling Logic ---
+        const geometricShapes = [
+            // 1. Circle
+            { borderRadius: "50%" }, 
+            // 2. Rhombus (rotated square)
+            { borderRadius: "0%", rotation: 45 }, 
+            // 3. Square
+            { borderRadius: "0%", rotation: 0 },
+            // 4. Rounded Rect (Card shape)
+            { borderRadius: "10px", rotation: 0 }
+        ];
+
+        // Let's cycle shapes every 2.5 seconds, subtly.
+        let shapeIndex = 0;
+        
+        function juggleGeometricShapes() {
+            shapeIndex = (shapeIndex + 1) % geometricShapes.length;
+            const nextShape = geometricShapes[shapeIndex];
+            
+            gsap.to(blob, {
+                ...nextShape,
+                duration: 1, 
+                ease: "power2.inOut",
+                onComplete: juggleGeometricShapes // Cycle infinitely
+            });
+        }
+
+        // Initialize shape cycle
+        juggleGeometricShapes();
+
+        gsap.to("#marquee", {
+            xPercent: -50, 
+            ease: "none",
+            scrollTrigger: {
+                trigger: ".marquee-section",
+                start: "top bottom",
+                end: "bottom top",
+                scrub: 3 
+            }
+        });
+
+        const hPanels = gsap.utils.toArray(".h-panel");
+        gsap.to(hPanels, {
+            xPercent: -100 * (hPanels.length - 1),
+            ease: "none",
+            scrollTrigger: {
+                trigger: ".h-scroll-wrapper",
+                pin: true,
+                scrub: 1,
+                end: () => "+=" + document.querySelector(".h-scroll-wrapper").offsetWidth * 2
+            }
+        });
+
+        gsap.from(".footer-cta h2, .footer-cta a", {
+            y: 80,
+            opacity: 0,
+            ease: "bounce.out",
+            duration: 1.5,
+            stagger: 0.2,
+            scrollTrigger: {
+                trigger: ".footer-cta",
+                start: "top 80%"
+            }
+        });
+    </script>
+    {% include 'footer.html' %}
+</body>
+</html>

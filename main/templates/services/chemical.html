@@ -1,0 +1,559 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Website Revamp for Chemical Companies - biz499</title>
+
+    <meta name="description" content="Industrial and corporate website redesign for chemical companies. Features product catalogues, B2B inquiry funnels, and industrial SEO optimization.">
+    <meta name="keywords" content="chemical company website, industrial website design, B2B catalogue website, manufacturing web development, industrial SEO">
+
+    <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <style>
+        /* --- Industrial Chemical Theme: Deep Slate + Neon Chemical Green --- */
+        :root {
+            --bg-base: #09090b; /* Pitch Dark Industrial */
+            --bg-panel: #18181b; /* Steel Charcoal */
+            --accent-green: #22c55e; /* Vibrant Chemical/Bio Green */
+            --accent-cyan: #06b6d4; /* Industrial Cyan */
+            --text-main: #f8fafc;
+            --text-muted: #a1a1aa;
+            --glass-border: rgba(34, 197, 94, 0.2);
+            --green-glow: rgba(34, 197, 94, 0.15);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            cursor: none; 
+            font-family: "Mori", "Inter", sans-serif !important;
+        }
+        
+        body {
+            background-color: var(--bg-base);
+            color: var(--text-main);
+            overflow-x: hidden;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            /* Subtle Grid Background for Industrial Blueprint Feel */
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+
+        h1, h2, h3, h4 {
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: -1px; 
+            color: var(--text-main);
+        }
+
+        .text-accent { 
+            background: linear-gradient(to right, var(--accent-green), var(--accent-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* --- Magnetic Element Wrapper --- */
+        .magnetic { display: inline-block; transition: filter 0.3s ease; }
+
+        /* --- Hexagonal Custom Cursor (Chemical Vibe) --- */
+        .cursor-trail {
+            position: fixed;
+            top: 0; left: 0;
+            width: 45px; height: 45px;
+            border: 1px solid var(--accent-green);
+            border-radius: 10px; /* Squarish for industrial feel */
+            pointer-events: none;
+            z-index: 99998; 
+            transform: translate(-50%, -50%) rotate(45deg);
+            transition: width 0.3s ease, height 0.3s ease, background 0.3s ease, border-radius 0.3s ease;
+        }
+
+        .cursor-trail.hover-active {
+            width: 80px; height: 80px;
+            background: rgba(34, 197, 94, 0.1);
+            border-radius: 50%; /* Smooth out on hover */
+            transform: translate(-50%, -50%) rotate(0deg);
+            border-color: var(--accent-cyan);
+            backdrop-filter: blur(4px);
+        }
+
+        .cursor-dot {
+            position: fixed;
+            top: 0; left: 0;
+            width: 6px; height: 6px;
+            background: var(--text-main); 
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 99999;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 10px var(--accent-green);
+        }
+
+        /* --- Floating Chemical Shapes (Hexagons, Atoms, Flasks) --- */
+        .shape-layer {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .chem-shape {
+            position: absolute;
+            color: var(--accent-green);
+            opacity: 0.15;
+            font-size: 4rem;
+        }
+
+        .ambient-glow {
+            position: absolute;
+            width: 50vw; height: 50vw;
+            border-radius: 50%;
+            filter: blur(150px);
+            opacity: 0.08;
+            z-index: -1;
+        }
+        .glow-1 { top: -10%; left: -10%; background: var(--accent-green); }
+        .glow-2 { bottom: -10%; right: -10%; background: var(--accent-cyan); }
+
+        /* --- Hero Section --- */
+        .hero {
+            position: relative;
+            z-index: 2;
+            min-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 160px 2rem 50px;
+            text-align: center;
+        }
+
+        .hero-badge {
+            padding: 8px 24px;
+            background: rgba(34, 197, 94, 0.1);
+            border: 1px solid var(--glass-border);
+            color: var(--accent-green);
+            font-size: 0.95rem;
+            font-weight: 700;
+            margin-bottom: 2.5rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        .hero-icon {
+            font-size: 5rem;
+            color: var(--accent-green);
+            margin-bottom: 1.5rem;
+            filter: drop-shadow(0 0 20px var(--green-glow));
+            animation: float 4s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        h1.hero-title {
+            font-size: clamp(3rem, 7vw, 7.5rem);
+            line-height: 1;
+            margin: 0;
+        }
+
+        .hero-desc {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            max-width: 750px;
+            margin-top: 2rem;
+            font-weight: 400;
+        }
+
+        /* --- Marquee --- */
+        .marquee-container {
+            width: 100%;
+            overflow: hidden;
+            background: var(--accent-green);
+            padding: 1.2rem 0;
+            transform: skewY(-1deg);
+            position: relative;
+            z-index: 2;
+            margin-top: 2rem;
+        }
+
+        .marquee-text {
+            display: flex;
+            white-space: nowrap;
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: var(--bg-base);
+            text-transform: uppercase;
+        }
+
+        /* --- Industrial Features Grid (Bento/Blocks) --- */
+        .features-section {
+            position: relative;
+            z-index: 2;
+            padding: 8rem 5vw;
+            background: rgba(0,0,0,0.4);
+            border-top: 1px solid rgba(255,255,255,0.05);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .section-heading {
+            text-align: center;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            margin-bottom: 5rem;
+            line-height: 1.1;
+        }
+
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .bento-card {
+            background: var(--bg-panel);
+            border: 1px solid rgba(255,255,255,0.05);
+            padding: 3.5rem 2.5rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            /* Sharp industrial corners */
+            border-radius: 4px; 
+            border-left: 4px solid transparent;
+        }
+
+        .bento-card:hover {
+            border-left-color: var(--accent-green);
+            background: rgba(34, 197, 94, 0.03);
+            box-shadow: 0 15px 40px var(--green-glow);
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            font-size: 3.5rem;
+            color: var(--accent-green);
+            margin-bottom: 1.5rem;
+            display: inline-block;
+        }
+
+        .bento-card h3 {
+            font-size: 1.6rem;
+            margin-bottom: 1rem;
+        }
+
+        .bento-card p {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+        }
+
+        /* --- Zigzag Detail Section --- */
+        .zigzag-container {
+            position: relative;
+            z-index: 2;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 10rem 5vw;
+            display: flex;
+            flex-direction: column;
+            gap: 120px; 
+        }
+
+        .zig-row {
+            display: flex;
+            align-items: center;
+            gap: 6rem;
+        }
+
+        .zig-row.reverse { flex-direction: row-reverse; }
+
+        .zig-img-block {
+            flex: 1;
+            position: relative;
+            background: var(--bg-panel);
+            padding: 1rem;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .zig-img-block img {
+            width: 100%; 
+            height: auto; 
+            object-fit: cover;
+            filter: grayscale(30%) contrast(1.2);
+            transition: filter 0.5s ease;
+            display: block;
+        }
+
+        .zig-img-block:hover img { filter: grayscale(0%); }
+
+        /* Industrial Corner Accents for Images */
+        .zig-img-block::before, .zig-img-block::after {
+            content: ''; position: absolute; width: 30px; height: 30px; border: 2px solid var(--accent-green);
+        }
+        .zig-img-block::before { top: -10px; left: -10px; border-right: none; border-bottom: none; }
+        .zig-img-block::after { bottom: -10px; right: -10px; border-left: none; border-top: none; }
+
+        .zig-text-block { flex: 1; }
+        .zig-text-block h2 { font-size: 3rem; margin-bottom: 1.5rem; line-height: 1.1; }
+        .zig-text-block p { font-size: 1.15rem; color: var(--text-muted); margin-bottom: 2rem; }
+
+        /* --- Corporate CTA Section --- */
+        .cta-section {
+            position: relative;
+            z-index: 2;
+            padding: 10rem 5vw;
+            text-align: center;
+            background: var(--bg-panel);
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .btn-industrial {
+            display: inline-block;
+            font-weight: 800;
+            font-size: 1.2rem;
+            padding: 22px 55px;
+            color: var(--bg-base);
+            background: var(--accent-green);
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: all 0.4s ease;
+            margin-top: 3rem;
+            position: relative;
+            overflow: hidden;
+            border: 2px solid var(--accent-green);
+        }
+
+        .btn-industrial:hover {
+            background: transparent;
+            color: var(--accent-green);
+            box-shadow: 0 0 30px var(--green-glow);
+        }
+
+        @media (max-width: 900px) {
+            h1.hero-title { font-size: 11vw; }
+            .zig-row, .zig-row.reverse { flex-direction: column; text-align: center; gap: 4rem; }
+            .cursor-dot, .cursor-trail, .shape-layer { display: none; }
+            * { cursor: auto; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="shape-layer">
+        <div class="ambient-glow glow-1"></div>
+        <div class="ambient-glow glow-2"></div>
+        
+        <i class='bx bx-hexagon chem-shape gs-float' style="top: 15%; left: 10%;"></i>
+        <i class='bx bx-test-tube chem-shape gs-float' style="top: 25%; right: 15%;"></i>
+        <i class='bx bx-atom chem-shape gs-float' style="bottom: 20%; left: 15%;"></i>
+        <i class='bx bx-hexagon chem-shape gs-float' style="bottom: 10%; right: 10%;"></i>
+        <i class='bx bx-water chem-shape gs-float' style="top: 50%; left: 5%;"></i>
+        <i class='bx bx-atom chem-shape gs-float' style="top: 60%; right: 8%;"></i>
+    </div>
+
+    <div class="cursor-trail" id="cursor-trail"></div>
+    <div class="cursor-dot" id="cursor-dot"></div>
+
+    {% include 'navbar.html' %}
+
+    <section class="hero">
+        <div class="hero-badge gs-hero">For Chemical & Manufacturing Firms</div>
+        
+        <i class='bx bx-atom hero-icon magnetic hover-trigger gs-hero'></i>
+        
+        <h1 class="hero-title gs-hero">INDUSTRIAL-GRADE</h1>
+        <h1 class="hero-title gs-hero"><span class="text-accent">DIGITAL REVAMP</span></h1>
+        
+        <p class="hero-desc gs-hero">Upgrade your chemical manufacturing and distribution brand with a high-performance, product-centric corporate website designed to drive B2B inquiries and establish global credibility.</p>
+        
+        <a href="/#contact/" class="btn-industrial gs-hero magnetic hover-trigger" style="margin-top: 3rem;">Contact Us</a>
+    </section>
+
+    <div class="marquee-container hover-trigger">
+        <div class="marquee-text" id="marquee">
+            B2B INQUIRY OPTIMIZATION &nbsp; • &nbsp; INDUSTRIAL SEO &nbsp; • &nbsp; PRODUCT CATALOGUE INTEGRATION &nbsp; • &nbsp; CORPORATE CREDIBILITY &nbsp; • &nbsp; 
+        </div>
+    </div>
+
+    <section class="features-section">
+        <h2 class="section-heading gs-fade">Engineered for<br><span class="text-accent">Industrial Growth</span></h2>
+
+        <div class="bento-grid">
+            
+            <div class="bento-card gs-fade hover-trigger magnetic">
+                <i class='bx bx-category-alt feature-icon'></i>
+                <h3>Product Catalogue & Specs</h3>
+                <p>Structured, easily navigable digital catalogues for your chemicals, complete with downloadable MSDS and technical specifications.</p>
+            </div>
+
+            <div class="bento-card gs-fade hover-trigger magnetic">
+                <i class='bx bx-filter-alt feature-icon'></i>
+                <h3>Inquiry-Focused Structure</h3>
+                <p>Optimized B2B funnels and strategically placed RFQ (Request for Quote) forms to convert corporate traffic into bulk-order leads.</p>
+            </div>
+
+            <div class="bento-card gs-fade hover-trigger magnetic">
+                <i class='bx bx-bar-chart-square feature-icon'></i>
+                <h3>Industrial SEO</h3>
+                <p>Dominate search engines for highly specific chemical formulas, compound names, and industrial manufacturing keywords.</p>
+            </div>
+
+            <div class="bento-card gs-fade hover-trigger magnetic">
+                <i class='bx bx-shield-quarter feature-icon'></i>
+                <h3>Certifications Showcase</h3>
+                <p>Prominently display ISO, REACH, GMP, and safety compliance certifications to immediately establish international credibility.</p>
+            </div>
+
+            <div class="bento-card gs-fade hover-trigger magnetic">
+                <i class='bx bx-rocket feature-icon'></i>
+                <h3>Fast & Mobile-Optimized</h3>
+                <p>Lightning-fast page loads ensuring your complex product databases are accessible instantly on smartphones and factory-floor tablets.</p>
+            </div>
+            
+            <div class="bento-card gs-fade hover-trigger magnetic">
+                <i class='bx bx-globe feature-icon'></i>
+                <h3>Corporate Branding</h3>
+                <p>A sleek, updated UI that modernizes your company profile, replacing outdated designs with a cutting-edge industrial aesthetic.</p>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="zigzag-container">
+
+        <div class="zig-row normal">
+            <div class="zig-img-block mouse-parallax" data-speed="-0.03">
+                <img class="magnetic" src="{% static 'images/chemical-catalogue.jpg' %}" alt="Digital Chemical Catalogue" onerror="this.src='https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?q=80&w=800'">
+            </div>
+            <div class="zig-text-block mouse-parallax" data-speed="0.03">
+                <h2>Comprehensive<br>Product Data Structuring</h2>
+                <p>B2B buyers need precise information. We organize your extensive chemical portfolios into a highly searchable, user-friendly database. From CAS numbers to purity grades, your clients will find exactly what they need in seconds.</p>
+                <a href="/#contact/" class="btn-industrial magnetic" style="font-size: 1rem; padding: 15px 40px;">Contact Us</a>
+            </div>
+        </div>
+
+        <div class="zig-row reverse">
+            <div class="zig-img-block mouse-parallax" data-speed="-0.02">
+                <img class="magnetic" src="{% static 'images/industrial-corporate.jpg' %}" alt="Industrial Corporate Facility" onerror="this.src='https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=800'">
+            </div>
+            <div class="zig-text-block mouse-parallax" data-speed="0.02">
+                <h2>Showcasing Corporate<br>Scale & Compliance</h2>
+                <p>Transform how the world views your manufacturing capabilities. We design dedicated corporate profile sections that highlight your cutting-edge facilities, R&D labs, and stringent safety protocols, ensuring absolute buyer confidence.</p>
+                <a href="/#contact/" class="btn-industrial magnetic" style="font-size: 1rem; padding: 15px 40px;">See Examples</a>
+            </div>
+        </div>
+
+    </section>
+
+    <section class="cta-section">
+        <h2 class="section-heading gs-fade" style="margin-bottom: 2rem;">Ready to dominate the<br>Digital Chemical Market?</h2>
+        <a href="/#contact/" class="btn-industrial magnetic hover-trigger gs-fade" style="padding: 25px 60px; font-size: 1.3rem;">Get a Custom Revamp Quote</a>
+    </section>
+
+    <script>
+        const navLinks = document.querySelectorAll('.custom-navbar a');
+        const navCursorTrail = document.getElementById("cursor-trail");
+
+        navLinks.forEach(link => {
+            link.addEventListener("mouseenter", () => navCursorTrail.classList.add("hover-active"));
+            link.addEventListener("mouseleave", () => navCursorTrail.classList.remove("hover-active"));
+        });
+
+        gsap.registerPlugin(ScrollTrigger);
+
+        // 2. Corporate Sharp Cursor Logic
+        const cursorTrail = document.getElementById("cursor-trail");
+        const cursorDot = document.getElementById("cursor-dot");
+
+        const xToTrail = gsap.quickTo(cursorTrail, "x", {duration: 0.5, ease: "power3"});
+        const yToTrail = gsap.quickTo(cursorTrail, "y", {duration: 0.5, ease: "power3"});
+        const xToDot = gsap.quickTo(cursorDot, "x", {duration: 0.1, ease: "power3"});
+        const yToDot = gsap.quickTo(cursorDot, "y", {duration: 0.1, ease: "power3"});
+
+        window.addEventListener("mousemove", (e) => {
+            xToTrail(e.clientX);
+            yToTrail(e.clientY);
+            xToDot(e.clientX);
+            yToDot(e.clientY);
+        });
+
+        document.querySelectorAll(".hover-trigger").forEach(el => {
+            el.addEventListener("mouseenter", () => cursorTrail.classList.add("hover-active"));
+            el.addEventListener("mouseleave", () => cursorTrail.classList.remove("hover-active"));
+        });
+
+        // 3. Floating Chemical Background Shapes
+        gsap.utils.toArray('.gs-float').forEach(shape => {
+            gsap.to(shape, {
+                x: "random(-60, 60)",
+                y: "random(-60, 60)",
+                rotation: "random(-180, 180)",
+                duration: "random(10, 20)",
+                ease: "sine.inOut",
+                yoyo: true,
+                repeat: -1
+            });
+        });
+
+        // 4. Hero Animation
+        gsap.from(".gs-hero", {
+            y: 40, opacity: 0, duration: 1, stagger: 0.15, ease: "power3.out", delay: 0.2
+        });
+
+        // 5. Endless Marquee Animation
+        gsap.to("#marquee", {
+            xPercent: -50,
+            ease: "none",
+            duration: 20,
+            repeat: -1
+        });
+
+        // 6. Scroll Fade Animations
+        gsap.utils.toArray(".gs-fade").forEach(el => {
+            gsap.from(el, {
+                y: 50, opacity: 0, duration: 1, ease: "power3.out",
+                scrollTrigger: { trigger: el, start: "top 85%" }
+            });
+        });
+
+        // 7. Magnetic Hover Elements
+        const magneticElements = document.querySelectorAll('.magnetic');
+        magneticElements.forEach((el) => {
+            el.addEventListener('mousemove', (e) => {
+                const rect = el.getBoundingClientRect();
+                const h = rect.width / 2;
+                const w = rect.height / 2;
+                const x = e.clientX - rect.left - h;
+                const y = e.clientY - rect.top - w;
+                gsap.to(el, { x: x * 0.15, y: y * 0.15, duration: 0.4, ease: 'power2.out' });
+            });
+
+            el.addEventListener('mouseleave', () => {
+                gsap.to(el, { x: 0, y: 0, duration: 0.8, ease: 'elastic.out(1, 0.3)' });
+            });
+        });
+
+    </script>
+    {% include 'footer.html' %}
+</body>
+</html>

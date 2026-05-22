@@ -1,0 +1,597 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Royal Indian Wedding Invitations - biz499</title>
+    
+    <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Great+Vibes&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <style>
+        /* --- Royal Dark Aesthetic Palette: Black, Maroon, Gold --- */
+        :root {
+            --bg-black: #050505;
+            --bg-surface: #0a0a0a;
+            --royal-maroon: #4a0404; 
+            --maroon-accent: #7a0010;
+            --gold: #d4af37;
+            --gold-light: #f9f1d8;
+            --text-main: #f5f5f5;
+            --text-muted: #a0a0a0;
+            --glass-bg: rgba(20, 5, 5, 0.7); 
+            --glass-border: rgba(212, 175, 55, 0.2);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            cursor: none; 
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-black);
+            color: var(--text-main);
+            overflow-x: hidden;
+            line-height: 1.8;
+            -webkit-font-smoothing: antialiased;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(74, 4, 4, 0.4), transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(74, 4, 4, 0.3), transparent 40%);
+            background-attachment: fixed;
+        }
+
+        /* --- Typography --- */
+        h1, h2, h3, h4 {
+            font-family: 'Cinzel', serif;
+            color: var(--gold);
+            font-weight: 600;
+        }
+
+        .cursive-accent {
+            font-family: 'Great Vibes', cursive;
+            color: var(--maroon-accent);
+            font-size: 4.5rem;
+            display: block;
+            margin-bottom: -15px;
+            font-weight: 400;
+            text-shadow: 0 0 20px rgba(122, 0, 16, 0.5);
+            position: relative;
+            z-index: 99999 ;
+        }
+
+        /* --- Elegant Golden Custom Cursor --- */
+        .cursor-trail {
+            position: fixed;
+            top: 0; left: 0;
+            width: 40px; height: 40px;
+            border: 1px solid var(--gold);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 99999; 
+            transform: translate(-50%, -50%);
+            transition: width 0.3s ease, height 0.3s ease, background 0.3s ease;
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
+        }
+
+        .cursor-trail.hover-active {
+            width: 80px; height: 80px;
+            background: rgba(212, 175, 55, 0.1);
+            backdrop-filter: blur(2px);
+        }
+
+        .cursor-dot {
+            position: fixed;
+            top: 0; left: 0;
+            width: 6px; height: 6px;
+            background: var(--gold); 
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 99999;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 10px var(--gold);
+        }
+
+        /* --- Falling Gold Dust Animation --- */
+        #petal-container {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .petal {
+            position: absolute;
+            top: -10%;
+            user-select: none;
+            animation: fall linear infinite;
+            filter: drop-shadow(0 0 5px var(--gold));
+            color: var(--gold);
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(0) rotate(0deg) scale(1); opacity: 0; }
+            10% { opacity: 0.6; }
+            90% { opacity: 0.6; }
+            100% { transform: translateY(110vh) rotate(360deg) scale(0.5); opacity: 0; }
+        }
+
+        /* --- Magnetic Wrapper --- */
+        .magnetic { display: inline-block; transition: filter 0.3s ease; }
+
+        /* --- Hero Section --- */
+        .hero {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: linear-gradient(rgba(5, 5, 5, 0.8), rgba(74, 4, 4, 0.6)), url('https://images.unsplash.com/photo-1583939000240-6927529452b1?q=80&w=2000') center/cover no-repeat;
+            background-attachment: fixed;
+            padding: 2rem;
+            border-bottom: 2px solid var(--gold);
+            z-index: 2;
+        }
+
+        .hero h1 {
+            color: var(--text-main);
+            font-size: clamp(3rem, 6vw, 6rem);
+            letter-spacing: 4px;
+            line-height: 1.1;
+            margin-top: 1rem;
+            text-shadow: 0 10px 30px rgba(0,0,0,0.8);
+        }
+
+        .hero h1 span {
+            color: var(--gold);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin-top: 2rem;
+            color: var(--text-muted);
+            font-weight: 300;
+        }
+
+        /* --- Premium Editorial Layout (Black & Gold) --- */
+        .section-container {
+            position: relative;
+            z-index: 2;
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 8rem 5vw;
+            display: flex;
+            flex-direction: column;
+            gap: 12rem;
+        }
+
+        .theme-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0; 
+        }
+
+        .theme-row.reverse {
+            flex-direction: row-reverse;
+        }
+
+        /* Image Wrapper with Parallax Inner Image */
+        .theme-img-wrapper {
+            flex: 1.2;
+            height: 600px;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+        }
+
+        .theme-img-wrapper img {
+            width: 100%;
+            height: 120%; 
+            object-fit: cover;
+            transform: translateY(-10%); 
+            filter: brightness(0.8) contrast(1.1);
+            transition: filter 0.5s ease;
+        }
+
+        .theme-img-wrapper:hover img {
+            filter: brightness(1) contrast(1.1);
+        }
+
+        /* Unique Shapes using Borders */
+        .shape-arch { border-radius: 300px 300px 0 0; border-top: 4px solid var(--gold); }
+        .shape-arch-inv { border-radius: 0 0 300px 300px; border-bottom: 4px solid var(--gold); }
+        .shape-rounded { border-radius: 20px; }
+        .shape-circle-crop { border-radius: 50%; height: 500px; width: 500px; margin: 0 auto; border: 4px solid var(--royal-maroon);}
+
+        /* Glassmorphism Dark Text Box */
+        .theme-text {
+            flex: 1;
+            padding: 4rem;
+            background: var(--glass-bg);
+            backdrop-filter: blur(25px);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+            position: relative;
+            z-index: 2;
+            margin-left: -100px; 
+            transition: transform 0.4s ease, border-color 0.4s ease;
+        }
+
+        .theme-row.reverse .theme-text {
+            margin-left: 0;
+            margin-right: -100px; 
+        }
+
+        .theme-text:hover {
+            transform: translateY(-10px);
+            border-color: var(--gold);
+        }
+
+        .theme-text h2 {
+            font-size: 2.8rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+            color: var(--text-main);
+        }
+
+        .theme-text p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            font-weight: 300;
+            line-height: 1.8;
+        }
+
+        /* Decorative accents */
+        .deco-line {
+            width: 60px;
+            height: 2px;
+            background: var(--gold);
+            margin: 1.5rem 0;
+        }
+
+        /* --- Services Section --- */
+        .services-section {
+            background-color: var(--bg-surface);
+            padding: 10rem 5vw;
+            position: relative;
+            border-top: 1px solid var(--glass-border);
+            z-index: 2;
+        }
+
+        .services-header {
+            text-align: center;
+            margin-bottom: 6rem;
+        }
+
+        .services-header h2 { color: var(--gold); font-size: 4rem; margin-top: 1rem; letter-spacing: 2px;}
+        .services-header p { color: var(--text-muted); font-size: 1.2rem; max-width: 600px; margin: 0 auto;}
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 3rem;
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+
+        .service-card {
+            background: rgba(10, 10, 10, 0.8);
+            border: 1px solid var(--glass-border);
+            padding: 1.5rem;
+            text-align: center;
+            border-radius: 20px;
+            transition: all 0.4s ease;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .service-card:hover {
+            border-color: var(--gold);
+            transform: translateY(-15px);
+            box-shadow: 0 20px 40px rgba(212, 175, 55, 0.1);
+        }
+
+        .service-img {
+            width: 100%;
+            height: 220px;
+            border-radius: 12px;
+            background-size: cover;
+            background-position: center;
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: filter 0.3s ease;
+            filter: grayscale(30%);
+        }
+
+        .service-card:hover .service-img { filter: grayscale(0%); }
+
+        .img-caricature { background-image: url('{% static 'components/couple_caricature.png' %}'); }
+        .img-10sec { background-image: url('{% static 'components/10_sec_video.png' %}'); }
+        .img-50sec { background-image: url('{% static 'components/15_sec_video.png' %}'); }
+        .img-custom { background-image: url('{% static 'components/custom_video.png' %}'); }
+
+        .service-card h3 { 
+            color: var(--text-main); 
+            font-size: 1.3rem; 
+            font-weight: 600;
+            text-transform: none;
+            letter-spacing: 0;
+        }
+
+        /* --- CTA Button --- */
+        .contact-btn {
+            display: block;
+            width: fit-content;
+            margin: 5rem auto 0;
+            padding: 20px 60px;
+            background-color: var(--gold);
+            color: var(--bg-black);
+            font-size: 1.1rem;
+            font-family: 'Cinzel', serif;
+            font-weight: 700;
+            text-decoration: none;
+            border-radius: 50px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.2);
+            transition: all 0.4s ease;
+            border: 1px solid var(--gold);
+        }
+
+        .contact-btn:hover {
+            background-color: transparent;
+            color: var(--gold);
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.4);
+        }
+
+        @media(max-width: 900px) {
+            .theme-row, .theme-row.reverse { flex-direction: column; gap: 3rem; }
+            .theme-text { margin: -50px 10px 0 !important; padding: 2rem; }
+            .theme-img-wrapper { height: 400px; width: 100%; border-radius: 20px; }
+            .shape-circle-crop { border-radius: 20px; width: 100%; height: 400px; }
+            .cursor-trail, .cursor-dot { display: none; }
+            * { cursor: auto; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="petal-container"></div>
+
+    <div class="cursor-trail" id="cursor-trail"></div>
+    <div class="cursor-dot" id="cursor-dot"></div>
+{% include 'navbar.html' %}
+    <header class="hero">
+        <span class="cursive-accent gs-hero">Celebrate Love</span>
+        <h1 class="gs-hero">Royal Indian<br><span>Invitations</span></h1>
+        <p class="gs-hero">Caricatures, Cinematic Videos & Cultural Themes beautifully designed to blend timeless tradition with your personal aesthetic.</p>
+    </header>
+
+    <div class="section-container">
+        
+        <div class="theme-row">
+            <div class="theme-img-wrapper shape-arch magnetic hover-trigger">
+                <img class="parallax-img" src="{% static 'components/wedding0.png' %}" alt="Vintage Wedding">
+            </div>
+            <div class="theme-text gs-fade">
+                <span class="cursive-accent" style="color: var(--gold);">Timeless</span>
+                <h2>Vintage Classic</h2>
+                <div class="deco-line"></div>
+                <p>Step back in time with our Vintage Classic themed wedding invitations, reminiscent of India's rich historical era. Featuring classic fonts, retro patterns, and a palette of sophisticated colors, these invitations embody elegance and timelessness.</p>
+            </div>
+        </div>
+
+        <div class="theme-row reverse">
+            <div class="theme-img-wrapper shape-rounded magnetic hover-trigger">
+                <img class="parallax-img" src="{% static 'components/wedding1.png' %}" alt="Fusion Wedding">
+            </div>
+            <div class="theme-text gs-fade">
+                <span class="cursive-accent" style="color: var(--gold);">Modernity</span>
+                <h2>Fusion Contemporary</h2>
+                <div class="deco-line"></div>
+                <p>Experience the perfect blend of modern aesthetics and traditional elements. These designs mix contemporary art styles with classic Indian motifs, offering a fresh, eclectic look. Ideal for couples who appreciate a modern twist to traditional symbolism.</p>
+            </div>
+        </div>
+
+        <div class="theme-row">
+            <div class="theme-img-wrapper shape-circle-crop magnetic hover-trigger">
+                <img class="parallax-img" src="{% static 'components/wedding2.png' %}" alt="Royal Wedding">
+            </div>
+            <div class="theme-text gs-fade">
+                <span class="cursive-accent" style="color: var(--gold);">Regal</span>
+                <h2>Royal Indian</h2>
+                <div class="deco-line"></div>
+                <p>Immerse in the splendor of royal heritage with our Royal themed invitations. Inspired by the opulence of Indian palaces and royal traditions, crafted with rich colors, intricate patterns, and luxurious details to infuse your day with majesty.</p>
+            </div>
+        </div>
+
+        <div class="theme-row reverse">
+            <div class="theme-img-wrapper shape-arch-inv magnetic hover-trigger">
+                <img class="parallax-img" src="{% static 'components/wedding3.png' %}" alt="Islamic Wedding">
+            </div>
+            <div class="theme-text gs-fade">
+                <span class="cursive-accent" style="color: var(--gold);">Elegance</span>
+                <h2>Muslim Invites</h2>
+                <div class="deco-line"></div>
+                <p>Reflect the beauty of Islamic culture in your wedding invitations. Adorned with Islamic geometric patterns, elegant calligraphy, and motifs that evoke the spiritual and aesthetic heritage of Islam, designed to gracefully announce your union.</p>
+            </div>
+        </div>
+
+        <div class="theme-row">
+            <div class="theme-img-wrapper shape-rounded magnetic hover-trigger">
+                <img class="parallax-img" src="{% static 'components/wedding4.png' %}" alt="Hindu Wedding">
+            </div>
+            <div class="theme-text gs-fade">
+                <span class="cursive-accent" style="color: var(--gold);">Grace</span>
+                <h2>Hindu Invitations</h2>
+                <div class="deco-line"></div>
+                <p>Honor the rich traditions of Hindu weddings with invitations that encapsulate the essence of ancient rituals. Featuring traditional motifs like the lotus, Ganesha, and Sanskrit shlokas harmoniously blended in timeless grace.</p>
+            </div>
+        </div>
+
+    </div>
+
+    <section class="services-section">
+        <div class="services-header gs-fade">
+            <span class="cursive-accent" style="color: var(--royal-maroon); text-shadow: none;">Make it yours</span>
+            <h2>Transform Your Invitations</h2>
+            <p>Each service is crafted meticulously to capture the essence of your unique love story.</p>
+        </div>
+        
+        <div class="services-grid">
+            <div class="service-card magnetic hover-trigger gs-up">
+                <div class="service-img img-caricature"></div>
+                <h3>Couple Caricatures</h3>
+            </div>
+            <div class="service-card magnetic hover-trigger gs-up">
+                <div class="service-img img-10sec"></div>
+                <h3>10 Sec Video Invite</h3>
+            </div>
+            <div class="service-card magnetic hover-trigger gs-up">
+                <div class="service-img img-50sec"></div>
+                <h3>50 Sec Event Schedule</h3>
+            </div>
+            <div class="service-card magnetic hover-trigger gs-up">
+                <div class="service-img img-custom"></div>
+                <h3>Custom Video Gen</h3>
+            </div>
+        </div>
+
+        <a href="/#contact/" class="contact-btn magnetic hover-trigger gs-fade">Begin Your Journey</a>
+    </section>
+
+    <script>
+        // 1. Fetch Navbar & Add Dynamic Hover Events
+        fetch('navbar.html')
+            .then(res => res.ok ? res.text() : '')
+            .then(data => {
+                document.getElementById('navbar-container').innerHTML = data;
+                
+                // Add hover effect to dynamically loaded navbar links
+                const navLinks = document.querySelectorAll('#navbar-container a');
+                const cursorTrail = document.getElementById("cursor-trail");
+                
+                navLinks.forEach(link => {
+                    link.addEventListener("mouseenter", () => cursorTrail.classList.add("hover-active"));
+                    link.addEventListener("mouseleave", () => cursorTrail.classList.remove("hover-active"));
+                });
+            });
+
+        gsap.registerPlugin(ScrollTrigger);
+
+        // 2. Custom Elegant Cursor
+        const cursorTrail = document.getElementById("cursor-trail");
+        const cursorDot = document.getElementById("cursor-dot");
+
+        const xToTrail = gsap.quickTo(cursorTrail, "x", {duration: 0.6, ease: "power3"});
+        const yToTrail = gsap.quickTo(cursorTrail, "y", {duration: 0.6, ease: "power3"});
+        const xToDot = gsap.quickTo(cursorDot, "x", {duration: 0.1, ease: "power3"});
+        const yToDot = gsap.quickTo(cursorDot, "y", {duration: 0.1, ease: "power3"});
+
+        window.addEventListener("mousemove", (e) => {
+            xToTrail(e.clientX);
+            yToTrail(e.clientY);
+            xToDot(e.clientX);
+            yToDot(e.clientY);
+        });
+
+        document.querySelectorAll(".hover-trigger").forEach(el => {
+            el.addEventListener("mouseenter", () => cursorTrail.classList.add("hover-active"));
+            el.addEventListener("mouseleave", () => cursorTrail.classList.remove("hover-active"));
+        });
+
+        // 3. Falling Gold Dust Particles
+        const petalContainer = document.getElementById('petal-container');
+        const elements = ['✨', '✦', '·', '⋆']; 
+        
+        function createPetal() {
+            const petal = document.createElement('div');
+            petal.classList.add('petal');
+            petal.innerText = elements[Math.floor(Math.random() * elements.length)];
+            
+            petal.style.left = Math.random() * 100 + 'vw';
+            petal.style.fontSize = (Math.random() * 1 + 0.5) + 'rem';
+            
+            const duration = Math.random() * 8 + 6; 
+            petal.style.animationDuration = duration + 's';
+            
+            petalContainer.appendChild(petal);
+            setTimeout(() => petal.remove(), duration * 1000);
+        }
+
+        setInterval(createPetal, 300); 
+
+        // 4. GSAP Hero Animations
+        gsap.from(".gs-hero", {
+            y: 50, opacity: 0, duration: 1.2, stagger: 0.2, ease: "power3.out", delay: 0.2
+        });
+
+        // 5. GSAP Scroll Animations (Reveals & Parallax)
+        gsap.utils.toArray(".gs-fade").forEach(el => {
+            gsap.from(el, {
+                y: 80, opacity: 0, duration: 1.2, ease: "power3.out",
+                scrollTrigger: { trigger: el, start: "top 85%" }
+            });
+        });
+
+        gsap.utils.toArray(".gs-up").forEach((el, i) => {
+            gsap.from(el, {
+                y: 100, opacity: 0, duration: 1, delay: i * 0.1, ease: "power3.out",
+                scrollTrigger: { trigger: ".services-grid", start: "top 80%" }
+            });
+        });
+
+        // Parallax Effect for Images inside wrappers
+        gsap.utils.toArray(".theme-img-wrapper").forEach(wrapper => {
+            const img = wrapper.querySelector(".parallax-img");
+            gsap.to(img, {
+                yPercent: 20,
+                ease: "none",
+                scrollTrigger: {
+                    trigger: wrapper,
+                    start: "top bottom",
+                    end: "bottom top",
+                    scrub: true
+                }
+            });
+        });
+
+        // 6. Magnetic Hover Elements
+        const magneticElements = document.querySelectorAll('.magnetic');
+        magneticElements.forEach((el) => {
+            el.addEventListener('mousemove', (e) => {
+                const rect = el.getBoundingClientRect();
+                const h = rect.width / 2;
+                const w = rect.height / 2;
+                const x = e.clientX - rect.left - h;
+                const y = e.clientY - rect.top - w;
+
+                gsap.to(el, { x: x * 0.2, y: y * 0.2, duration: 0.4, ease: 'power2.out' });
+            });
+
+            el.addEventListener('mouseleave', () => {
+                gsap.to(el, { x: 0, y: 0, duration: 0.8, ease: 'elastic.out(1, 0.3)' });
+            });
+        });
+    </script>
+    {% include 'footer.html' %}
+</body>
+</html>
+
+```

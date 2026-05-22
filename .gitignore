@@ -1,0 +1,10 @@
+**/*.pyc
+**/__pycache__
+**/migrations
+db.sqlite3
+# Virtual env
+env/
+venv/
+
+# Environment vars
+.env

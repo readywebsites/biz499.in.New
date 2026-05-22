@@ -1,0 +1,458 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Budget E-commerce Website Development - biz499</title>
+
+    <meta name="description" content="Affordable Neo-brutalist e-commerce websites for fashion, skincare, and luxury brands in India.">
+
+    <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700;900&display=swap" rel="stylesheet">
+
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <style>
+        /* --- Neo-Brutalist Pop Theme --- */
+        :root {
+            --pop-pink: #FF007F;
+            --pop-blue: #00E5FF;
+            --pop-yellow: #FFDE00;
+            --pop-orange: #FF5722;
+            --pop-purple: #B400FF;
+            --solid-black: #000000;
+            --solid-white: #FFFFFF;
+            --bg-main: #F4F4F0; /* Off-white paper background */
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            cursor: none; 
+            font-family: "Space Grotesk", sans-serif !important;
+        }
+        
+        body {
+            background-color: var(--bg-main);
+            color: var(--solid-black);
+            overflow-x: hidden;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1, h2, h3, h4 {
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: -1px; 
+            color: var(--solid-black);
+        }
+
+        /* --- Neo-Brutalist Shadows & Borders --- */
+        .neo-box {
+            border: 4px solid var(--solid-black);
+            box-shadow: 8px 8px 0px var(--solid-black);
+            border-radius: 12px;
+            transition: all 0.2s ease-in-out;
+            background-color: var(--solid-white);
+        }
+
+        .neo-box:hover {
+            transform: translate(-4px, -4px);
+            box-shadow: 12px 12px 0px var(--solid-black);
+        }
+
+        /* --- Custom Playful Cursor --- */
+        .cursor-trail {
+            position: fixed;
+            top: 0; left: 0;
+            width: 40px; height: 40px;
+            border: 3px solid var(--solid-black);
+            background: var(--pop-yellow);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 99998; 
+            transform: translate(-50%, -50%);
+            transition: width 0.2s, height 0.2s;
+            mix-blend-mode: normal;
+        }
+
+        .cursor-trail.hover-active {
+            width: 70px; height: 70px;
+            background: var(--pop-pink);
+            border-radius: 10px; /* Changes shape on hover */
+        }
+
+        .cursor-dot {
+            position: fixed;
+            top: 0; left: 0;
+            width: 8px; height: 8px;
+            background: var(--solid-black); 
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 99999;
+            transform: translate(-50%, -50%);
+        }
+
+        /* --- Layout Blocks (Solid Colors) --- */
+        .section-block {
+            padding: 8rem 5vw;
+            border-bottom: 5px solid var(--solid-black);
+            position: relative;
+        }
+
+        .bg-yellow { background-color: var(--pop-yellow); }
+        .bg-pink { background-color: var(--pop-pink); }
+        .bg-blue { background-color: var(--pop-blue); }
+        .bg-black { background-color: var(--solid-black); color: var(--solid-white); }
+        .bg-black h1, .bg-black h2, .bg-black h3, .bg-black p { color: var(--solid-white); }
+
+        /* --- Floating Stickers & GIFs --- */
+        .sticker {
+            position: absolute;
+            z-index: 10;
+            border: 3px solid var(--solid-black);
+            box-shadow: 5px 5px 0px var(--solid-black);
+            background: var(--solid-white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            font-weight: 900;
+            text-transform: uppercase;
+        }
+
+        .sticker img { width: 100%; height: 100%; object-fit: cover; }
+
+        /* --- Hero Section --- */
+        .hero {
+            min-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding-top: 150px;
+            overflow: hidden;
+        }
+
+        h1.hero-title {
+            font-size: clamp(4rem, 10vw, 10rem);
+            line-height: 0.85;
+            margin: 0;
+        }
+
+        /* Outline Text Effect */
+        .text-outline {
+            color: transparent;
+            -webkit-text-stroke: 3px var(--solid-black);
+        }
+        
+        .hero .text-outline {
+            -webkit-text-stroke: 3px var(--solid-black);
+        }
+
+        .hero-desc {
+            font-size: 1.5rem;
+            font-weight: 700;
+            max-width: 600px;
+            margin-top: 2rem;
+            background: var(--solid-white);
+            padding: 1rem 1.5rem;
+            border: 3px solid var(--solid-black);
+            box-shadow: 6px 6px 0px var(--solid-black);
+            border-radius: 8px;
+        }
+
+        /* --- Marquee --- */
+        .marquee-container {
+            width: 100%;
+            overflow: hidden;
+            padding: 1.5rem 0;
+            border-bottom: 5px solid var(--solid-black);
+        }
+
+        .marquee-text {
+            display: flex;
+            white-space: nowrap;
+            font-size: 2.5rem;
+            font-weight: 900;
+            text-transform: uppercase;
+        }
+
+        /* --- Grid Section --- */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            padding: 3rem 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .feature-icon {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            background: var(--solid-white);
+            padding: 10px;
+            border: 3px solid var(--solid-black);
+            border-radius: 50%;
+            box-shadow: 4px 4px 0px var(--solid-black);
+            color: var(--solid-black);
+        }
+
+        .feature-card h3 { font-size: 2rem; margin-bottom: 1rem; color: var(--solid-black); }
+        .feature-card p { font-size: 1.1rem; font-weight: 600; color: var(--solid-black); }
+
+        /* --- Image Showcase / Niches --- */
+        .image-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        .img-box {
+            position: relative;
+            height: 350px;
+            overflow: hidden;
+        }
+
+        .img-box img {
+            width: 100%; height: 100%; object-fit: cover;
+            border-bottom: 4px solid var(--solid-black);
+        }
+        
+        .img-title {
+            position: absolute;
+            bottom: 0; left: 0; width: 100%;
+            background: var(--solid-white);
+            padding: 15px;
+            font-weight: 900;
+            font-size: 1.5rem;
+            text-align: center;
+            border-top: 4px solid var(--solid-black);
+        }
+
+        /* --- Brutalist Button --- */
+        .btn-brutal {
+            display: inline-block;
+            font-weight: 900;
+            font-size: 1.5rem;
+            padding: 20px 50px;
+            color: var(--solid-white);
+            background: var(--solid-black);
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 3rem;
+            border: 4px solid var(--solid-black);
+            box-shadow: 8px 8px 0px rgba(0,0,0,0.3);
+            transition: all 0.2s ease;
+            border-radius: 8px;
+        }
+
+        .btn-brutal:hover {
+            background: var(--pop-yellow);
+            color: var(--solid-black);
+            transform: translate(-4px, -4px);
+            box-shadow: 12px 12px 0px var(--solid-black);
+        }
+
+        @media (max-width: 900px) {
+            h1.hero-title { font-size: 15vw; }
+            .sticker { display: none; } /* Hide heavy stickers on mobile */
+            .cursor-dot, .cursor-trail { display: none; }
+            * { cursor: auto; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="cursor-trail" id="cursor-trail"></div>
+    <div class="cursor-dot" id="cursor-dot"></div>
+
+    {% include 'navbar.html' %} 
+
+    <section class="section-block hero bg-pink">
+        
+        <div class="sticker gs-spin" style="width: 120px; height: 120px; border-radius: 50%; top: 15%; right: 15%;">
+            <img src="{% static 'images/cart.gif' %}" onerror="this.src='https://cdn-icons-png.flaticon.com/512/3081/3081840.png'">
+        </div>
+        
+        <div class="sticker gs-bounce" style="width: 180px; height: 60px; border-radius: 10px; bottom: 15%; right: 10%; background: var(--pop-yellow);">
+            <h2 style="font-size: 1.5rem; margin-top: 10px;">SELL MORE!</h2>
+        </div>
+        
+        <div class="sticker gs-bounce" style="width: 100px; height: 100px; border-radius: 50%; top: 25%; left: 10%; background: var(--pop-blue);">
+            <h2 style="font-size: 3rem; margin-top: 10px; color: white;">%</h2>
+        </div>
+
+        <h1 class="hero-title gs-anim">BUDGET</h1>
+        <h1 class="hero-title gs-anim text-outline">E-COMMERCE</h1>
+        <h1 class="hero-title gs-anim" style="color: var(--pop-yellow);">MAGIC</h1>
+        
+        <p class="hero-desc gs-anim">Launch your fashion, skincare, or luxury store without breaking the bank. Fast, scalable, and built to convert scrollers into buyers.</p>
+        
+        <a href="/#contact/" class="neo-box btn-brutal gs-anim magnetic hover-trigger" style="background: var(--pop-blue); color: var(--solid-black);">Start Selling</a>
+    </section>
+
+    <div class="marquee-container bg-yellow hover-trigger">
+        <div class="marquee-text" id="marquee">
+            FASHION & APPAREL &nbsp; ✶ &nbsp; SKINCARE & WELLNESS &nbsp; ✶ &nbsp; LUXURY WATCHES &nbsp; ✶ &nbsp; PHARMACY & MEDICINES &nbsp; ✶ &nbsp; 
+        </div>
+    </div>
+
+    <section class="section-block bg-main features-section">
+        <h2 class="gs-fade" style="font-size: clamp(3rem, 6vw, 5rem); text-align: center; margin-bottom: 4rem;">EVERYTHING YOU NEED TO <br><span style="background: var(--pop-blue); color: var(--solid-white); padding: 0 15px;">DOMINATE</span></h2>
+
+        <div class="grid-container">
+            
+            <div class="neo-box feature-card gs-fade hover-trigger magnetic" style="background-color: var(--pop-yellow);">
+                <i class='bx bx-mobile feature-icon'></i>
+                <h3>Mobile-First Shopping</h3>
+                <p>90% of your buyers use phones. We build buttery-smooth mobile experiences so they check out faster.</p>
+            </div>
+
+            <div class="neo-box feature-card gs-fade hover-trigger magnetic" style="background-color: var(--pop-pink);">
+                <i class='bx bx-credit-card feature-icon'></i>
+                <h3>Payment Gateways</h3>
+                <p>Seamless integration with UPI, Credit Cards, and Wallets to ensure zero friction during checkout.</p>
+            </div>
+
+            <div class="neo-box feature-card gs-fade hover-trigger magnetic" style="background-color: var(--pop-blue);">
+                <i class='bx bxl-whatsapp feature-icon'></i>
+                <h3>WhatsApp Chat</h3>
+                <p>Let customers negotiate or ask questions directly on WhatsApp to close deals instantly.</p>
+            </div>
+
+            <div class="neo-box feature-card gs-fade hover-trigger magnetic" style="background-color: var(--solid-white);">
+                <i class='bx bx-package feature-icon'></i>
+                <h3>Inventory Mgmt.</h3>
+                <p>Easily track stock levels, manage variations, and process orders from a super simple dashboard.</p>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="section-block bg-blue">
+        <h2 class="gs-fade" style="color: var(--solid-black); text-align: center; font-size: clamp(3rem, 6vw, 4.5rem);">BUILT FOR YOUR BRAND</h2>
+        
+        <div class="image-gallery">
+            <div class="neo-box img-box gs-fade hover-trigger">
+                <img src="{% static 'images/fashion-store.gif' %}" onerror="this.src='https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?q=80&w=800'" alt="Fashion Store">
+                <div class="img-title">FASHION</div>
+            </div>
+            <div class="neo-box img-box gs-fade hover-trigger">
+                <img src="{% static 'images/skincare.gif' %}" onerror="this.src='https://images.unsplash.com/photo-1556228578-0d85b1a4d571?q=80&w=800'" alt="Skincare">
+                <div class="img-title" style="background: var(--pop-pink); color: white;">SKINCARE</div>
+            </div>
+            <div class="neo-box img-box gs-fade hover-trigger">
+                <img src="{% static 'images/luxury.gif' %}" onerror="this.src='https://images.unsplash.com/photo-1523170335258-f5ed11844a49?q=80&w=800'" alt="Watches">
+                <div class="img-title" style="background: var(--pop-yellow);">LUXURY</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-block bg-black" style="text-align: center;">
+        
+        <div class="sticker gs-bounce" style="width: 100px; height: 100px; top: 10%; left: 15%; border-radius: 50%; background: var(--pop-pink); border: 3px solid var(--solid-white);">
+            <i class='bx bx-down-arrow-alt' style="font-size: 5rem; color: var(--solid-white); margin-top: 10px;"></i>
+        </div>
+
+        <h2 class="gs-fade" style="font-size: clamp(3rem, 7vw, 7rem); line-height: 1;">READY TO SELL?</h2>
+        <p class="gs-fade" style="font-size: 1.5rem; font-weight: 700; margin-top: 1rem; color: var(--pop-yellow) !important;">Get a premium online store without the premium price tag.</p>
+        
+        <a href="/#contact/" class="neo-box btn-brutal magnetic hover-trigger gs-fade" style="background: var(--pop-yellow); color: var(--solid-black); border-color: var(--solid-white);">Launch Store Now</a>
+    </section>
+
+    <script>
+        // 1. Fetch Navbar
+        fetch("{% static 'navbar.html' %}") 
+            .then(res => res.ok ? res.text() : '')
+            .then(data => {
+                document.getElementById('navbar-container').innerHTML = data;
+                const navLinks = document.querySelectorAll('#navbar-container a');
+                const cursorTrail = document.getElementById("cursor-trail");
+                navLinks.forEach(link => {
+                    link.addEventListener("mouseenter", () => cursorTrail.classList.add("hover-active"));
+                    link.addEventListener("mouseleave", () => cursorTrail.classList.remove("hover-active"));
+                });
+            });
+
+        gsap.registerPlugin(ScrollTrigger);
+
+        // 2. Playful Square/Circle Cursor
+        const cursorTrail = document.getElementById("cursor-trail");
+        const cursorDot = document.getElementById("cursor-dot");
+
+        const xToTrail = gsap.quickTo(cursorTrail, "x", {duration: 0.2, ease: "power3"});
+        const yToTrail = gsap.quickTo(cursorTrail, "y", {duration: 0.2, ease: "power3"});
+        const xToDot = gsap.quickTo(cursorDot, "x", {duration: 0.1, ease: "power3"});
+        const yToDot = gsap.quickTo(cursorDot, "y", {duration: 0.1, ease: "power3"});
+
+        window.addEventListener("mousemove", (e) => {
+            xToTrail(e.clientX);
+            yToTrail(e.clientY);
+            xToDot(e.clientX);
+            yToDot(e.clientY);
+        });
+
+        document.querySelectorAll(".hover-trigger").forEach(el => {
+            el.addEventListener("mouseenter", () => cursorTrail.classList.add("hover-active"));
+            el.addEventListener("mouseleave", () => cursorTrail.classList.remove("hover-active"));
+        });
+
+        // 3. GIF / Sticker Animations
+        gsap.to(".gs-spin", { rotation: 360, duration: 8, repeat: -1, ease: "none" });
+        gsap.to(".gs-bounce", { y: -20, duration: 0.5, repeat: -1, yoyo: true, ease: "power1.inOut" });
+
+        // 4. Hero Reveal
+        gsap.from(".gs-anim", {
+            y: 80, opacity: 0, duration: 1, stagger: 0.15, ease: "back.out(1.5)", delay: 0.2
+        });
+
+        // 5. Endless Marquee Animation
+        gsap.to("#marquee", {
+            xPercent: -50, ease: "none", duration: 12, repeat: -1
+        });
+
+        // 6. Scroll Fade Animations
+        gsap.utils.toArray(".gs-fade").forEach(el => {
+            gsap.from(el, {
+                y: 50, opacity: 0, duration: 0.8, ease: "back.out(1.2)",
+                scrollTrigger: { trigger: el, start: "top 85%" }
+            });
+        });
+
+        // 7. Magnetic Card Logic
+        const magneticElements = document.querySelectorAll('.magnetic');
+        magneticElements.forEach((el) => {
+            el.addEventListener('mousemove', (e) => {
+                const rect = el.getBoundingClientRect();
+                const h = rect.width / 2;
+                const w = rect.height / 2;
+                const x = e.clientX - rect.left - h;
+                const y = e.clientY - rect.top - w;
+                gsap.to(el, { x: x * 0.15, y: y * 0.15, duration: 0.4, ease: 'power2.out' });
+            });
+
+            el.addEventListener('mouseleave', () => {
+                gsap.to(el, { x: 0, y: 0, duration: 0.8, ease: 'elastic.out(1, 0.3)' });
+            });
+        });
+    </script>
+    {% include 'footer.html' %}
+</body>
+</html>

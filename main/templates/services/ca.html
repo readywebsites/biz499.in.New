@@ -1,0 +1,533 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SEO-Optimized Websites for Chartered Accountants - biz499</title>
+
+    <meta name="description" content="Professional, SEO-optimized website solutions for Chartered Accountants. GST, taxation, compliance services, and lead generation setup.">
+    <meta name="keywords" content="CA website design, accountant website, GST landing pages, financial SEO, corporate website layout">
+
+    <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <style>
+        /* --- Corporate CA Theme: Midnight Blue + Premium Gold --- */
+        :root {
+            --bg-corp: #070B19; /* Deep Midnight Blue */
+            --bg-card: #0F172A; /* Slate Blue */
+            --accent-gold: #EAB308; /* Premium Gold */
+            --accent-blue: #3B82F6; /* Trust Blue */
+            --text-main: #F8FAFC;
+            --text-muted: #94A3B8;
+            --glass-border: rgba(234, 179, 8, 0.2);
+            --gold-glow: rgba(234, 179, 8, 0.15);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            cursor: none; 
+            font-family: "Mori", "Inter", sans-serif !important;
+        }
+        
+        body {
+            background-color: var(--bg-corp);
+            color: var(--text-main);
+            overflow-x: hidden;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            /* Subtle Blueprint/Financial Grid Background */
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            background-size: 50px 50px;
+        }
+
+        h1, h2, h3, h4 {
+            font-weight: 800;
+            letter-spacing: -1px; 
+            color: var(--text-main);
+        }
+
+        .text-accent { color: var(--accent-gold); }
+
+        /* --- Magnetic Element Wrapper --- */
+        .magnetic { display: inline-block; transition: filter 0.3s ease; }
+
+        /* --- Corporate Sharp Cursor --- */
+        .cursor-trail {
+            position: fixed;
+            top: 0; left: 0;
+            width: 40px; height: 40px;
+            border: 1px solid var(--accent-gold);
+            border-radius: 4px; /* Square cursor for corporate feel */
+            pointer-events: none;
+            z-index: 99998; 
+            transform: translate(-50%, -50%) rotate(45deg); /* Diamond shape */
+            transition: width 0.3s ease, height 0.3s ease, background 0.3s ease, border-radius 0.3s ease;
+        }
+
+        .cursor-trail.hover-active {
+            width: 70px; height: 70px;
+            background: rgba(234, 179, 8, 0.1);
+            border-radius: 50%; /* Becomes circle on hover */
+            transform: translate(-50%, -50%) rotate(0deg);
+        }
+
+        .cursor-dot {
+            position: fixed;
+            top: 0; left: 0;
+            width: 6px; height: 6px;
+            background: var(--text-main); 
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 99999;
+            transform: translate(-50%, -50%);
+        }
+
+        /* --- Floating Abstract Financial Shapes --- */
+        .shape-layer {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .fin-bar {
+            position: absolute;
+            width: 8px;
+            background: var(--accent-blue);
+            opacity: 0.2;
+            border-radius: 4px;
+        }
+
+        .fin-square {
+            position: absolute;
+            width: 60px; height: 60px;
+            border: 2px solid var(--accent-gold);
+            opacity: 0.1;
+            transform: rotate(45deg);
+        }
+
+        .ambient-glow {
+            position: absolute;
+            width: 40vw; height: 40vw;
+            border-radius: 50%;
+            filter: blur(120px);
+            opacity: 0.08;
+            z-index: -1;
+        }
+        .glow-1 { top: -10%; right: -10%; background: var(--accent-gold); }
+        .glow-2 { bottom: -10%; left: -10%; background: var(--accent-blue); }
+
+        /* --- Hero Section --- */
+        .hero {
+            position: relative;
+            z-index: 2;
+            min-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 160px 2rem 50px;
+            text-align: center;
+        }
+
+        .hero-badge {
+            padding: 8px 20px;
+            background: rgba(234, 179, 8, 0.1);
+            border: 1px solid var(--glass-border);
+            border-radius: 50px;
+            color: var(--accent-gold);
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        h1.hero-title {
+            font-size: clamp(3rem, 7vw, 7.5rem);
+            line-height: 1.05;
+            margin: 0;
+        }
+
+        .hero-desc {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            max-width: 650px;
+            margin-top: 2rem;
+        }
+
+        /* --- New Layout: Bento Box Grid for SEO & Features --- */
+        .bento-section {
+            position: relative;
+            z-index: 2;
+            padding: 8rem 5vw;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 5rem;
+        }
+        .section-header h2 { font-size: 3.5rem; }
+        .section-header p { color: var(--text-muted); font-size: 1.2rem; margin-top: 1rem; }
+
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-auto-rows: minmax(280px, auto);
+            gap: 1.5rem;
+        }
+
+        .bento-card {
+            background: var(--bg-card);
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 20px;
+            padding: 2.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .bento-card:hover {
+            border-color: var(--glass-border);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px var(--gold-glow);
+        }
+
+        .bento-icon {
+            font-size: 3rem;
+            color: var(--accent-gold);
+            margin-bottom: 1.5rem;
+        }
+
+        .bento-card h3 { font-size: 1.5rem; margin-bottom: 1rem; }
+        .bento-card p { color: var(--text-muted); font-size: 1rem; }
+
+        /* Spanning logic for Bento */
+        .span-col-2 { grid-column: span 2; }
+        .span-row-2 { grid-row: span 2; }
+
+        /* --- New Layout: Sticky Split-Screen for Services --- */
+        .sticky-section {
+            position: relative;
+            z-index: 2;
+            padding: 8rem 5vw;
+            background: #040711;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .sticky-container {
+            display: flex;
+            max-width: 1300px;
+            margin: 0 auto;
+            gap: 5rem;
+            align-items: flex-start;
+        }
+
+        .sticky-left {
+            flex: 1;
+            position: sticky;
+            top: 150px; /* Pins it when scrolling */
+        }
+
+        .sticky-left h2 { font-size: 4rem; line-height: 1.1; margin-bottom: 1.5rem; }
+        .sticky-left p { font-size: 1.2rem; color: var(--text-muted); }
+
+        .sticky-right {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 4rem;
+        }
+
+        .service-block {
+            background: var(--bg-card);
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 20px;
+            padding: 3rem;
+            opacity: 0;
+            transform: translateY(50px);
+        }
+
+        .service-block h3 {
+            font-size: 2rem;
+            color: var(--accent-blue);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .service-block p { font-size: 1.1rem; color: var(--text-muted); }
+
+        /* --- Corporate CTA Section --- */
+        .cta-section {
+            position: relative;
+            z-index: 2;
+            padding: 10rem 5vw;
+            text-align: center;
+        }
+
+        .btn-solid {
+            display: inline-block;
+            font-weight: 800;
+            font-size: 1.3rem;
+            padding: 20px 50px;
+            color: var(--bg-corp);
+            background: var(--accent-gold);
+            border-radius: 4px;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.4s ease;
+            margin-top: 3rem;
+        }
+
+        .btn-solid:hover {
+            background: #ffffff;
+            box-shadow: 0 10px 30px var(--gold-glow);
+            transform: translateY(-3px);
+        }
+
+        @media (max-width: 900px) {
+            h1.hero-title { font-size: 11vw; }
+            .bento-grid { grid-template-columns: 1fr; }
+            .span-col-2, .span-row-2 { grid-column: span 1; grid-row: span 1; }
+            .sticky-container { flex-direction: column; }
+            .sticky-left { position: relative; top: 0; margin-bottom: 3rem; }
+            .cursor-dot, .cursor-trail { display: none; }
+            * { cursor: auto; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="shape-layer">
+        <div class="ambient-glow glow-1"></div>
+        <div class="ambient-glow glow-2"></div>
+        
+        <div class="fin-square gs-float" style="top: 20%; left: 10%;"></div>
+        <div class="fin-square gs-float" style="bottom: 30%; right: 15%;"></div>
+        
+        <div class="fin-bar gs-float-y" style="height: 100px; top: 30%; right: 10%;"></div>
+        <div class="fin-bar gs-float-y" style="height: 150px; top: 25%; right: 12%; animation-delay: 1s;"></div>
+        <div class="fin-bar gs-float-y" style="height: 70px; top: 40%; right: 8%; animation-delay: 2s;"></div>
+    </div>
+
+    <div class="cursor-trail" id="cursor-trail"></div>
+    <div class="cursor-dot" id="cursor-dot"></div>
+
+    {% include 'navbar.html' %}
+
+    <section class="hero">
+        <div class="hero-badge gs-hero">For Chartered Accountants</div>
+        <h1 class="hero-title gs-hero">CORPORATE SEO &</h1>
+        <h1 class="hero-title gs-hero"><span class="text-accent">DIGITAL PRESENCE</span></h1>
+        
+        <p class="hero-desc gs-hero">Establish authority and capture high-intent financial leads with a professional, SEO-optimized corporate website built exclusively for CA firms.</p>
+        
+        <a href="/#contact/" class="btn-solid gs-hero magnetic hover-trigger" style="margin-top: 2.5rem;">Book a Consultation</a>
+    </section>
+
+    <section class="bento-section">
+        <div class="section-header gs-fade">
+            <h2>Built for <span class="text-accent">Financial Growth</span></h2>
+            <p>Every feature engineered to build trust and acquire clients.</p>
+        </div>
+
+        <div class="bento-grid">
+            
+            <div class="bento-card span-col-2 gs-fade hover-trigger magnetic">
+                <i class='bx bx-search-alt bento-icon'></i>
+                <h3>Google-Friendly & Schema Setup</h3>
+                <p>Advanced Local SEO and Schema markup (LocalBusiness, FinancialService) ensures your firm ranks at the top for local accounting and tax queries.</p>
+            </div>
+
+            <div class="bento-card gs-fade hover-trigger magnetic">
+                <i class='bx bx-rocket bento-icon'></i>
+                <h3>Fast-Loading</h3>
+                <p>Lightning-fast architecture optimized for Core Web Vitals to prevent bounce rates.</p>
+            </div>
+
+            <div class="bento-card span-row-2 gs-fade hover-trigger magnetic">
+                <i class='bx bx-filter-alt bento-icon' style="font-size: 4rem;"></i>
+                <h3>Lead Generation Forms</h3>
+                <p>Strategically placed, conversion-optimized enquiry forms. Capture leads for GST registration, ITR filing, and audit services directly from high-intent visitors.</p>
+            </div>
+
+            <div class="bento-card gs-fade hover-trigger magnetic">
+                <i class='bx bx-mobile-alt bento-icon'></i>
+                <h3>Mobile Responsive</h3>
+                <p>Flawless readability and strong CTAs across all smartphones and tablets.</p>
+            </div>
+
+            <div class="bento-card span-col-2 gs-fade hover-trigger magnetic">
+                <i class='bx bx-news bento-icon'></i>
+                <h3>Financial Blog Integration</h3>
+                <p>Seamlessly publish tax updates, budget analysis, and compliance news to establish thought leadership and continuously drive organic traffic.</p>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="sticky-section">
+        <div class="sticky-container">
+            
+            <div class="sticky-left">
+                <h2>Service-Wise<br><span class="text-accent">SEO Pages</span></h2>
+                <p>Instead of a single chaotic homepage, we build dedicated, deep-linked landing pages for each of your core capabilities. This guarantees maximum relevance for Google searches.</p>
+                <a href="/#contact/" class="btn-solid magnetic hover-trigger">Optimize Your Services</a>
+            </div>
+
+            <div class="sticky-right">
+                
+                <div class="service-block gs-reveal hover-trigger magnetic">
+                    <h3><i class='bx bx-building-house'></i> GST & Indirect Tax</h3>
+                    <p>Targeted landing pages for GST Registration, Filing, and Advisory. Optimized with exact keywords business owners search for when facing compliance hurdles.</p>
+                </div>
+
+                <div class="service-block gs-reveal hover-trigger magnetic">
+                    <h3><i class='bx bx-briefcase-alt-2'></i> Corporate Taxation</h3>
+                    <p>Detailed service pages highlighting your expertise in Corporate Tax Planning, Transfer Pricing, and International Taxation to attract enterprise clients.</p>
+                </div>
+
+                <div class="service-block gs-reveal hover-trigger magnetic">
+                    <h3><i class='bx bx-check-shield'></i> Audit & Assurance</h3>
+                    <p>Build unshakeable trust with dedicated sections for Statutory Audits, Internal Audits, and Due Diligence, complete with robust security messaging.</p>
+                </div>
+
+                <div class="service-block gs-reveal hover-trigger magnetic">
+                    <h3><i class='bx bx-line-chart'></i> Startup Advisory</h3>
+                    <p>Capture the booming startup ecosystem with pages tailored for Company Incorporation, Valuation, and Virtual CFO services.</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <h2 class="gs-fade" style="font-size: 4rem; line-height: 1.1;">Ready to upgrade your<br>Firm's Digital Identity?</h2>
+        <a href="/#contact/" class="btn-solid magnetic hover-trigger gs-fade">Get a Free Proposal</a>
+    </section>
+
+    <script>
+        const navLinks = document.querySelectorAll('.custom-navbar a');
+        const navCursorTrail = document.getElementById("cursor-trail");
+
+        navLinks.forEach(link => {
+            link.addEventListener("mouseenter", () => navCursorTrail.classList.add("hover-active"));
+            link.addEventListener("mouseleave", () => navCursorTrail.classList.remove("hover-active"));
+        });
+
+        gsap.registerPlugin(ScrollTrigger);
+
+        // 2. Corporate Sharp Cursor Logic
+        const cursorTrail = document.getElementById("cursor-trail");
+        const cursorDot = document.getElementById("cursor-dot");
+
+        const xToTrail = gsap.quickTo(cursorTrail, "x", {duration: 0.5, ease: "power3"});
+        const yToTrail = gsap.quickTo(cursorTrail, "y", {duration: 0.5, ease: "power3"});
+        const xToDot = gsap.quickTo(cursorDot, "x", {duration: 0.1, ease: "power3"});
+        const yToDot = gsap.quickTo(cursorDot, "y", {duration: 0.1, ease: "power3"});
+
+        window.addEventListener("mousemove", (e) => {
+            xToTrail(e.clientX);
+            yToTrail(e.clientY);
+            xToDot(e.clientX);
+            yToDot(e.clientY);
+        });
+
+        document.querySelectorAll(".hover-trigger").forEach(el => {
+            el.addEventListener("mouseenter", () => cursorTrail.classList.add("hover-active"));
+            el.addEventListener("mouseleave", () => cursorTrail.classList.remove("hover-active"));
+        });
+
+        // 3. Floating Financial Shapes Background
+        gsap.utils.toArray('.gs-float').forEach(shape => {
+            gsap.to(shape, {
+                x: "random(-50, 50)",
+                y: "random(-50, 50)",
+                rotation: "random(-180, 180)",
+                duration: "random(8, 15)",
+                ease: "sine.inOut",
+                yoyo: true,
+                repeat: -1
+            });
+        });
+
+        gsap.utils.toArray('.gs-float-y').forEach(shape => {
+            gsap.to(shape, {
+                y: "random(-30, 30)",
+                duration: "random(3, 6)",
+                ease: "sine.inOut",
+                yoyo: true,
+                repeat: -1
+            });
+        });
+
+        // 4. Hero Animation
+        gsap.from(".gs-hero", {
+            y: 40, opacity: 0, duration: 1, stagger: 0.15, ease: "power3.out", delay: 0.2
+        });
+
+        // 5. Scroll Fade Animations (Bento Grid)
+        gsap.utils.toArray(".gs-fade").forEach(el => {
+            gsap.from(el, {
+                y: 50, opacity: 0, duration: 1, ease: "power3.out",
+                scrollTrigger: { trigger: el, start: "top 85%" }
+            });
+        });
+
+        // 6. Sticky Right Column Reveal Animation
+        gsap.utils.toArray(".gs-reveal").forEach(el => {
+            gsap.to(el, {
+                y: 0, opacity: 1, duration: 0.8, ease: "power3.out",
+                scrollTrigger: {
+                    trigger: el,
+                    start: "top 80%", // Triggers when the card enters the viewport
+                    toggleActions: "play none none reverse"
+                }
+            });
+        });
+
+        // 7. Magnetic Button Logic
+        const magneticElements = document.querySelectorAll('.magnetic');
+        magneticElements.forEach((el) => {
+            el.addEventListener('mousemove', (e) => {
+                const rect = el.getBoundingClientRect();
+                const h = rect.width / 2;
+                const w = rect.height / 2;
+                const x = e.clientX - rect.left - h;
+                const y = e.clientY - rect.top - w;
+                gsap.to(el, { x: x * 0.15, y: y * 0.15, duration: 0.4, ease: 'power2.out' });
+            });
+
+            el.addEventListener('mouseleave', () => {
+                gsap.to(el, { x: 0, y: 0, duration: 0.8, ease: 'elastic.out(1, 0.3)' });
+            });
+        });
+
+    </script>
+    {% include 'footer.html' %}
+</body>
+</html>

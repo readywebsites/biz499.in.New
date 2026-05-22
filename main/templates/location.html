@@ -1,0 +1,311 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Gujarat Locations - biz499</title>
+
+    <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+          integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+          crossorigin=""/>
+    <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+
+    <style>
+        /* Base Reset & Typography */
+        * {
+            box-sizing: border-box;
+        }
+        
+        body {
+            background-color: #050505; 
+            color: #ffffff;
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0 2rem 2rem 2rem; 
+            min-height: 100vh;
+            overflow-x: hidden;
+            
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(255, 126, 179, 0.12), transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(162, 82, 250, 0.12), transparent 40%);
+            background-attachment: fixed;
+        }
+
+        /* Header Styling */
+        .header {
+            /* INCREASED MARGIN-TOP to push below the navbar */
+            margin-top: 100px; 
+            margin-bottom: 2rem;
+        }
+        
+        h1 {
+            font-weight: 800;
+            margin: 0;
+            font-size: 2.8rem;
+            background: linear-gradient(135deg, #ffffff 20%, #ff7eb3 60%, #a252fa 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Main Layout Grid */
+        .container {
+            display: flex;
+            gap: 2rem;
+            height: 70vh;
+        }
+
+        /* Sidebar Styling (Left) */
+        .sidebar {
+            flex: 1;
+            background: linear-gradient(145deg, rgba(20,20,20,0.8), rgba(10,10,10,0.9));
+            padding: 2rem;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 126, 179, 0.2);
+            backdrop-filter: blur(10px);
+            display: flex;
+            flex-direction: column;
+            z-index: 10;
+        }
+
+        /* "Key Locations" Heading - Updated to Anton Italics */
+        h2 {
+            font-family: 'Anton', sans-serif;
+            font-style: italic;
+            font-weight: normal;
+            letter-spacing: 1px;
+            font-size: 2rem;
+            margin-top: 0;
+            background: linear-gradient(to right, #ff7eb3, #a252fa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding-bottom: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Map Container Styling (Right) */
+        #map {
+            flex: 3;
+            /* REMOVED BORDER RADIUS FOR SHARP EDGES */
+            border-radius: 0; 
+            border: 1px solid rgba(162, 82, 250, 0.3);
+            box-shadow: 0 0 40px rgba(162, 82, 250, 0.1);
+            
+            /* Color Filter for Dark Purple/Pink Map */
+            filter: 
+                brightness(0.9) 
+                invert(1) 
+                sepia(1) 
+                hue-rotate(230deg) 
+                saturate(250%) 
+                brightness(0.7) 
+                contrast(110%);
+        }
+
+        /* Interactive Location List */
+        .location-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .location-list li {
+            padding: 1.2rem;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 8px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .location-list li::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 4px; height: 100%;
+            background: linear-gradient(to bottom, #ff7eb3, #a252fa);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .location-list li:hover {
+            background: rgba(255,255,255,0.08);
+            transform: translateX(8px);
+            border-color: rgba(162, 82, 250, 0.3);
+            color: #ff7eb3;
+        }
+
+        .location-list li:hover::before {
+            opacity: 1;
+        }
+
+        .location-list li span {
+            display: block;
+            font-size: 0.85rem;
+            color: #aaa;
+            font-weight: 400;
+            margin-top: 0.3rem;
+        }
+
+        /* Custom Marker Styles */
+        .custom-marker {
+            width: 18px !important;
+            height: 18px !important;
+            background-color: #a252fa; 
+            border: 3px solid #fff;
+            border-radius: 50%;
+            box-shadow: 0 0 10px rgba(162, 82, 250, 0.7);
+            margin-left: -9px !important; 
+            margin-top: -9px !important;
+            transition: width 0.3s ease-out, height 0.3s ease-out, background-color 0.3s ease-out, margin 0.3s ease-out, box-shadow 0.3s ease-out;
+            z-index: 100 !important; 
+        }
+
+        .custom-marker.active {
+            width: 28px !important; 
+            height: 28px !important;
+            background-color: #ff0000; 
+            border: 3px solid #fff;
+            box-shadow: 0 0 20px rgba(255, 0, 0, 1), 0 0 30px rgba(255, 255, 255, 0.5);
+            margin-left: -14px !important; 
+            margin-top: -14px !important;
+            z-index: 9999 !important; 
+        }
+
+        @media (max-width: 900px) {
+            .container {
+                flex-direction: column-reverse;
+                height: auto;
+            }
+            #map {
+                height: 50vh;
+            }
+        }
+    </style>
+</head>
+<body>
+
+   {% include 'navbar.html' %}
+
+    <div class="header">
+        <h1> We Offer Our Services Across Gujarat</h1>
+    </div>
+
+    <div class="container">
+        
+        <div class="sidebar">
+            <h2>Key Locations</h2>
+            <ul class="location-list">
+                <li onclick="focusLocation(ahmedabadCoords, markerAhm)"
+                    onmouseover="highlightMarker(markerAhm)"
+                    onmouseout="unhighlightMarker(markerAhm)">
+                    Ahmedabad
+                    <span>Commercial Hub & Heritage City</span>
+                </li>
+                <li onclick="focusLocation(barodaCoords, markerBar)"
+                    onmouseover="highlightMarker(markerBar)"
+                    onmouseout="unhighlightMarker(markerBar)">
+                    Baroda
+                    <span>Cultural Capital of Gujarat</span>
+                </li>
+                <li onclick="focusLocation(suratCoords, markerSur)"
+                    onmouseover="highlightMarker(markerSur)"
+                    onmouseout="unhighlightMarker(markerSur)">
+                    Surat
+                    <span>The Diamond City of India</span>
+                </li>
+            </ul>
+        </div>
+
+        <div id="map"></div>
+        
+
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+            integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+            crossorigin=""></script>
+
+    
+
+    <script>
+        var map, markerAhm, markerBar, markerSur;
+
+        const ahmedabadCoords = [23.0225, 72.5714];
+        const barodaCoords = [22.3072, 73.1812];
+        const suratCoords = [21.1702, 72.8311];
+
+        // Fetch Navbar
+        fetch('navbar.html')
+            .then(response => {
+                if (!response.ok) throw new Error('Navbar file not found');
+                return response.text();
+            })
+            .then(data => {
+                document.getElementById('navbar-container').innerHTML = data;
+            })
+            .catch(error => console.error('Error loading navbar:', error));
+
+        function initMap() {
+            map = L.map('map', {
+                zoomControl: false
+            }).setView([22.1, 72.8], 7);
+            
+            L.control.zoom({ position: 'bottomright' }).addTo(map);
+
+            L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                maxZoom: 19,
+                attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OSM</a>'
+            }).addTo(map);
+
+            const mainIcon = L.divIcon({
+                className: 'custom-marker',
+                iconSize: [0, 0],
+                popupAnchor: [0, -10]
+            });
+
+            markerAhm = L.marker(ahmedabadCoords, {icon: mainIcon}).addTo(map)
+                .bindPopup("<strong style='color:#a252fa'>Ahmedabad</strong><br>Commercial Hub");
+            
+            markerBar = L.marker(barodaCoords, {icon: mainIcon}).addTo(map)
+                .bindPopup("<strong style='color:#ff7eb3'>Baroda</strong><br>Cultural Capital");
+            
+            markerSur = L.marker(suratCoords, {icon: mainIcon}).addTo(map)
+                .bindPopup("<strong style='color:#a252fa'>Surat</strong><br>Diamond City");
+        }
+
+        function focusLocation(coords, marker) {
+            map.flyTo(coords, 11, {
+                animate: true,
+                duration: 1.5
+            });
+            setTimeout(() => { marker.openPopup(); }, 1500);
+        }
+
+        function highlightMarker(marker) {
+            const el = marker.getElement();
+            if (el) el.classList.add('active');
+        }
+
+        function unhighlightMarker(marker) {
+            const el = marker.getElement();
+            if (el) el.classList.remove('active');
+        }
+
+        window.onload = initMap;
+    </script>
+    {% include 'footer.html' %}
+</body>
+</html>
