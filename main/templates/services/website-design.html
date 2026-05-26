@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
     <title>Website Designing - biz499 - Illustrative Solutions</title>
 
     <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
@@ -322,7 +322,11 @@
             .cursor-dot, .gradient-blob { display: none; }
             * { cursor: auto; }
         }
-    </style>
+    
+/* --- UNIVERSAL MOBILE RESPONSIVENESS --- */
+@media (max-width: 900px) { body { overflow-x: hidden !important; } .hero { min-height: auto !important; padding-top: 120px !important; padding-bottom: 60px !important; height: auto !important; } .offers-grid, .platforms-grid, .advantages-grid, .stats-grid, .services-grid, .process-grid, .pricing-grid, .features-grid, .faq-grid { grid-template-columns: 1fr !important; gap: 2rem !important; } .design-card, .split-section { flex-direction: column !important; gap: 2rem !important; } .design-image, .split-image { width: 100% !important; height: auto !important; min-height: 250px !important; } h1.main-heading, h1.hero-title { font-size: clamp(3rem, 12vw, 5rem) !important; line-height: 1.1 !important; } .section-heading, h2 { font-size: clamp(2rem, 8vw, 3rem) !important; margin-bottom: 2rem !important; text-align: left !important; } .huge-marquee, .marquee-text { font-size: clamp(3rem, 15vw, 6rem) !important; } .h-scroll-wrapper { height: auto !important; display: block !important; overflow: visible !important; } .h-scroll-content { width: 100% !important; display: block !important; height: auto !important; } .h-panel { width: 100% !important; height: auto !important; padding: 40px 0 !important; } .btn-solid, .btn-massive { padding: 15px 30px !important; font-size: 1.1rem !important; width: 100% !important; text-align: center; margin-top: 1.5rem !important; box-sizing: border-box !important;} .cursor-dot, .gradient-blob, .shape-layer { display: none !important; } * { cursor: auto !important; } section, .offers-section, .platforms-section, .advantages-section, .footer-cta { padding-left: 20px !important; padding-right: 20px !important; padding-top: 60px !important; padding-bottom: 60px !important; height: auto !important; } }
+</style>
+    <link rel="stylesheet" href="{% static 'css/mobile-core.css' %}">
 </head>
 <body>
 

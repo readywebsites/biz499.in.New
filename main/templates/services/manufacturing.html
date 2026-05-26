@@ -1,19 +1,23 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
     <title>Dynamic Website Solutions for Manufacturing - biz499</title>
 
-    <meta name="description" content="Industrial and dynamic website solutions for manufacturing units. Featuring product catalogues, inquiry forms, and scalable architecture.">
-    <meta name="keywords" content="manufacturing website design, industrial web development, dynamic product catalogue, factory showcase website, B2B manufacturing SEO">
+    <meta name="description"
+        content="Industrial and dynamic website solutions for manufacturing units. Featuring product catalogues, inquiry forms, and scalable architecture.">
+    <meta name="keywords"
+        content="manufacturing website design, industrial web development, dynamic product catalogue, factory showcase website, B2B manufacturing SEO">
 
     <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
 
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
@@ -23,10 +27,14 @@
     <style>
         /* --- Industrial Manufacturing Theme: Forged Steel + Safety Orange --- */
         :root {
-            --bg-metal: #0f172a; /* Deep Steel Slate */
-            --bg-panel: #1e293b; /* Lighter Slate for cards */
-            --accent-orange: #f97316; /* Industrial Safety Orange */
-            --accent-yellow: #fbbf24; /* Warning Yellow */
+            --bg-metal: #0f172a;
+            /* Deep Steel Slate */
+            --bg-panel: #1e293b;
+            /* Lighter Slate for cards */
+            --accent-orange: #f97316;
+            /* Industrial Safety Orange */
+            --accent-yellow: #fbbf24;
+            /* Warning Yellow */
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
             --glass-border: rgba(249, 115, 22, 0.2);
@@ -37,62 +45,81 @@
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            cursor: none; 
+            cursor: none;
             font-family: "Mori", "Inter", sans-serif !important;
         }
-        
+
+        /* --- FIXED OVERFLOW ON HTML AND BODY --- */
+        html,
         body {
             background-color: var(--bg-metal);
             color: var(--text-main);
-            overflow-x: hidden;
+            overflow-x: hidden !important;
+            width: 100%;
+            max-width: 100vw;
             line-height: 1.6;
             -webkit-font-smoothing: antialiased;
             /* Industrial Diamond Plate Texture Simulation */
-            background-image: 
-                linear-gradient(45deg, rgba(255,255,255,0.015) 25%, transparent 25%, transparent 75%, rgba(255,255,255,0.015) 75%, rgba(255,255,255,0.015)),
-                linear-gradient(45deg, rgba(255,255,255,0.015) 25%, transparent 25%, transparent 75%, rgba(255,255,255,0.015) 75%, rgba(255,255,255,0.015));
+            background-image:
+                linear-gradient(45deg, rgba(255, 255, 255, 0.015) 25%, transparent 25%, transparent 75%, rgba(255, 255, 255, 0.015) 75%, rgba(255, 255, 255, 0.015)),
+                linear-gradient(45deg, rgba(255, 255, 255, 0.015) 25%, transparent 25%, transparent 75%, rgba(255, 255, 255, 0.015) 75%, rgba(255, 255, 255, 0.015));
             background-size: 20px 20px;
             background-position: 0 0, 10px 10px;
         }
 
-        h1, h2, h3, h4 {
+        h1,
+        h2,
+        h3,
+        h4 {
             font-weight: 900;
             text-transform: uppercase;
-            letter-spacing: -1px; 
+            letter-spacing: -1px;
             color: var(--text-main);
         }
 
-        .text-accent { color: var(--accent-orange); }
+        .text-accent {
+            color: var(--accent-orange);
+        }
 
         /* --- Magnetic Element Wrapper --- */
-        .magnetic { display: inline-block; transition: filter 0.3s ease; }
+        .magnetic {
+            display: inline-block;
+            transition: filter 0.3s ease;
+        }
 
         /* --- Industrial Cursor --- */
         .cursor-trail {
             position: fixed;
-            top: 0; left: 0;
-            width: 45px; height: 45px;
+            top: 0;
+            left: 0;
+            width: 45px;
+            height: 45px;
             border: 2px solid var(--accent-orange);
-            border-radius: 4px; /* Heavy square look */
+            border-radius: 4px;
+            /* Heavy square look */
             pointer-events: none;
-            z-index: 99998; 
+            z-index: 99998;
             transform: translate(-50%, -50%);
             transition: width 0.3s ease, height 0.3s ease, background 0.3s ease, border-radius 0.3s ease;
         }
 
         .cursor-trail.hover-active {
-            width: 70px; height: 70px;
+            width: 70px;
+            height: 70px;
             background: rgba(249, 115, 22, 0.1);
-            border-radius: 50%; 
+            border-radius: 50%;
             backdrop-filter: blur(2px);
         }
 
         .cursor-dot {
             position: fixed;
-            top: 0; left: 0;
-            width: 8px; height: 8px;
-            background: var(--text-main); 
-            border-radius: 0; /* Square dot */
+            top: 0;
+            left: 0;
+            width: 8px;
+            height: 8px;
+            background: var(--text-main);
+            border-radius: 0;
+            /* Square dot */
             pointer-events: none;
             z-index: 99999;
             transform: translate(-50%, -50%);
@@ -101,22 +128,36 @@
         /* --- Ambient Glows --- */
         .ambient-glow {
             position: absolute;
-            width: 40vw; height: 40vw;
+            width: 40vw;
+            height: 40vw;
             border-radius: 50%;
             filter: blur(140px);
             opacity: 0.08;
             z-index: -1;
         }
-        .glow-1 { top: -10%; left: -10%; background: var(--accent-orange); }
-        .glow-2 { bottom: -10%; right: -10%; background: var(--accent-yellow); }
+
+        .glow-1 {
+            top: -10%;
+            left: -10%;
+            background: var(--accent-orange);
+        }
+
+        .glow-2 {
+            bottom: -10%;
+            right: -10%;
+            background: var(--accent-yellow);
+        }
 
         /* --- Gear Animation System --- */
         .gear-system {
             position: absolute;
-            top: 50%; left: 50%;
+            top: 50%;
+            left: 50%;
             transform: translate(-50%, -50%);
-            width: 100%; height: 100%;
-            z-index: 0; /* Behind hero text */
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            /* Behind hero text */
             pointer-events: none;
             opacity: 0.15;
             display: flex;
@@ -133,13 +174,47 @@
         }
 
         /* Interlocking Gears Logic */
-        .gear-1 { font-size: 35rem; animation: spinRight 20s linear infinite; top: -10%; left: 10%; }
-        .gear-2 { font-size: 20rem; animation: spinLeft 11.4s linear infinite; top: 35%; left: 40%; color: var(--text-muted); }
-        .gear-3 { font-size: 15rem; animation: spinRight 8.5s linear infinite; top: 15%; left: 58%; color: var(--accent-yellow); }
-        .gear-4 { font-size: 25rem; animation: spinLeft 14.2s linear infinite; bottom: -5%; right: 5%; }
+        .gear-1 {
+            font-size: 35rem;
+            animation: spinRight 20s linear infinite;
+            top: -10%;
+            left: 10%;
+        }
 
-        @keyframes spinRight { 100% { transform: rotate(360deg); } }
-        @keyframes spinLeft { 100% { transform: rotate(-360deg); } }
+        .gear-2 {
+            font-size: 20rem;
+            animation: spinLeft 11.4s linear infinite;
+            top: 35%;
+            left: 40%;
+            color: var(--text-muted);
+        }
+
+        .gear-3 {
+            font-size: 15rem;
+            animation: spinRight 8.5s linear infinite;
+            top: 15%;
+            left: 58%;
+            color: var(--accent-yellow);
+        }
+
+        .gear-4 {
+            font-size: 25rem;
+            animation: spinLeft 14.2s linear infinite;
+            bottom: -5%;
+            right: 5%;
+        }
+
+        @keyframes spinRight {
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes spinLeft {
+            100% {
+                transform: rotate(-360deg);
+            }
+        }
 
         /* --- Hero Section --- */
         .hero {
@@ -175,7 +250,7 @@
             margin: 0;
             position: relative;
             z-index: 2;
-            text-shadow: 0 10px 30px rgba(0,0,0,0.8);
+            text-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
         }
 
         .hero-desc {
@@ -233,11 +308,12 @@
 
         .heavy-card {
             background: var(--bg-panel);
-            border: 2px solid rgba(255,255,255,0.05);
+            border: 2px solid rgba(255, 255, 255, 0.05);
             padding: 3rem 2.5rem;
             position: relative;
             transition: all 0.4s ease;
-            box-shadow: 10px 10px 0px rgba(0,0,0,0.5); /* Hard shadow for heavy feel */
+            box-shadow: 10px 10px 0px rgba(0, 0, 0, 0.5);
+            /* Hard shadow for heavy feel */
         }
 
         .heavy-card:hover {
@@ -273,7 +349,8 @@
             align-items: center;
             justify-content: center;
             text-align: center;
-            background: linear-gradient(rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.9)), url('{% static "images/factory-floor.jpg" %}') center/cover fixed;
+            background: linear-gradient(rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.9)),
+            url('{% static "images/factory-floor.jpg" %}') center/cover fixed;
             border-top: 4px solid var(--accent-orange);
             border-bottom: 4px solid var(--accent-orange);
         }
@@ -283,6 +360,7 @@
             margin-bottom: 1rem;
             color: #fff;
         }
+
         .showcase-content p {
             font-size: 1.3rem;
             color: #ddd;
@@ -299,7 +377,7 @@
             padding: 10rem 5vw;
             display: flex;
             flex-direction: column;
-            gap: 120px; 
+            gap: 120px;
         }
 
         .zig-row {
@@ -308,29 +386,47 @@
             gap: 6rem;
         }
 
-        .zig-row.reverse { flex-direction: row-reverse; }
+        .zig-row.reverse {
+            flex-direction: row-reverse;
+        }
 
         .zig-img-block {
             flex: 1;
             position: relative;
             background: var(--bg-panel);
             padding: 1rem;
-            border: 2px solid rgba(255,255,255,0.1);
-            box-shadow: 15px 15px 0px rgba(0,0,0,0.6);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 15px 15px 0px rgba(0, 0, 0, 0.6);
         }
 
         .zig-img-block img {
-            width: 100%; height: auto; object-fit: cover;
+            width: 100%;
+            height: auto;
+            object-fit: cover;
             filter: grayscale(40%) contrast(1.2);
             transition: filter 0.5s ease;
             display: block;
         }
 
-        .zig-img-block:hover img { filter: grayscale(0%); }
+        .zig-img-block:hover img {
+            filter: grayscale(0%);
+        }
 
-        .zig-text-block { flex: 1; }
-        .zig-text-block h2 { font-size: 3rem; margin-bottom: 1.5rem; line-height: 1.1; }
-        .zig-text-block p { font-size: 1.15rem; color: var(--text-muted); margin-bottom: 2rem; }
+        .zig-text-block {
+            flex: 1;
+        }
+
+        .zig-text-block h2 {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+        }
+
+        .zig-text-block p {
+            font-size: 1.15rem;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+        }
 
         /* --- Corporate CTA Section --- */
         .cta-section {
@@ -339,7 +435,7 @@
             padding: 10rem 5vw;
             text-align: center;
             background: var(--bg-panel);
-            border-top: 1px solid rgba(255,255,255,0.05);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         .btn-industrial {
@@ -365,15 +461,115 @@
             box-shadow: 0 0 40px var(--orange-glow);
         }
 
+        /* --- UNIFIED MOBILE RESPONSIVENESS OVERRIDES --- */
         @media (max-width: 900px) {
-            h1.hero-title { font-size: 11vw; }
-            .zig-row, .zig-row.reverse { flex-direction: column; text-align: center; gap: 4rem; }
-            .gear-system { display: none; } /* Hide heavy gears on mobile for performance */
-            .cursor-dot, .cursor-trail { display: none; }
-            * { cursor: auto; }
+            * {
+                cursor: auto !important;
+            }
+
+            html,
+            body {
+                overflow-x: hidden !important;
+            }
+
+            /* Hidden Elements on Mobile Touch Devices */
+            .cursor-trail,
+            .cursor-dot,
+            .ambient-glow,
+            .gear-system {
+                display: none !important;
+            }
+
+            /* Contain the GSAP animations so they don't stretch the screen */
+            section,
+            .zigzag-container,
+            .features-section,
+            .cta-section,
+            .factory-showcase {
+                overflow-x: hidden !important;
+                width: 100% !important;
+                box-sizing: border-box !important;
+                padding-left: 24px !important;
+                padding-right: 24px !important;
+            }
+
+            /* Refined Typography & Centering */
+            h1.hero-title {
+                font-size: clamp(2.5rem, 10vw, 4.5rem) !important;
+                text-align: center !important;
+                line-height: 1.1 !important;
+            }
+
+            .section-heading,
+            .zig-text-block h2,
+            .showcase-content h2 {
+                font-size: clamp(2rem, 8vw, 3rem) !important;
+                text-align: center !important;
+                margin-bottom: 2rem !important;
+            }
+
+            .hero-desc,
+            p,
+            .zig-text-block p {
+                font-size: 1rem !important;
+                text-align: center !important;
+                margin-left: auto !important;
+                margin-right: auto !important;
+                max-width: 100% !important;
+            }
+
+            .showcase-content p {
+                padding: 0 10px !important;
+            }
+
+            /* Container Spacing Rules */
+            .hero {
+                padding: 120px 24px 60px !important;
+                height: auto !important;
+                min-height: auto !important;
+            }
+
+            .features-section,
+            .zigzag-container,
+            .cta-section {
+                padding-top: 60px !important;
+                padding-bottom: 60px !important;
+                gap: 3rem !important;
+            }
+
+            .grid-container {
+                grid-template-columns: 1fr !important;
+                gap: 2rem !important;
+            }
+
+            /* Structural Layout Flips for Grids & Alternating Sections */
+            .zig-row,
+            .zig-row.reverse {
+                flex-direction: column !important;
+                text-align: center !important;
+                gap: 2rem !important;
+            }
+
+            .zig-img-block {
+                width: 100% !important;
+                max-width: 480px !important;
+                margin: 0 auto !important;
+                box-sizing: border-box !important;
+            }
+
+            .btn-industrial {
+                width: 100% !important;
+                text-align: center !important;
+                padding: 15px 30px !important;
+                font-size: 1.1rem !important;
+                box-sizing: border-box !important;
+                margin-top: 1.5rem !important;
+            }
         }
     </style>
+    <link rel="stylesheet" href="{% static 'css/mobile-core.css' %}">
 </head>
+
 <body>
 
     <div class="ambient-glow glow-1"></div>
@@ -385,7 +581,7 @@
     {% include 'navbar.html' %}
 
     <section class="hero">
-        
+
         <div class="gear-system">
             <i class='bx bxs-cog gear gear-1'></i>
             <i class='bx bxs-cog gear gear-2'></i>
@@ -394,18 +590,20 @@
         </div>
 
         <div class="hero-badge gs-hero">For Manufacturing Units</div>
-        
+
         <h1 class="hero-title gs-hero">DYNAMIC SCALABLE</h1>
         <h1 class="hero-title gs-hero"><span class="text-accent">ARCHITECTURE</span></h1>
-        
-        <p class="hero-desc gs-hero">Power your industrial growth with a high-performance, product-driven dynamic website. Built to handle complex catalogues, generate bulk inquiries, and dominate B2B SEO.</p>
-        
-        <a href="/#contact/" class="btn-industrial gs-hero magnetic hover-trigger" style="margin-top: 3rem;">Build Your Platform</a>
+
+        <p class="hero-desc gs-hero">Power your industrial growth with a high-performance, product-driven dynamic
+            website. Built to handle complex catalogues, generate bulk inquiries, and dominate B2B SEO.</p>
+
+        <a href="/#contact/" class="btn-industrial gs-hero magnetic hover-trigger">Build Your Platform</a>
     </section>
 
     <div class="marquee-container hover-trigger">
         <div class="marquee-text" id="marquee">
-            DYNAMIC CATALOGUE INTEGRATION &nbsp; • &nbsp; B2B INQUIRY FORMS &nbsp; • &nbsp; FACTORY SHOWCASE &nbsp; • &nbsp; MULTI-PAGE SCALABILITY &nbsp; • &nbsp; 
+            DYNAMIC CATALOGUE INTEGRATION &nbsp; • &nbsp; B2B INQUIRY FORMS &nbsp; • &nbsp; FACTORY SHOWCASE &nbsp; •
+            &nbsp; MULTI-PAGE SCALABILITY &nbsp; • &nbsp;
         </div>
     </div>
 
@@ -413,87 +611,102 @@
         <h2 class="section-heading gs-fade">Engineered for<br><span class="text-accent">Heavy Industry</span></h2>
 
         <div class="grid-container">
-            
+
             <div class="heavy-card gs-fade hover-trigger magnetic">
                 <i class='bx bx-sitemap feature-icon'></i>
                 <h3>Product & Category Mgmt.</h3>
-                <p>Robust backend systems allowing you to dynamically add, edit, and organize hundreds of industrial products and equipment variants effortlessly.</p>
+                <p>Robust backend systems allowing you to dynamically add, edit, and organize hundreds of industrial
+                    products and equipment variants effortlessly.</p>
             </div>
 
             <div class="heavy-card gs-fade hover-trigger magnetic">
                 <i class='bx bx-list-check feature-icon'></i>
                 <h3>Dynamic Catalogues</h3>
-                <p>Interactive digital catalogues with advanced filtering, specs tables, and downloadable PDF datasheets for comprehensive B2B purchasing.</p>
+                <p>Interactive digital catalogues with advanced filtering, specs tables, and downloadable PDF datasheets
+                    for comprehensive B2B purchasing.</p>
             </div>
 
             <div class="heavy-card gs-fade hover-trigger magnetic">
                 <i class='bx bx-envelope feature-icon'></i>
                 <h3>RFQ & Inquiry Forms</h3>
-                <p>Strategically placed "Request for Quotation" funnels designed to capture detailed requirements from bulk buyers and enterprise clients.</p>
+                <p>Strategically placed "Request for Quotation" funnels designed to capture detailed requirements from
+                    bulk buyers and enterprise clients.</p>
             </div>
 
             <div class="heavy-card gs-fade hover-trigger magnetic">
                 <i class='bx bx-line-chart feature-icon'></i>
                 <h3>SEO-Ready Service Pages</h3>
-                <p>Individually optimized pages for specific manufacturing processes, machining capabilities, and industry-specific keywords to dominate search.</p>
+                <p>Individually optimized pages for specific manufacturing processes, machining capabilities, and
+                    industry-specific keywords to dominate search.</p>
             </div>
 
             <div class="heavy-card gs-fade hover-trigger magnetic">
                 <i class='bx bx-layer feature-icon'></i>
                 <h3>Multi-Page Scalability</h3>
-                <p>Future-proof architecture that scales seamlessly as your manufacturing plant introduces new product lines, divisions, or global branches.</p>
+                <p>Future-proof architecture that scales seamlessly as your manufacturing plant introduces new product
+                    lines, divisions, or global branches.</p>
             </div>
-            
+
             <div class="heavy-card gs-fade hover-trigger magnetic">
                 <i class='bx bx-tachometer feature-icon'></i>
                 <h3>Speed Optimization</h3>
-                <p>Optimized server responses and lazy-loaded assets ensure your heavy product databases load instantly, even on factory floor mobile devices.</p>
+                <p>Optimized server responses and lazy-loaded assets ensure your heavy product databases load instantly,
+                    even on factory floor mobile devices.</p>
             </div>
 
         </div>
     </section>
 
-    <section class="factory-showcase mouse-parallax" data-speed="0.05">
+    <section class="factory-showcase">
         <div class="showcase-content gs-fade">
             <h2>VIRTUAL FACTORY TOUR</h2>
-            <p>Showcase your production lines, assembly floors, and quality control labs with immersive, high-resolution multimedia sections that build instant buyer credibility.</p>
+            <p>Showcase your production lines, assembly floors, and quality control labs with immersive, high-resolution
+                multimedia sections that build instant buyer credibility.</p>
         </div>
     </section>
 
     <section class="zigzag-container">
 
         <div class="zig-row normal">
-            <div class="zig-img-block mouse-parallax" data-speed="-0.03">
-                <img class="magnetic" src="{% static 'images/industrial-layout.jpg' %}" alt="Industrial Dashboard UI" onerror="this.src='https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=800'">
+            <div class="zig-img-block">
+                <img class="magnetic" src="{% static 'images/industrial-layout.jpg' %}" alt="Industrial Dashboard UI"
+                    onerror="this.src='https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=800'">
             </div>
-            <div class="zig-text-block mouse-parallax" data-speed="0.03">
+            <div class="zig-text-block">
                 <h2>Industrial-Focused<br>Responsive Layouts</h2>
-                <p>Your buyers are engineers, procurement managers, and executives. We design robust, no-nonsense layouts that prioritize technical data readability and seamless navigation across massive product inventories.</p>
-             
+                <p>Your buyers are engineers, procurement managers, and executives. We design robust, no-nonsense
+                    layouts that prioritize technical data readability and seamless navigation across massive product
+                    inventories.</p>
+
             </div>
         </div>
 
     </section>
 
     <section class="cta-section">
-        <h2 class="section-heading gs-fade" style="margin-bottom: 2rem;">Ready to digitize your<br>Manufacturing Plant?</h2>
-        <p class="gs-fade" style="color: var(--text-muted); font-size: 1.2rem; margin-bottom: 2rem;">Stop losing B2B contracts to competitors with better digital infrastructure.</p>
-        <a href="/#contact/" class="btn-industrial magnetic hover-trigger gs-fade" style="padding: 25px 60px; font-size: 1.3rem;">Request System Specs</a>
+        <h2 class="section-heading gs-fade" style="margin-bottom: 2rem;">Ready to digitize your<br>Manufacturing Plant?
+        </h2>
+        <p class="gs-fade" style="color: var(--text-muted); font-size: 1.2rem; margin-bottom: 2rem;">Stop losing B2B
+            contracts to competitors with better digital infrastructure.</p>
+        <a href="/#contact/" class="btn-industrial magnetic hover-trigger gs-fade"
+            style="padding: 25px 60px; font-size: 1.3rem;">Request System Specs</a>
     </section>
 
     <script>
         // 1. Fetch Navbar & Apply Cursor Fix
-        fetch("{% static 'navbar.html' %}") 
+        fetch("{% static 'navbar.html' %}")
             .then(res => res.ok ? res.text() : '')
             .then(data => {
                 document.getElementById('navbar-container').innerHTML = data;
-                
+
                 const navLinks = document.querySelectorAll('#navbar-container a');
                 const cursorTrail = document.getElementById("cursor-trail");
-                
+
                 navLinks.forEach(link => {
-                    link.addEventListener("mouseenter", () => cursorTrail.classList.add("hover-active"));
-                    link.addEventListener("mouseleave", () => cursorTrail.classList.remove("hover-active"));
+                    if (cursorTrail) {
+                        link.addEventListener("mouseenter", () => cursorTrail.classList.add("hover-active"));
+                        link.addEventListener("mouseleave", () => cursorTrail.classList.remove("hover-active"));
+                    }
                 });
             })
             .catch(err => console.log('Navbar load skipped.'));
@@ -504,21 +717,27 @@
         const cursorTrail = document.getElementById("cursor-trail");
         const cursorDot = document.getElementById("cursor-dot");
 
-        const xToTrail = gsap.quickTo(cursorTrail, "x", {duration: 0.5, ease: "power3"});
-        const yToTrail = gsap.quickTo(cursorTrail, "y", {duration: 0.5, ease: "power3"});
-        const xToDot = gsap.quickTo(cursorDot, "x", {duration: 0.1, ease: "power3"});
-        const yToDot = gsap.quickTo(cursorDot, "y", {duration: 0.1, ease: "power3"});
+        const xToTrail = gsap.quickTo(cursorTrail, "x", { duration: 0.5, ease: "power3" });
+        const yToTrail = gsap.quickTo(cursorTrail, "y", { duration: 0.5, ease: "power3" });
+        const xToDot = gsap.quickTo(cursorDot, "x", { duration: 0.1, ease: "power3" });
+        const yToDot = gsap.quickTo(cursorDot, "y", { duration: 0.1, ease: "power3" });
 
         window.addEventListener("mousemove", (e) => {
-            xToTrail(e.clientX);
-            yToTrail(e.clientY);
-            xToDot(e.clientX);
-            yToDot(e.clientY);
+            if (window.innerWidth > 900) {
+                xToTrail(e.clientX);
+                yToTrail(e.clientY);
+                xToDot(e.clientX);
+                yToDot(e.clientY);
+            }
         });
 
         document.querySelectorAll(".hover-trigger").forEach(el => {
-            el.addEventListener("mouseenter", () => cursorTrail.classList.add("hover-active"));
-            el.addEventListener("mouseleave", () => cursorTrail.classList.remove("hover-active"));
+            el.addEventListener("mouseenter", () => {
+                if (window.innerWidth > 900 && cursorTrail) cursorTrail.classList.add("hover-active");
+            });
+            el.addEventListener("mouseleave", () => {
+                if (window.innerWidth > 900 && cursorTrail) cursorTrail.classList.remove("hover-active");
+            });
         });
 
         // 3. Hero Animation
@@ -546,6 +765,7 @@
         const magneticElements = document.querySelectorAll('.magnetic');
         magneticElements.forEach((el) => {
             el.addEventListener('mousemove', (e) => {
+                if (window.innerWidth <= 900) return;
                 const rect = el.getBoundingClientRect();
                 const h = rect.width / 2;
                 const w = rect.height / 2;
@@ -558,8 +778,8 @@
                 gsap.to(el, { x: 0, y: 0, duration: 0.8, ease: 'elastic.out(1, 0.3)' });
             });
         });
-
     </script>
     {% include 'footer.html' %}
 </body>
+
 </html>

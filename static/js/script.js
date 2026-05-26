@@ -124,6 +124,7 @@ gsap.config({
 
 
 // PANELS
+/*
 let panels = gsap.utils.toArray(".panel");
 
 if (panels.length > 0) {
@@ -234,6 +235,7 @@ if (panels.length > 0) {
         }
     });
 }
+*/
 
 
 

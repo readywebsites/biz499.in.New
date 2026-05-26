@@ -7,18 +7,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Biz499 | Official</title>
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:ital,wdth,wght@0,125,400;0,125,700;0,125,900;1,125,900&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:ital,wdth,wght@0,125,400;0,125,700;0,125,900;1,125,900&display=swap"
+        rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
-    
+
     <!-- Updated Static Links -->
     <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-   
+
 
     <!-- GSAP Libraries -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.0.2/anime.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js"></script>
 </head>
 
 <body>
@@ -26,9 +29,12 @@
     <div id="mouse-glow" class="pointer-events-none fixed inset-0 z-[9998] transition-opacity duration-300"></div>
 
     <!-- SECTION 0: PRELOADER -->
-    <section id="preloader" class="fixed inset-0 h-screen w-full flex flex-col items-center justify-center bg-black overflow-hidden z-[9999] transition-opacity duration-1000">
+    <section id="preloader"
+        class="fixed inset-0 h-screen w-full flex flex-col items-center justify-center bg-black overflow-hidden z-[9999] transition-opacity duration-1000">
         <div class="flex flex-col items-center">
-            <h1 id="loader-counter" class="text-[4rem] sm:text-[6rem] md:text-[8rem] font-normal tracking-tighter loader-gradient-text text-center whitespace-nowrap" style="font-family: 'Poppins', sans-serif; line-height: 1;">Loading : 0%</h1>
+            <h1 id="loader-counter"
+                class="text-[4rem] sm:text-[6rem] md:text-[8rem] font-normal tracking-tighter loader-gradient-text text-center whitespace-nowrap"
+                style="font-family: 'Poppins', sans-serif; line-height: 1;">Loading : 0%</h1>
         </div>
     </section>
 
@@ -40,49 +46,66 @@
         <div class="scroll-container">
 
             <!-- SECTION 1: HERO -->
-            <main id="home" class="panel scroll-page relative h-screen w-full flex flex-col items-center justify-center overflow-hidden">
+            <main id="home"
+                class="panel scroll-page relative h-screen w-full flex flex-col items-center justify-center overflow-hidden">
                 <div class="video-container">
                     <video autoplay loop muted playsinline class="video-bg">
-                        <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260418_115655_b4d9cd77-feed-43cd-a198-af78ebdf1f7a.mp4" type="video/mp4">
+                        <source
+                            src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260418_115655_b4d9cd77-feed-43cd-a198-af78ebdf1f7a.mp4"
+                            type="video/mp4">
                     </video>
                 </div>
                 <div class="v-overlay"></div>
                 <section class="relative z-10 w-full flex flex-col items-center px-6">
-                    <div class="text-center">
+                    <div class="text-center hero-content">
                         <h1 class="hero-heading">
                             ELEVATING DIGITAL<br>
                             <span class="text-stroke">BRANDS</span>
                         </h1>
-                        <div class="flex flex-wrap justify-center gap-5 mt-10">
-                            <button onclick="scrollToSection('contact')" class="bg-white text-black px-10 py-4 rounded-full font-black uppercase text-sm tracking-widest hover:bg-gray-200 transition-all">Start a Chat</button>
-                            <button onclick="scrollToSection('about')" class="bg-transparent border-2 border-white/40 text-white px-10 py-4 rounded-full font-black uppercase text-sm tracking-widest hover:bg-white hover:text-black transition-all">Explore Now</button>
+                        <div class="flex flex-wrap justify-center gap-5 mt-10 hero-cta">
+                            <button onclick="scrollToSection('contact')"
+                                class="bg-white text-black px-10 py-4 rounded-full font-black uppercase text-sm tracking-widest hover:bg-gray-200 transition-all">Start
+                                a Chat</button>
+                            <button onclick="scrollToSection('about')"
+                                class="bg-transparent border-2 border-white/40 text-white px-10 py-4 rounded-full font-black uppercase text-sm tracking-widest hover:bg-white hover:text-black transition-all">Explore
+                                Now</button>
                         </div>
                     </div>
                 </section>
-                <div class="absolute bottom-12 left-6 md:left-16 z-20 max-w-sm">
-                    <p class="hero-desc-bottom">The digital visionaries at <span class="text-white font-bold">Biz499</span> are here to transform your online aspirations into a tangible reality.</p>
+                <div class="absolute bottom-12 left-6 md:left-16 z-20 max-w-sm hero-caption">
+                    <p class="hero-desc-bottom">The digital visionaries at <span
+                            class="text-white font-bold">Biz499</span> are here to transform your online aspirations
+                        into a tangible reality.</p>
                 </div>
             </main>
 
             <!-- SECTION 2: ABOUT US -->
-            <section id="about" class="panel scroll-page gsap-section flex items-center justify-center h-screen px-16 bg-black overflow-hidden" style="background-image: url('{% static 'components/section_bg4.png' %}'); background-size: cover; background-position: center; background-repeat: no-repeat;">
+            <section id="about"
+                class="panel scroll-page gsap-section flex items-center justify-center h-screen px-16 bg-black overflow-hidden"
+                style="background-image: url('{% static 'components/section_bg4.png' %}'); background-size: cover; background-position: center; background-repeat: no-repeat;">
                 <div class="flex items-center gap-20 max-w-6xl w-full">
                     <div class="w-2/5 flex-shrink-0">
-                        <div class="section-image-container aspect-square rounded-xl overflow-hidden shadow-depth hover-bump">
-                            <img src="{% static 'components/google-working.gif' %}" alt="About Biz499" class="w-full h-full object-cover">
+                        <div
+                            class="section-image-container aspect-square rounded-xl overflow-hidden shadow-depth hover-bump">
+                            <img src="{% static 'components/google-working.gif' %}" alt="About Biz499"
+                                class="w-full h-full object-cover">
                         </div>
                     </div>
                     <div class="w-3/5 flex flex-col items-start text-left hover-bump">
                         <h1 class="about-main-heading-new">ABOUT US</h1>
                         <div class="mt-10 max-w-lg hover-bump">
-                            <p class="about-description-new">Biz499 is a dynamic marketing agency based in Surat, founded by an IIT alumnus. We specialize in variety of creative services, <br> including website development, graphic design,<br> and innovative marketing campaigns.</p>
+                            <p class="about-description-new">Biz499 is a dynamic marketing agency based in Surat,
+                                founded by an IIT alumnus. We specialize in variety of creative services, <br> including
+                                website development, graphic design,<br> and innovative marketing campaigns.</p>
                         </div>
                     </div>
                 </div>
             </section>
 
             <!-- SECTION 3: SERVICES -->
-            <section id="services" class="panel scroll-page gsap-section flex items-center justify-center h-screen bg-black relative overflow-hidden" style="background-image: url('{% static 'components/section_bg4.png' %}'); background-size: cover; background-position: center; background-repeat: no-repeat;">
+            <section id="services"
+                class="panel scroll-page gsap-section flex items-center justify-center h-screen bg-black relative overflow-hidden"
+                style="background-image: url('{% static 'components/section_bg4.png' %}'); background-size: cover; background-position: center; background-repeat: no-repeat;">
                 <div class="services-content-wrapper flex items-center gap-24 max-w-7xl w-full px-16">
                     <div class="w-1/2 flex flex-col items-start">
                         <h1 class="about-main-heading-new mb-5">SERVICES</h1>
@@ -94,7 +117,8 @@
                     </div>
                     <div class="w-1/2 flex justify-center">
                         <div class="services-image-stack relative w-[450px] h-[450px] hover-bump">
-                            <img src="{% static 'components/star-shine.gif' %}" class="service-animated-img active" id="img-0">
+                            <img src="{% static 'components/star-shine.gif' %}" class="service-animated-img active"
+                                id="img-0">
                             <img src="{% static 'components/dev.gif' %}" class="service-animated-img" id="img-1">
                             <img src="{% static 'components/dig.gif' %}" class="service-animated-img" id="img-2">
                         </div>
@@ -103,7 +127,7 @@
             </section>
 
 
-            
+
             <section id="contact"
                 class="panel  scroll-page gsap-section flex items-center justify-center h-screen bg-transparent relative">
                 <div class="flex items-center gap-20 max-w-7xl w-full px-16">
@@ -121,7 +145,7 @@
                                         Office No.:222, Second Floor,<br>
                                         Highfield Ascot, <br>
                                         Vesu, Surat <br>
-                                        India, 395007 
+                                        India, 395007
 
                                     </p>
                                 </div>
@@ -174,7 +198,7 @@
 
                 </div>
             </section>
-{% include 'footer.html' %}
+            {% include 'footer.html' %}
 
         </div>
 
@@ -185,4 +209,3 @@
 </body>
 
 </html>
-

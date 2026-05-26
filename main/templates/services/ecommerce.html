@@ -1,16 +1,18 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
     <title>E-Commerce Development - biz499</title>
 
     <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@300;400;600;800&display=swap"
+        rel="stylesheet">
 
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
@@ -21,9 +23,9 @@
         /* --- Base Reset & Dark Vibe --- */
         :root {
             --bg-dark: #030305;
-            --accent-primary: #3b82f6; 
-            --accent-secondary: #8b5cf6; 
-            --accent-tertiary: #06b6d4; 
+            --accent-primary: #3b82f6;
+            --accent-secondary: #8b5cf6;
+            --accent-tertiary: #06b6d4;
             --text-main: #ffffff;
             --text-muted: #9ca3af;
             --glass-bg: rgba(255, 255, 255, 0.02);
@@ -34,25 +36,35 @@
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            cursor: none; /* Hidden for custom cursor */
+            cursor: none;
+            /* Hidden for custom cursor */
             font-family: "Mori", "Mori Fallback", sans-serif !important;
         }
-        
+
+        /* --- FIXED OVERFLOW ON HTML AND BODY --- */
+        html,
         body {
             background-color: var(--bg-dark);
             color: var(--text-main);
-            overflow-x: hidden;
+            overflow-x: hidden !important;
+            width: 100%;
+            max-width: 100vw;
             line-height: 1.6;
             -webkit-font-smoothing: antialiased;
         }
 
-        h1, h2, h3, h4 {
+        h1,
+        h2,
+        h3,
+        h4 {
             font-weight: 900;
             letter-spacing: 0.5px;
             text-transform: uppercase;
         }
 
-        .accent-text { color: var(--accent-primary); }
+        .accent-text {
+            color: var(--accent-primary);
+        }
 
         /* --- Magnetic Class (Removes CSS transform to let GSAP handle it freely) --- */
         .magnetic {
@@ -63,22 +75,26 @@
         /* --- Custom Juggling Cursor --- */
         .gradient-blob {
             position: fixed;
-            top: 0; left: 0;
-            width: 60px; height: 60px;
+            top: 0;
+            left: 0;
+            width: 60px;
+            height: 60px;
             background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(139, 92, 246, 0.2));
             border-radius: 50%;
             pointer-events: none;
-            z-index: 9998; 
+            z-index: 9998;
             transform: translate(-50%, -50%);
-            backdrop-filter: blur(6px); 
+            backdrop-filter: blur(6px);
             border: 1px solid rgba(59, 130, 246, 0.4);
         }
 
         .cursor-dot {
             position: fixed;
-            top: 0; left: 0;
-            width: 6px; height: 6px;
-            background: var(--text-main); 
+            top: 0;
+            left: 0;
+            width: 6px;
+            height: 6px;
+            background: var(--text-main);
             border-radius: 50%;
             pointer-events: none;
             z-index: 9999;
@@ -88,8 +104,10 @@
         /* --- Floating CSS Background Elements --- */
         .floating-bg-container {
             position: fixed;
-            top: 0; left: 0;
-            width: 100vw; height: 100vh;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
             pointer-events: none;
             z-index: 0;
             overflow: hidden;
@@ -101,13 +119,53 @@
             filter: blur(100px);
             opacity: 0.4;
         }
-        .orb-1 { top: -10%; left: -10%; width: 50vw; height: 50vw; background: var(--accent-secondary); }
-        .orb-2 { bottom: 10%; right: -5%; width: 40vw; height: 40vw; background: var(--accent-primary); opacity: 0.2; }
-        .orb-3 { top: 40%; left: 40%; width: 30vw; height: 30vw; background: var(--accent-tertiary); opacity: 0.15; }
 
-        .css-wireframe { position: absolute; border: 1px solid var(--glass-border); }
-        .wire-ring { width: 300px; height: 300px; border-radius: 50%; top: 15%; right: 10%; }
-        .wire-square { width: 150px; height: 150px; bottom: 20%; left: 10%; transform: rotate(45deg); }
+        .orb-1 {
+            top: -10%;
+            left: -10%;
+            width: 50vw;
+            height: 50vw;
+            background: var(--accent-secondary);
+        }
+
+        .orb-2 {
+            bottom: 10%;
+            right: -5%;
+            width: 40vw;
+            height: 40vw;
+            background: var(--accent-primary);
+            opacity: 0.2;
+        }
+
+        .orb-3 {
+            top: 40%;
+            left: 40%;
+            width: 30vw;
+            height: 30vw;
+            background: var(--accent-tertiary);
+            opacity: 0.15;
+        }
+
+        .css-wireframe {
+            position: absolute;
+            border: 1px solid var(--glass-border);
+        }
+
+        .wire-ring {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            top: 15%;
+            right: 10%;
+        }
+
+        .wire-square {
+            width: 150px;
+            height: 150px;
+            bottom: 20%;
+            left: 10%;
+            transform: rotate(45deg);
+        }
 
         /* --- View 1: Centered Hero Section --- */
         .hero {
@@ -116,19 +174,23 @@
             padding: 180px 5vw 100px;
             display: flex;
             flex-direction: column;
-            align-items: center; 
+            align-items: center;
             gap: 4rem;
         }
 
-        .title-mask { overflow: hidden; text-align: center; width: 100%; }
+        .title-mask {
+            overflow: hidden;
+            text-align: center;
+            width: 100%;
+        }
 
         h1.main-heading {
             font-size: 8vw;
-            font-style: italic; 
+            font-style: italic;
             line-height: 1;
             margin: 0;
             color: var(--text-main);
-            transform: translateY(100%); 
+            transform: translateY(100%);
             display: inline-block;
         }
 
@@ -141,7 +203,9 @@
             max-width: 1400px;
         }
 
-        .hero-text { flex: 1; }
+        .hero-text {
+            flex: 1;
+        }
 
         .hero-sub {
             font-size: 2.2rem;
@@ -169,35 +233,49 @@
 
         /* Split Image */
         .split-grid {
-            width: 450px; height: 450px;
+            width: 450px;
+            height: 450px;
             display: grid;
-            grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr;
-            gap: 0; 
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 1fr 1fr;
+            gap: 0;
             position: relative;
             z-index: 2;
-            /* Magnetic handles transform, so we only transition gap */
             transition: gap 0.6s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
-        .split-grid:hover { gap: 15px; }
+        .split-grid:hover {
+            gap: 15px;
+        }
 
         .split-piece {
-            background-image: url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80'); 
+            background-image: url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80');
             background-size: 200% 200%;
             border-radius: 4px;
             filter: grayscale(100%) brightness(0.7) sepia(50%) hue-rotate(180deg);
         }
 
-        .split-grid:hover .split-piece { 
-            border-radius: 20px; 
-            filter: grayscale(0%) brightness(1); 
+        .split-grid:hover .split-piece {
+            border-radius: 20px;
+            filter: grayscale(0%) brightness(1);
             box-shadow: 0 10px 40px rgba(59, 130, 246, 0.2);
         }
-        
-        .piece-1 { background-position: 0% 0%; }
-        .piece-2 { background-position: 100% 0%; }
-        .piece-3 { background-position: 0% 100%; }
-        .piece-4 { background-position: 100% 100%; }
+
+        .piece-1 {
+            background-position: 0% 0%;
+        }
+
+        .piece-2 {
+            background-position: 100% 0%;
+        }
+
+        .piece-3 {
+            background-position: 0% 100%;
+        }
+
+        .piece-4 {
+            background-position: 100% 100%;
+        }
 
         /* --- View 2: Platform Cards (3D + Magnetic Icons) --- */
         .platforms-section {
@@ -217,7 +295,7 @@
             justify-content: center;
             gap: 3rem;
             flex-wrap: wrap;
-            perspective: 1000px; 
+            perspective: 1000px;
         }
 
         .platform-card {
@@ -228,34 +306,60 @@
             padding: 3rem 2rem;
             width: 350px;
             text-align: center;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-            transform-style: preserve-3d; 
-            /* Removing transform transition for pure GSAP 3D control */
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            transform-style: preserve-3d;
             transition: background 0.3s ease, border-color 0.3s ease;
         }
-        
+
         .platform-card:hover {
             border-color: var(--accent-primary);
-            background: rgba(255,255,255,0.05);
+            background: rgba(255, 255, 255, 0.05);
         }
 
         .icon-wrapper {
-            width: 100px; height: 100px;
+            width: 100px;
+            height: 100px;
             margin: 0 auto 2rem;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 3.5rem;
-            box-shadow: inset 0 0 20px rgba(255,255,255,0.1);
+            box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.1);
         }
 
-        .woo { border-color: #96588a; color: #96588a; background: rgba(150, 88, 138, 0.1); border: 1px solid;}
-        .shop { border-color: #95bf47; color: #95bf47; background: rgba(149, 191, 71, 0.1); border: 1px solid;}
-        .custom { border-color: var(--accent-primary); color: var(--accent-primary); background: rgba(59, 130, 246, 0.1); border: 1px solid;}
+        .woo {
+            border-color: #96588a;
+            color: #96588a;
+            background: rgba(150, 88, 138, 0.1);
+            border: 1px solid;
+        }
 
-        .platform-card h3 { font-size: 2rem; margin-bottom: 1rem; transform: translateZ(30px); }
-        .platform-card p { color: var(--text-muted); font-size: 1rem; transform: translateZ(20px); }
+        .shop {
+            border-color: #95bf47;
+            color: #95bf47;
+            background: rgba(149, 191, 71, 0.1);
+            border: 1px solid;
+        }
+
+        .custom {
+            border-color: var(--accent-primary);
+            color: var(--accent-primary);
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid;
+        }
+
+        .platform-card h3 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            transform: translateZ(30px);
+        }
+
+        .platform-card p {
+            color: var(--text-muted);
+            font-size: 1rem;
+            transform: translateZ(20px);
+        }
 
         /* --- View 3: Zigzag Layout Section --- */
         .zigzag-container {
@@ -266,7 +370,7 @@
             padding: 8rem 2rem;
             display: flex;
             flex-direction: column;
-            gap: 120px; 
+            gap: 120px;
         }
 
         .zig-row {
@@ -276,31 +380,46 @@
             justify-content: space-between;
         }
 
-        .zig-row.reverse { flex-direction: row-reverse; }
+        .zig-row.reverse {
+            flex-direction: row-reverse;
+        }
 
         .zig-img-block {
             flex: 1;
             border-radius: 20px;
             overflow: hidden;
             position: relative;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
             border: 1px solid var(--glass-border);
             aspect-ratio: 4/3;
         }
 
         .zig-img-block img {
-            width: 100%; height: 100%; object-fit: cover;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
             filter: grayscale(100%) brightness(0.6);
-            /* Magnetic handles transform */
         }
 
         .zig-img-block:hover img {
             filter: grayscale(0%) brightness(1);
         }
 
-        .zig-text-block { flex: 1; }
-        .zig-text-block h2 { font-size: 3.5rem; margin-bottom: 1.5rem; line-height: 1.1; }
-        .zig-text-block p { font-size: 1.15rem; color: var(--text-muted); margin-bottom: 2rem; }
+        .zig-text-block {
+            flex: 1;
+        }
+
+        .zig-text-block h2 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+        }
+
+        .zig-text-block p {
+            font-size: 1.15rem;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+        }
 
         /* Interactive Apply/Learn Button */
         .btn-modern {
@@ -318,25 +437,238 @@
         }
 
         .btn-modern::before {
-            content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
             background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
-            transition: all 0.4s ease; z-index: -1;
+            transition: all 0.4s ease;
+            z-index: -1;
         }
 
-        .btn-modern:hover::before { left: 0; }
-        .btn-modern:hover { border-color: transparent; box-shadow: 0 10px 30px rgba(59, 130, 246, 0.3); }
+        .btn-modern:hover::before {
+            left: 0;
+        }
 
+        .btn-modern:hover {
+            border-color: transparent;
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.3);
+        }
+
+        /* --- UNIFIED MOBILE RESPONSIVENESS OVERRIDES --- */
         @media (max-width: 900px) {
-            h1.main-heading { font-size: 12vw; }
-            .hero-content-wrapper { flex-direction: column; text-align: center; }
-            .zig-row, .zig-row.reverse { flex-direction: column; text-align: center; gap: 3rem; }
-            .zig-img-block { width: 100%; }
-            .bg-floaters { display: none; }
-            * { cursor: auto; }
-            .gradient-blob, .cursor-dot { display: none; }
+            * {
+                cursor: auto !important;
+            }
+
+            html,
+            body {
+                overflow-x: hidden !important;
+            }
+
+            /* Hidden Elements on Mobile Touch Devices */
+            .gradient-blob,
+            .cursor-dot,
+            .bg-floaters,
+            .shape-layer {
+                display: none !important;
+            }
+
+            /* Contain the GSAP animations so they don't stretch the screen */
+            section,
+            .zigzag-container,
+            .offers-section,
+            .advantages-section,
+            .footer-cta {
+                overflow-x: hidden !important;
+                width: 100% !important;
+                box-sizing: border-box !important;
+            }
+
+            /* Force perfect centering for the hero text block */
+            .hero-text {
+                display: flex !important;
+                flex-direction: column !important;
+                align-items: center !important;
+                width: 100% !important;
+            }
+
+            /* Refined Typography Spacing */
+            h1.main-heading,
+            h1.hero-title {
+                font-size: clamp(2.5rem, 10vw, 4.5rem) !important;
+                text-align: center !important;
+                transform: none !important;
+                line-height: 1.1 !important;
+            }
+
+            .platforms-section h2,
+            .zig-text-block h2,
+            .section-heading {
+                font-size: clamp(2rem, 7vw, 3rem) !important;
+                text-align: center !important;
+                margin-bottom: 2rem !important;
+            }
+
+            .hero-sub {
+                font-size: clamp(1.4rem, 5vw, 1.8rem) !important;
+                text-align: center !important;
+            }
+
+            .hero-desc {
+                font-size: 1rem !important;
+                text-align: center !important;
+                margin-left: auto !important;
+                margin-right: auto !important;
+                max-width: 100% !important;
+                padding: 0 10px;
+            }
+
+            p,
+            .zig-text-block p {
+                font-size: 1rem !important;
+                text-align: center !important;
+                margin-left: auto !important;
+                margin-right: auto !important;
+            }
+
+            .huge-marquee,
+            .marquee-text {
+                font-size: clamp(3rem, 15vw, 6rem) !important;
+            }
+
+            /* Container Spacing Rules */
+            .hero {
+                padding: 120px 24px 60px !important;
+                gap: 2.5rem !important;
+                height: auto !important;
+                min-height: auto !important;
+            }
+
+            .hero-content-wrapper {
+                flex-direction: column !important;
+                text-align: center !important;
+                gap: 3rem !important;
+            }
+
+            .hero-image {
+                justify-content: center !important;
+                width: 100% !important;
+            }
+
+            section,
+            .offers-section,
+            .advantages-section,
+            .footer-cta {
+                padding-left: 20px !important;
+                padding-right: 20px !important;
+                padding-top: 60px !important;
+                padding-bottom: 60px !important;
+                height: auto !important;
+            }
+
+            /* Mobile Adaptation for Interactive Split Grid Elements */
+            .split-grid {
+                width: 280px !important;
+                height: 280px !important;
+                margin: 0 auto !important;
+            }
+
+            .design-image,
+            .split-image {
+                width: 100% !important;
+                height: auto !important;
+                min-height: 250px !important;
+            }
+
+            /* Platforms Layout Adjustments */
+            .platforms-section {
+                padding: 4px 24px 60px !important;
+            }
+
+            .cards-container {
+                gap: 2rem !important;
+            }
+
+            .platform-card {
+                width: 100% !important;
+                max-width: 380px !important;
+                padding: 2.5rem 1.5rem !important;
+            }
+
+            /* Structural Layout Flips for Grids & Alternating Sections */
+            .zigzag-container {
+                padding: 60px 24px !important;
+                gap: 70px !important;
+            }
+
+            .zig-row,
+            .zig-row.reverse {
+                flex-direction: column !important;
+                text-align: center !important;
+                gap: 2rem !important;
+            }
+
+            .zig-img-block {
+                width: 100% !important;
+                max-width: 480px !important;
+                margin: 0 auto !important;
+            }
+
+            .offers-grid,
+            .platforms-grid,
+            .advantages-grid,
+            .stats-grid,
+            .services-grid,
+            .process-grid,
+            .pricing-grid,
+            .features-grid,
+            .faq-grid {
+                grid-template-columns: 1fr !important;
+                gap: 2rem !important;
+            }
+
+            .design-card,
+            .split-section {
+                flex-direction: column !important;
+                gap: 2rem !important;
+            }
+
+            /* Buttons & Panels */
+            .h-scroll-wrapper {
+                height: auto !important;
+                display: block !important;
+                overflow: visible !important;
+            }
+
+            .h-scroll-content {
+                width: 100% !important;
+                display: block !important;
+                height: auto !important;
+            }
+
+            .h-panel {
+                width: 100% !important;
+                height: auto !important;
+                padding: 40px 0 !important;
+            }
+
+            .btn-solid,
+            .btn-massive {
+                padding: 15px 30px !important;
+                font-size: 1.1rem !important;
+                width: 100% !important;
+                text-align: center;
+                margin-top: 1.5rem !important;
+                box-sizing: border-box !important;
+            }
         }
     </style>
+    <link rel="stylesheet" href="{% static 'css/mobile-core.css' %}">
 </head>
+
 <body>
 
     <div class="bg-floaters">
@@ -359,10 +691,13 @@
 
         <div class="hero-content-wrapper">
             <div class="hero-text gs-parallax" data-speed="0.02">
-                <h2 class="hero-sub">Ever wondered why some businesses <strong class="accent-text">GROW faster</strong> than others online?</h2>
-                <p class="hero-desc">Your customers are already searching for services like yours every day. A professional website helps you build trust, attract more leads, showcase your brand, and convert visitors into paying customers.</p>
+                <h2 class="hero-sub">Ever wondered why some businesses <strong class="accent-text">GROW faster</strong>
+                    than others online?</h2>
+                <p class="hero-desc">Your customers are already searching for services like yours every day. A
+                    professional website helps you build trust, attract more leads, showcase your brand, and convert
+                    visitors into paying customers.</p>
             </div>
-            
+
             <div class="hero-image gs-parallax" data-speed="-0.02">
                 <div class="split-grid magnetic">
                     <div class="split-piece magnetic piece-1"></div>
@@ -377,13 +712,14 @@
     <section class="platforms-section">
         <h2>What We Offer</h2>
         <div class="cards-container">
-            
+
             <div class="platform-card 3d-card">
                 <div class="icon-wrapper woo magnetic">
                     <i class='bx bxl-wordpress'></i>
                 </div>
                 <h3>WooCommerce</h3>
-                <p>Perfect for small and medium-sized businesses, offering a flexible and cost-effective eCommerce solution.</p>
+                <p>Perfect for small and medium-sized businesses, offering a flexible and cost-effective eCommerce
+                    solution.</p>
             </div>
 
             <div class="platform-card 3d-card">
@@ -391,7 +727,8 @@
                     <i class='bx bxl-shopify'></i>
                 </div>
                 <h3>Shopify</h3>
-                <p>Ideal for businesses looking for a powerful eCommerce platform with smooth performance and quick deployment.</p>
+                <p>Ideal for businesses looking for a powerful eCommerce platform with smooth performance and quick
+                    deployment.</p>
             </div>
 
             <div class="platform-card 3d-card">
@@ -399,7 +736,8 @@
                     <i class='bx bx-code-alt'></i>
                 </div>
                 <h3>Custom Build</h3>
-                <p>Looking for complete scalability and advanced features? Our custom-built eCommerce websites are designed strictly around your goals.</p>
+                <p>Looking for complete scalability and advanced features? Our custom-built eCommerce websites are
+                    designed strictly around your goals.</p>
             </div>
 
         </div>
@@ -409,34 +747,40 @@
 
         <div class="zig-row normal">
             <div class="zig-img-block mouse-parallax" data-speed="-0.03">
-                <img class="magnetic" src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=800&q=80" alt="Custom Ecommerce">
+                <img class="magnetic"
+                    src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=800&q=80"
+                    alt="Custom Ecommerce">
             </div>
             <div class="zig-text-block mouse-parallax" data-speed="0.03">
                 <h2>Custom Ecommerce<br>Development</h2>
-                <p>We build custom eCommerce websites designed around your business goals, helping you create a seamless shopping experience that increases sales and strengthens your brand online.</p>
-                
+                <p>We build custom eCommerce websites designed around your business goals, helping you create a seamless
+                    shopping experience that increases sales and strengthens your brand online.</p>
             </div>
         </div>
 
         <div class="zig-row reverse">
             <div class="zig-img-block mouse-parallax" data-speed="-0.02">
-                <img class="magnetic" src="https://images.unsplash.com/photo-1556740738-b6a63e27c4df?auto=format&fit=crop&w=800&q=80" alt="Affordable Solutions">
+                <img class="magnetic"
+                    src="https://images.unsplash.com/photo-1556740738-b6a63e27c4df?auto=format&fit=crop&w=800&q=80"
+                    alt="Affordable Solutions">
             </div>
             <div class="zig-text-block mouse-parallax" data-speed="0.02">
-                <h2>Affordable<br>Solutions</h2>
-                <p>Get high-quality eCommerce development at competitive pricing. Our solutions are built to deliver maximum value without compromising on performance, design, or user experience.</p>
-               
+                <h2>Alternative<br>Solutions</h2>
+                <p>Get high-quality eCommerce development at competitive pricing. Our solutions are built to deliver
+                    maximum value without compromising on performance, design, or user experience.</p>
             </div>
         </div>
 
         <div class="zig-row normal">
             <div class="zig-img-block mouse-parallax" data-speed="-0.04">
-                <img class="magnetic" src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80" alt="Platform">
+                <img class="magnetic"
+                    src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80"
+                    alt="Platform">
             </div>
             <div class="zig-text-block mouse-parallax" data-speed="0.04">
                 <h2>Choose the Right<br>Platform</h2>
-                <p>Whether it's WooCommerce, Shopify, Magento, or a fully custom solution, our experts help you choose the perfect platform for scalability, security, and long-term growth.</p>
-              
+                <p>Whether it's WooCommerce, Shopify, Magento, or a fully custom solution, our experts help you choose
+                    the perfect platform for scalability, security, and long-term growth.</p>
             </div>
         </div>
 
@@ -444,49 +788,48 @@
 
     <script>
         // 1. Load Navbar
-       fetch('navbar.html')
-    .then(res => res.ok ? res.text() : '')
-    .then(data => {
-        // 1. Pehle navbar ko HTML mein daala
-        document.getElementById('navbar-container').innerHTML = data;
-        
-        // 2. NAYA CHANGE: Navbar load hone ke turant baad uske saare links ko pakda
-        const navLinks = document.querySelectorAll('#navbar-container a');
-        const cursorTrail = document.getElementById("cursor-trail");
-        
-        // 3. Aur un sab par custom cursor ka hover effect (bada hona) laga diya
-        navLinks.forEach(link => {
-            link.addEventListener("mouseenter", () => cursorTrail.classList.add("hover-active"));
-            link.addEventListener("mouseleave", () => cursorTrail.classList.remove("hover-active"));
-        });
-    });
+        fetch('navbar.html')
+            .then(res => res.ok ? res.text() : '')
+            .then(data => {
+                document.getElementById('navbar-container').innerHTML = data;
+                const navLinks = document.querySelectorAll('#navbar-container a');
+                const cursorTrail = document.getElementById("cursor-trail");
+
+                navLinks.forEach(link => {
+                    if (cursorTrail) {
+                        link.addEventListener("mouseenter", () => cursorTrail.classList.add("hover-active"));
+                        link.addEventListener("mouseleave", () => cursorTrail.classList.remove("hover-active"));
+                    }
+                });
+            });
 
         gsap.registerPlugin(ScrollTrigger);
 
-        // 2. Custom Juggling Cursor
+        // 2. Custom Juggling Cursor Handles
         const blob = document.getElementById("blob");
         const cursorDot = document.getElementById("cursor");
 
-        const xToBlob = gsap.quickTo(blob, "x", {duration: 0.8, ease: "power3"});
-        const yToBlob = gsap.quickTo(blob, "y", {duration: 0.8, ease: "power3"});
-        const xToDot = gsap.quickTo(cursorDot, "x", {duration: 0.1, ease: "power3"});
-        const yToDot = gsap.quickTo(cursorDot, "y", {duration: 0.1, ease: "power3"});
+        const xToBlob = gsap.quickTo(blob, "x", { duration: 0.8, ease: "power3" });
+        const yToBlob = gsap.quickTo(blob, "y", { duration: 0.8, ease: "power3" });
+        const xToDot = gsap.quickTo(cursorDot, "x", { duration: 0.1, ease: "power3" });
+        const yToDot = gsap.quickTo(cursorDot, "y", { duration: 0.1, ease: "power3" });
 
         window.addEventListener("mousemove", (e) => {
-            xToBlob(e.clientX);
-            yToBlob(e.clientY);
-            xToDot(e.clientX);
-            yToDot(e.clientY);
+            if (window.innerWidth > 900) {
+                xToBlob(e.clientX);
+                yToBlob(e.clientY);
+                xToDot(e.clientX);
+                yToDot(e.clientY);
 
-            // Subtle Parallax for floating CSS elements
-            const xOffset = (e.clientX / window.innerWidth - 0.5);
-            const yOffset = (e.clientY / window.innerHeight - 0.5);
-            gsap.to('.gs-parallax', {
-                x: xOffset * 50,
-                y: yOffset * 50,
-                duration: 1,
-                ease: "power2.out"
-            });
+                const xOffset = (e.clientX / window.innerWidth - 0.5);
+                const yOffset = (e.clientY / window.innerHeight - 0.5);
+                gsap.to('.gs-parallax', {
+                    x: xOffset * 50,
+                    y: yOffset * 50,
+                    duration: 1,
+                    ease: "power2.out"
+                });
+            }
         });
 
         // Background Rotations
@@ -502,21 +845,23 @@
             const imageContainer = row.querySelector('.zig-img-block');
             const contentContainer = row.querySelector('.zig-text-block');
             const isReverse = row.classList.contains('reverse');
-            
+
             const imgStartPos = isReverse ? 150 : -150;
             const contentStartPos = isReverse ? -150 : 150;
 
-            gsap.fromTo(imageContainer, 
+            gsap.fromTo(imageContainer,
                 { x: imgStartPos, opacity: 0 },
-                { x: 0, opacity: 1, ease: "power2.out",
-                  scrollTrigger: { trigger: row, start: "top 85%", end: "top 40%", scrub: 1 }
+                {
+                    x: 0, opacity: 1, ease: "power2.out",
+                    scrollTrigger: { trigger: row, start: "top 85%", end: "top 40%", scrub: 1 }
                 }
             );
 
-            gsap.fromTo(contentContainer, 
+            gsap.fromTo(contentContainer,
                 { x: contentStartPos, opacity: 0 },
-                { x: 0, opacity: 1, ease: "power2.out",
-                  scrollTrigger: { trigger: row, start: "top 85%", end: "top 40%", scrub: 1 }
+                {
+                    x: 0, opacity: 1, ease: "power2.out",
+                    scrollTrigger: { trigger: row, start: "top 85%", end: "top 40%", scrub: 1 }
                 }
             );
         });
@@ -525,15 +870,16 @@
         const cards = document.querySelectorAll('.3d-card');
         cards.forEach(card => {
             card.addEventListener('mousemove', e => {
+                if (window.innerWidth <= 900) return;
                 const rect = card.getBoundingClientRect();
-                const x = e.clientX - rect.left; 
-                const y = e.clientY - rect.top;  
-                
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+
                 const centerX = rect.width / 2;
                 const centerY = rect.height / 2;
                 const rotateX = ((y - centerY) / centerY) * -15;
                 const rotateY = ((x - centerX) / centerX) * 15;
-                
+
                 gsap.to(card, {
                     rotationX: rotateX,
                     rotationY: rotateY,
@@ -550,6 +896,7 @@
 
         // 6. Global Mouse Parallax
         document.addEventListener("mousemove", (e) => {
+            if (window.innerWidth <= 900) return;
             const xPos = (e.clientX / window.innerWidth - 0.5);
             const yPos = (e.clientY / window.innerHeight - 0.5);
 
@@ -559,42 +906,41 @@
             });
         });
 
-        // 7. NEW: MAGNETIC HOVER EFFECT
+        // 7. MAGNETIC HOVER EFFECT
         const magneticElements = document.querySelectorAll('.magnetic');
 
         magneticElements.forEach((el) => {
             el.addEventListener('mousemove', (e) => {
+                if (window.innerWidth <= 900) return;
                 const rect = el.getBoundingClientRect();
                 const h = rect.width / 2;
                 const w = rect.height / 2;
                 const x = e.clientX - rect.left - h;
                 const y = e.clientY - rect.top - w;
 
-                // Move element in the direction of the mouse
                 gsap.to(el, {
-                    x: x * 0.3, // Strength of the magnetic pull
+                    x: x * 0.3,
                     y: y * 0.3,
                     duration: 0.5,
                     ease: 'power2.out'
                 });
-                
-                // Enlarge cursor blob on hover over magnetic items
-                blob.classList.add("hover-active");
+
+                if (blob) blob.classList.add("hover-active");
             });
 
             el.addEventListener('mouseleave', () => {
-                // Snap back to original position
                 gsap.to(el, {
                     x: 0,
                     y: 0,
                     duration: 0.8,
                     ease: 'elastic.out(1, 0.3)'
                 });
-                
-                blob.classList.remove("hover-active");
+
+                if (blob) blob.classList.remove("hover-active");
             });
         });
     </script>
     {% include 'footer.html' %}
 </body>
+
 </html>

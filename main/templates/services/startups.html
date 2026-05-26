@@ -1,17 +1,21 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="High-performance, scalable, and investor-ready website design and development for modern startups.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <meta name="description"
+        content="High-performance, scalable, and investor-ready website design and development for modern startups.">
     <title>Startup Website Design & Development</title>
 
     <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;800;900&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;800;900&display=swap"
+        rel="stylesheet">
 
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
@@ -21,10 +25,10 @@
     <style>
         /* --- Premium Startup Theme --- */
         :root {
-            --bg-dark: #09090b; 
-            --bg-card: #18181b; 
-            --accent-primary: #8b5cf6; 
-            --accent-secondary: #ec4899; 
+            --bg-dark: #09090b;
+            --bg-card: #18181b;
+            --accent-primary: #8b5cf6;
+            --accent-secondary: #ec4899;
             --text-main: #f8fafc;
             --text-muted: #a1a1aa;
             --glass-border: rgba(139, 92, 246, 0.2);
@@ -35,9 +39,9 @@
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            cursor: none; 
+            cursor: none;
         }
-        
+
         body {
             background-color: var(--bg-dark);
             color: var(--text-main);
@@ -53,74 +57,119 @@
         }
 
         /* Typography */
-        h1, h2, h3, h4 {
+        h1,
+        h2,
+        h3,
+        h4 {
             font-family: "Space Grotesk", sans-serif;
             font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: -1px; 
+            letter-spacing: -1px;
         }
 
-        .text-accent { 
+        .text-accent {
             background: linear-gradient(to right, var(--accent-primary), var(--accent-secondary));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
-        .magnetic { display: inline-block; }
+        .magnetic {
+            display: inline-block;
+        }
 
         /* --- Text Drop Effect Utilities --- */
         .word-wrap {
             display: inline-block;
             overflow: hidden;
             vertical-align: top;
-            padding-right: 0.2em; /* Spacing between words */
+            padding-right: 0.2em;
+            /* Spacing between words */
         }
+
         .word-inner {
             display: inline-block;
-            transform: translateY(-120%); 
+            transform: translateY(-120%);
             opacity: 0;
         }
 
         /* --- Custom Interactive Cursor --- */
         .gradient-blob {
-            position: fixed; top: 0; left: 0; width: 40px; height: 40px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 40px;
+            height: 40px;
             background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
-            border-radius: 50%; pointer-events: none; z-index: 99998; 
-            transform: translate(-50%, -50%); backdrop-filter: blur(8px); opacity: 0.6;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 99998;
+            transform: translate(-50%, -50%);
+            backdrop-filter: blur(8px);
+            opacity: 0.6;
             transition: width 0.3s ease, height 0.3s ease, border-radius 0.3s ease;
         }
 
         .gradient-blob.hover-active {
-            width: 80px; height: 80px; background: transparent;
+            width: 80px;
+            height: 80px;
+            background: transparent;
             border: 2px solid var(--accent-secondary);
             border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
             animation: morphBlob 3s linear infinite;
         }
 
-        @keyframes morphBlob { 
-            0% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; transform: translate(-50%, -50%) rotate(0deg); } 
-            50% { border-radius: 70% 30% 30% 70% / 70% 70% 30% 30%; }
-            100% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; transform: translate(-50%, -50%) rotate(360deg); } 
+        @keyframes morphBlob {
+            0% {
+                border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+                transform: translate(-50%, -50%) rotate(0deg);
+            }
+
+            50% {
+                border-radius: 70% 30% 30% 70% / 70% 70% 30% 30%;
+            }
+
+            100% {
+                border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+                transform: translate(-50%, -50%) rotate(360deg);
+            }
         }
 
         .cursor-dot {
-            position: fixed; top: 0; left: 0; width: 6px; height: 6px;
-            background: #fff; border-radius: 50%; pointer-events: none;
-            z-index: 99999; transform: translate(-50%, -50%);
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 6px;
+            height: 6px;
+            background: #fff;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 99999;
+            transform: translate(-50%, -50%);
         }
 
         /* --- Section 1: Hero --- */
         .hero {
-            position: relative; z-index: 2; min-height: 100vh; display: flex;
-            flex-direction: column; align-items: center; justify-content: center;
+            position: relative;
+            z-index: 2;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
             padding: 120px 2rem 50px;
         }
 
         .hero-badge {
-            padding: 8px 16px; background: rgba(139, 92, 246, 0.1);
-            border: 1px solid var(--glass-border); border-radius: 100px;
-            font-size: 0.9rem; color: var(--accent-primary); margin-bottom: 2rem;
-            letter-spacing: 1px; text-transform: uppercase; font-weight: 600;
+            padding: 8px 16px;
+            background: rgba(139, 92, 246, 0.1);
+            border: 1px solid var(--glass-border);
+            border-radius: 100px;
+            font-size: 0.9rem;
+            color: var(--accent-primary);
+            margin-bottom: 2rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-weight: 600;
         }
 
         /* Container to ensure perfect centering of the text */
@@ -133,56 +182,114 @@
         }
 
         h1.hero-title {
-            font-size: clamp(3rem, 8vw, 8rem); margin: 0;
-            color: var(--text-main); 
+            font-size: clamp(3rem, 8vw, 8rem);
+            margin: 0;
+            color: var(--text-main);
             line-height: 1.05;
-            text-align: center; /* Ensures the words align centrally inside the tag */
-            width: 100%; /* Prevents the tag from shrinking to the text size */
+            text-align: center;
+            /* Ensures the words align centrally inside the tag */
+            width: 100%;
+            /* Prevents the tag from shrinking to the text size */
         }
 
         .hero-desc {
-            font-size: 1.25rem; color: var(--text-muted); max-width: 650px;
-            text-align: center; margin-top: 1.5rem; font-weight: 400;
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            max-width: 650px;
+            text-align: center;
+            margin-top: 1.5rem;
+            font-weight: 400;
         }
 
         /* Floating UI Stack */
         .ui-stack-container {
-            perspective: 1200px; width: 300px; height: 260px;
-            margin: 3rem 0 2rem; display: flex; align-items: center; justify-content: center;
+            perspective: 1200px;
+            width: 300px;
+            height: 260px;
+            margin: 3rem 0 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
+
         .ui-stack {
-            position: relative; width: 100%; height: 100%;
-            transform-style: preserve-3d; animation: floatStack 6s ease-in-out infinite;
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+            animation: floatStack 6s ease-in-out infinite;
         }
+
         .ui-card {
-            position: absolute; width: 100%; height: 100%; border-radius: 20px;
-            backdrop-filter: blur(12px); border: 1px solid var(--glass-border);
-            display: flex; flex-direction: column; padding: 1.5rem;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 20px;
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            display: flex;
+            flex-direction: column;
+            padding: 1.5rem;
         }
-        .card-back { background: rgba(236, 72, 153, 0.03); transform: translateZ(-60px) rotate(-8deg) translateY(20px); }
-        .card-middle { background: rgba(139, 92, 246, 0.05); transform: translateZ(0px) rotate(4deg); }
+
+        .card-back {
+            background: rgba(236, 72, 153, 0.03);
+            transform: translateZ(-60px) rotate(-8deg) translateY(20px);
+        }
+
+        .card-middle {
+            background: rgba(139, 92, 246, 0.05);
+            transform: translateZ(0px) rotate(4deg);
+        }
+
         .card-front {
             background: linear-gradient(145deg, rgba(139, 92, 246, 0.1), rgba(24, 24, 27, 0.8));
             transform: translateZ(60px) rotate(0deg) translateY(-20px);
-            box-shadow: 0 30px 60px var(--glow-primary); align-items: center; justify-content: center;
+            box-shadow: 0 30px 60px var(--glow-primary);
+            align-items: center;
+            justify-content: center;
         }
+
         .card-front i {
-            font-size: 6rem; background: linear-gradient(to bottom right, var(--accent-primary), var(--accent-secondary));
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            font-size: 6rem;
+            background: linear-gradient(to bottom right, var(--accent-primary), var(--accent-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
+
         @keyframes floatStack {
-            0%, 100% { transform: translateY(0px) rotateX(10deg); }
-            50% { transform: translateY(-20px) rotateX(15deg); }
+
+            0%,
+            100% {
+                transform: translateY(0px) rotateX(10deg);
+            }
+
+            50% {
+                transform: translateY(-20px) rotateX(15deg);
+            }
         }
 
         /* --- Fast Scrolling Marquee --- */
         .marquee-container {
-            width: 100%; overflow: hidden; background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
-            padding: 1.2rem 0; transform: skewY(-1.5deg); position: relative; z-index: 2; margin: 2rem 0 6rem;
+            width: 100%;
+            overflow: hidden;
+            background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+            padding: 1.2rem 0;
+            transform: skewY(-1.5deg);
+            position: relative;
+            z-index: 2;
+            margin: 2rem 0 6rem;
         }
+
         .marquee-text {
-            display: flex; white-space: nowrap; font-size: 1.5rem; font-family: "Space Grotesk", sans-serif;
-            font-weight: 800; color: var(--bg-dark); text-transform: uppercase; letter-spacing: 2px;
+            display: flex;
+            white-space: nowrap;
+            font-size: 1.5rem;
+            font-family: "Space Grotesk", sans-serif;
+            font-weight: 800;
+            color: var(--bg-dark);
+            text-transform: uppercase;
+            letter-spacing: 2px;
         }
 
         /* --- Horizontal Scrolling Section --- */
@@ -190,16 +297,16 @@
             width: 100%;
             height: 100vh;
             background: var(--bg-dark);
-            border-top: 1px solid rgba(255,255,255,0.05);
-            border-bottom: 1px solid rgba(255,255,255,0.05);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
             overflow: hidden;
             position: relative;
         }
-        
+
         .horizontal-container {
             display: flex;
             flex-wrap: nowrap;
-            width: 300vw; 
+            width: 300vw;
             height: 100%;
         }
 
@@ -230,39 +337,207 @@
             line-height: 1;
         }
 
-        .h-text h2 { font-size: 3.5rem; margin-bottom: 1rem; color: var(--accent-primary); }
-        .h-text p { font-size: 1.2rem; color: var(--text-muted); max-width: 500px; }
+        .h-text h2 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            color: var(--accent-primary);
+        }
+
+        .h-text p {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            max-width: 500px;
+        }
 
         /* --- CTA Button --- */
         .cta-section {
-            position: relative; z-index: 2; padding: 10rem 5vw 12rem; text-align: center;
-            background: radial-gradient(circle at center, rgba(139,92,246,0.1) 0%, var(--bg-dark) 70%);
+            position: relative;
+            z-index: 2;
+            padding: 10rem 5vw 12rem;
+            text-align: center;
+            background: radial-gradient(circle at center, rgba(139, 92, 246, 0.1) 0%, var(--bg-dark) 70%);
         }
+
         .btn-massive {
-            display: inline-flex; align-items: center; gap: 10px; font-weight: 700; font-size: 1.2rem;
-            padding: 18px 45px; color: var(--text-main); border-radius: 100px; text-decoration: none;
-            text-transform: uppercase; transition: all 0.4s ease; border: 1px solid var(--accent-primary);
-            margin-top: 2rem; position: relative; overflow: hidden;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            font-size: 1.2rem;
+            padding: 18px 45px;
+            color: var(--text-main);
+            border-radius: 100px;
+            text-decoration: none;
+            text-transform: uppercase;
+            transition: all 0.4s ease;
+            border: 1px solid var(--accent-primary);
+            margin-top: 2rem;
+            position: relative;
+            overflow: hidden;
         }
+
         .btn-massive::before {
-            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
-            z-index: -1; transition: opacity 0.4s ease; opacity: 0;
+            z-index: -1;
+            transition: opacity 0.4s ease;
+            opacity: 0;
         }
-        .btn-massive:hover { color: #fff; box-shadow: 0 10px 40px var(--glow-primary); border-color: transparent; }
-        .btn-massive:hover::before { opacity: 1; }
+
+        .btn-massive:hover {
+            color: #fff;
+            box-shadow: 0 10px 40px var(--glow-primary);
+            border-color: transparent;
+        }
+
+        .btn-massive:hover::before {
+            opacity: 1;
+        }
 
         @media (max-width: 992px) {
-            .h-content { flex-direction: column; text-align: center; gap: 2rem; }
+            .h-content {
+                flex-direction: column;
+                text-align: center;
+                gap: 2rem;
+            }
         }
+
         @media (max-width: 768px) {
-            h1.hero-title { font-size: 12vw; }
-            .cursor-dot, .gradient-blob { display: none; }
-            * { cursor: auto !important; }
-            .ui-stack-container { transform: scale(0.8); margin: 2rem 0; }
+            h1.hero-title {
+                font-size: 12vw;
+            }
+
+            .cursor-dot,
+            .gradient-blob {
+                display: none;
+            }
+
+            * {
+                cursor: auto !important;
+            }
+
+            .ui-stack-container {
+                transform: scale(0.8);
+                margin: 2rem 0;
+            }
+        }
+
+        /* --- UNIVERSAL MOBILE RESPONSIVENESS --- */
+        @media (max-width: 900px) {
+            body {
+                overflow-x: hidden !important;
+            }
+
+            .hero {
+                min-height: auto !important;
+                padding-top: 120px !important;
+                padding-bottom: 60px !important;
+                height: auto !important;
+            }
+
+            .offers-grid,
+            .platforms-grid,
+            .advantages-grid,
+            .stats-grid,
+            .services-grid,
+            .process-grid,
+            .pricing-grid,
+            .features-grid,
+            .faq-grid {
+                grid-template-columns: 1fr !important;
+                gap: 2rem !important;
+            }
+
+            .design-card,
+            .split-section {
+                flex-direction: column !important;
+                gap: 2rem !important;
+            }
+
+            .design-image,
+            .split-image {
+                width: 100% !important;
+                height: auto !important;
+                min-height: 250px !important;
+            }
+
+            h1.main-heading,
+            h1.hero-title {
+                font-size: clamp(3rem, 12vw, 5rem) !important;
+                line-height: 1.1 !important;
+            }
+
+            .section-heading,
+            h2 {
+                font-size: clamp(2rem, 8vw, 3rem) !important;
+                margin-bottom: 2rem !important;
+                text-align: left !important;
+            }
+
+            .huge-marquee,
+            .marquee-text {
+                font-size: clamp(3rem, 15vw, 6rem) !important;
+            }
+
+            .h-scroll-wrapper {
+                height: auto !important;
+                display: block !important;
+                overflow: visible !important;
+            }
+
+            .h-scroll-content {
+                width: 100% !important;
+                display: block !important;
+                height: auto !important;
+            }
+
+            .h-panel {
+                width: 100% !important;
+                height: auto !important;
+                padding: 40px 0 !important;
+            }
+
+            .btn-solid,
+            .btn-massive {
+                padding: 15px 30px !important;
+                font-size: 1.1rem !important;
+                width: 100% !important;
+                text-align: center;
+                margin-top: 1.5rem !important;
+                box-sizing: border-box !important;
+            }
+
+            .cursor-dot,
+            .gradient-blob,
+            .shape-layer {
+                display: none !important;
+            }
+
+            * {
+                cursor: auto !important;
+            }
+
+            section,
+            .offers-section,
+            .platforms-section,
+            .advantages-section,
+            .footer-cta {
+                padding-left: 20px !important;
+                padding-right: 20px !important;
+                padding-top: 60px !important;
+                padding-bottom: 60px !important;
+                height: auto !important;
+            }
         }
     </style>
+    <link rel="stylesheet" href="{% static 'css/mobile-core.css' %}">
 </head>
+
 <body>
 
     <div class="main-wrapper">
@@ -277,13 +552,13 @@
             <!-- Hero Section -->
             <section class="hero">
                 <div class="hero-badge gs-hero">Ship Faster. Scale Better.</div>
-                
+
                 <!-- PERFECTLY CENTERED HEADING GROUP -->
                 <div class="hero-heading-group">
-                    
+
                     <h1 class="hero-title gs-hero text-drop">GROW YOUR STARTUP </h1>
                 </div>
-                
+
                 <!-- 3D ROCKET ELEMENT MOVED BELOW TEXT -->
                 <div class="ui-stack-container magnetic hover-trigger gs-hero">
                     <div class="ui-stack">
@@ -295,9 +570,11 @@
                     </div>
                 </div>
 
-                <p class="hero-desc gs-hero">Transform your vision into a high-performance, investor-ready digital product. We engineer modern UI/UX architectures designed to scale, convert, and disrupt.</p>
-                
-                <a href="/#contact/" class="btn-massive magnetic hover-trigger gs-hero" style="font-size: 1rem; padding: 15px 35px;">
+                <p class="hero-desc gs-hero">Transform your vision into a high-performance, investor-ready digital
+                    product. We engineer modern UI/UX architectures designed to scale, convert, and disrupt.</p>
+
+                <a href="/#contact/" class="btn-massive magnetic hover-trigger gs-hero"
+                    style="font-size: 1rem; padding: 15px 35px;">
                     Get Started <i class='bx bx-right-arrow-alt'></i>
                 </a>
             </section>
@@ -305,47 +582,60 @@
             <!-- Marquee Section -->
             <div class="marquee-container hover-trigger">
                 <div class="marquee-text" id="marquee">
-                    MODERN UI/UX &nbsp; • &nbsp; INVESTOR-READY DESIGN &nbsp; • &nbsp; SCALABLE ARCHITECTURE &nbsp; • &nbsp; HIGH-PERFORMANCE CODE &nbsp; • &nbsp; MODERN UI/UX &nbsp; • &nbsp; INVESTOR-READY DESIGN &nbsp; • &nbsp; 
+                    MODERN UI/UX &nbsp; â€¢ &nbsp; INVESTOR-READY DESIGN &nbsp; â€¢ &nbsp; SCALABLE ARCHITECTURE &nbsp;
+                    â€¢ &nbsp; HIGH-PERFORMANCE CODE &nbsp; â€¢ &nbsp; MODERN UI/UX &nbsp; â€¢ &nbsp; INVESTOR-READY
+                    DESIGN &nbsp; â€¢ &nbsp;
                 </div>
             </div>
 
             <!-- HORIZONTAL SCROLLING SECTION -->
             <section class="horizontal-section" id="process">
                 <div class="horizontal-container">
-                    
+
                     <!-- Panel 1 -->
                     <div class="h-panel">
                         <div class="h-content">
                             <div class="h-number">01</div>
                             <div class="h-text">
                                 <h2 class="text-drop">Strategy & Architecture</h2>
-                                <p>We don't just build websites; we map user journeys. Our process begins with deep market research, defining user personas, and creating wireframes that align with your KPIs and investor expectations.</p>
+                                <p>We don't just build websites; we map user journeys. Our process begins with deep
+                                    market research, defining user personas, and creating wireframes that align with
+                                    your KPIs and investor expectations.</p>
                                 <br>
-                                <a href="/#contact/" class="btn-massive hover-trigger" style="font-size: 0.9rem; padding: 12px 30px;">Discuss Strategy</a>
+                                <a href="/#contact/" class="btn-massive hover-trigger"
+                                    style="font-size: 0.9rem; padding: 12px 30px;">Discuss Strategy</a>
                             </div>
                         </div>
                     </div>
-                    
+
                     <!-- Panel 2 -->
                     <div class="h-panel">
                         <div class="h-content">
                             <div class="h-number">02</div>
                             <div class="h-text">
                                 <h2 class="text-drop">Design & Branding</h2>
-                                <p>Using premium UI/UX principles, we forge a visual identity that screams innovation. Dark mode aesthetics, interactive micro-animations, and striking typography make your brand unforgettable.</p>
+                                <p>Using premium UI/UX principles, we forge a visual identity that screams innovation.
+                                    Dark mode aesthetics, interactive micro-animations, and striking typography make
+                                    your brand unforgettable.</p>
+                                <br>
+                                <a href="/#contact/" class="btn-massive hover-trigger"
+                                    style="font-size: 0.9rem; padding: 12px 30px;">Talk to Expert</a>
                             </div>
                         </div>
                     </div>
-                    
+
                     <!-- Panel 3 -->
                     <div class="h-panel">
                         <div class="h-content">
                             <div class="h-number">03</div>
                             <div class="h-text">
                                 <h2 class="text-drop">Development & Launch</h2>
-                                <p>We bring designs to life with lightning-fast, SEO-optimized code. Rigorous QA ensures flawless performance across all devices before we push your startup to the world.</p>
+                                <p>We bring designs to life with lightning-fast, SEO-optimized code. Rigorous QA ensures
+                                    flawless performance across all devices before we push your startup to the world.
+                                </p>
                                 <br>
-                                <a href="/#contact/" class="btn-massive hover-trigger" style="font-size: 0.9rem; padding: 12px 30px;">Start Building</a>
+                                <a href="/#contact/" class="btn-massive hover-trigger"
+                                    style="font-size: 0.9rem; padding: 12px 30px;">Start Building</a>
                             </div>
                         </div>
                     </div>
@@ -356,7 +646,8 @@
             <!-- CTA Section -->
             <section class="cta-section">
                 <h2 class="section-heading text-drop">Ready To Launch <br>Your Next Big Thing?</h2>
-                <p class="section-subheading" style="margin-bottom: 2rem;">Stop losing users to slow, outdated templates. Let's build a digital experience that converts.</p>
+                <p class="section-subheading" style="margin-bottom: 2rem;">Stop losing users to slow, outdated
+                    templates. Let's build a digital experience that converts.</p>
                 <a href="/#contact/" class="btn-massive magnetic hover-trigger">
                     Start Your Project <i class='bx bx-right-arrow-alt'></i>
                 </a>
@@ -375,13 +666,13 @@
             link.addEventListener("mouseleave", () => navCursorTrail.classList.remove("hover-active"));
         });
 
-        if(window.innerWidth > 768) {
+        if (window.innerWidth > 768) {
             const blob = document.getElementById("blob");
             const cursorDot = document.getElementById("cursor");
-            const xToBlob = gsap.quickTo(blob, "x", {duration: 0.6, ease: "power3"});
-            const yToBlob = gsap.quickTo(blob, "y", {duration: 0.6, ease: "power3"});
-            const xToDot = gsap.quickTo(cursorDot, "x", {duration: 0.1, ease: "power3"});
-            const yToDot = gsap.quickTo(cursorDot, "y", {duration: 0.1, ease: "power3"});
+            const xToBlob = gsap.quickTo(blob, "x", { duration: 0.6, ease: "power3" });
+            const yToBlob = gsap.quickTo(blob, "y", { duration: 0.6, ease: "power3" });
+            const xToDot = gsap.quickTo(cursorDot, "x", { duration: 0.1, ease: "power3" });
+            const yToDot = gsap.quickTo(cursorDot, "y", { duration: 0.1, ease: "power3" });
 
             window.addEventListener("mousemove", (e) => {
                 xToBlob(e.clientX); yToBlob(e.clientY);
@@ -407,7 +698,7 @@
                     trigger: horizontalSection,
                     pin: true,
                     scrub: 1,
-                    invalidateOnRefresh: true, 
+                    invalidateOnRefresh: true,
                     end: () => `+=${horizontalContainer.scrollWidth - window.innerWidth}`
                 }
             });
@@ -420,7 +711,7 @@
                 if (word.startsWith('<') || word.trim() === '') return word;
                 return `<span class="word-wrap"><span class="word-inner">${word}</span></span>`;
             }).join('');
-            
+
             el.innerHTML = wrappedHTML;
         });
 
@@ -451,4 +742,5 @@
     </script>
     {% include 'footer.html' %}
 </body>
+
 </html>

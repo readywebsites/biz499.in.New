@@ -6,7 +6,7 @@
         </a>
 
         <div class="nav-menu">
-            <a href="/#about/">About</a>
+            <a href="/#about">About</a>
             <a href="/location/">Locations</a>
 
             <div class="dropdown">
@@ -29,13 +29,19 @@
                 </div>
             </div>
 
-            <a href="/#contact/">Contact Us</a>
+            <a href="/#contact">Contact Us</a>
             <a href="{% url 'careers' %}">Careers</a>
         </div>
 
-        <button onclick="scrollToSection('contact')" class="nav-cta">
-            Explore Services
-        </button>
+        <div class="nav-actions">
+            <a href="/#contact" class="nav-cta"
+                style="text-decoration: none; display: inline-block; text-align: center;">
+                Explore Services
+            </a>
+            <button class="mobile-menu-btn" onclick="document.querySelector('.nav-menu').classList.toggle('active')">
+                ☰
+            </button>
+        </div>
 
     </nav>
 </div>
